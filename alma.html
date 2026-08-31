@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alma Socialité Colombia</title>
+<meta name="description" content="Alma Socialité llega a Colombia. Un tríptico de conocimiento compartido bajo la luna de Bogotá — 18 de septiembre. La preventa florece primero en la comunidad.">
+<meta property="og:title" content="Alma Socialité Colombia">
+<meta property="og:description" content="El 18.09, bajo la luna de Bogotá, florece un jardín. Pocos cupos. Mucho conocimiento.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --noche: #0E1116;
+    --noche-2: #151A22;
+    --hueso: #F1EAD9;
+    --hueso-suave: #B9B4A4;
+    --hueso-tenue: #6E6D64;
+    --linea: #262B33;
+    --oro: #C8A96A;
+    --mariposa: #E8B33C;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--noche); color: var(--hueso);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    line-height: 1.7; font-size: 18px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px clamp(20px, 5vw, 48px); }
+  .brand { font-size: 17px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--hueso); font-weight: 500; }
+  nav a { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+  nav a:hover { color: var(--oro); }
+
+  /* eclipse */
+  .cielo { text-align: center; padding: clamp(46px, 8vw, 90px) 0 0; }
+  .eclipse { position: relative; width: clamp(150px, 30vw, 220px); aspect-ratio: 1; margin: 0 auto 40px; }
+  .eclipse .corona {
+    position: absolute; inset: 0; border-radius: 50%;
+    box-shadow: 0 0 34px 7px color-mix(in srgb, var(--oro) 55%, transparent), 0 0 110px 30px color-mix(in srgb, var(--oro) 16%, transparent);
+    background: radial-gradient(circle, var(--oro) 62%, transparent 63%);
+  }
+  .eclipse .sombra { position: absolute; inset: -1.5%; border-radius: 50%; background: var(--noche); transform: translateX(-8%); animation: eclipse 26s ease-in-out infinite alternate; }
+  @keyframes eclipse { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+  @media (prefers-reduced-motion: reduce) { .eclipse .sombra { animation: none; transform: none; } }
+
+  h1 { font-weight: 500; font-size: clamp(38px, 7vw, 72px); line-height: 1.06; margin: 0; letter-spacing: 0.015em; text-wrap: balance; }
+  h1 em { font-style: italic; color: var(--oro); }
+  .lede { font-size: clamp(19px, 2.6vw, 24px); font-style: italic; color: var(--hueso-suave); max-width: 44ch; margin: 26px auto 0; }
+  .lede strong { color: var(--hueso); font-style: normal; font-weight: 600; }
+
+  .btn {
+    display: inline-block; margin-top: 40px; padding: 15px 36px; border-radius: 999px;
+    border: 1px solid var(--oro); color: var(--oro); text-decoration: none;
+    font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .btn:hover { background: var(--oro); color: var(--noche); }
+  .btn.lleno { background: var(--oro); color: var(--noche); }
+  .btn.lleno:hover { background: transparent; color: var(--oro); }
+
+  section { padding: clamp(60px, 10vw, 110px) 0 0; }
+  .centrado { text-align: center; }
+
+  /* lunas = momentos */
+  .lunas { display: flex; justify-content: center; gap: clamp(26px, 7vw, 64px); flex-wrap: wrap; margin: 48px 0 0; }
+  .luna-item { max-width: 200px; }
+  .luna { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 16px; border: 1px solid var(--linea); position: relative; overflow: hidden; background: var(--noche-2); }
+  .luna::after { content: ""; position: absolute; inset: 0; border-radius: 50%; }
+  .luna.creciente::after { background: var(--hueso); clip-path: inset(0 0 0 55%); }
+  .luna.llena::after { background: var(--hueso); }
+  .luna.menguante::after { background: var(--hueso); clip-path: inset(0 55% 0 0); }
+  .luna-item h3 { font-weight: 600; font-size: 21px; margin: 0 0 4px; letter-spacing: 0.04em; }
+  .luna-item p { margin: 0; font-size: 15px; font-style: italic; color: var(--hueso-suave); line-height: 1.55; }
+
+  .fecha { font-size: clamp(58px, 12vw, 130px); font-weight: 500; line-height: 0.95; margin: 34px 0 0; letter-spacing: 0.02em; }
+  .fecha span { color: var(--oro); }
+  .count { display: flex; gap: clamp(20px, 5vw, 44px); justify-content: center; margin: 30px 0 0; flex-wrap: wrap; }
+  .count b { display: block; font-size: clamp(28px, 4vw, 40px); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .count span { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  .prosa { max-width: 52ch; margin: 0 auto; }
+  .prosa p { margin: 0 0 22px; }
+  .prosa .cap { font-size: 21px; }
+  .prosa .cap::first-letter { font-size: 2.6em; float: left; line-height: 0.85; padding-right: 10px; color: var(--oro); font-style: normal; }
+  .prosa em { color: var(--oro); }
+
+  .divisor { display: flex; align-items: center; gap: 16px; justify-content: center; margin: clamp(56px, 9vw, 96px) auto 0; color: var(--hueso-tenue); }
+  .divisor::before, .divisor::after { content: ""; height: 1px; width: min(120px, 24vw); background: var(--linea); }
+
+  footer { padding: clamp(56px, 9vw, 90px) clamp(20px, 5vw, 48px) 34px; text-align: center; }
+  footer .mono { margin-top: 40px; }
+  footer a { color: var(--hueso-suave); text-decoration: none; }
+  footer a:hover { color: var(--oro); }
+
+  /* mariposas amarillas */
+  .mariposa { position: fixed; font-size: 15px; color: var(--mariposa); pointer-events: none; opacity: 0.85; animation: volar linear infinite; z-index: 5; }
+  @keyframes volar {
+    0% { transform: translate(0, 100vh) rotate(0deg); }
+    50% { transform: translate(6vw, 45vh) rotate(14deg); }
+    100% { transform: translate(-3vw, -10vh) rotate(-10deg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .mariposa { display: none; } }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<span class="mariposa" style="left: 12%; animation-duration: 34s;">✦</span>
+<span class="mariposa" style="left: 78%; animation-duration: 46s; animation-delay: 8s;">✦</span>
+<span class="mariposa" style="left: 45%; animation-duration: 56s; animation-delay: 20s; font-size: 11px;">✦</span>
+
+<nav aria-label="Main">
+  <div class="brand">Alma Socialité</div>
+  <a href="https://tebiquinones.vercel.app">El jardín de Tebi ↗</a>
+</nav>
+
+<header class="cielo">
+  <div class="wrap">
+    <div class="eclipse reveal" aria-hidden="true"><div class="corona"></div><div class="sombra"></div></div>
+    <p class="mono reveal">Colombia · Capítulo primero</p>
+    <h1 class="reveal">Bogotá aún no sabía que le faltaba un <em>jardín</em></h1>
+    <p class="lede reveal">Muchos años después de su primer evento en Europa, <strong>Alma Socialité</strong> habría de volver a casa — con ciento doce fiestas en la memoria y una certeza: los jardines más hermosos florecen de noche.</p>
+    <a class="btn lleno reveal" href="#adentro">Quiero estar adentro</a>
+  </div>
+</header>
+
+<section class="centrado" id="triptico">
+  <div class="wrap">
+    <p class="mono reveal">Un día · Tres lunas · Tres causas</p>
+    <div class="lunas">
+      <div class="luna-item reveal"><div class="luna creciente" aria-hidden="true"></div><h3>Luna creciente</h3><p>La tarde. Donde el conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p></div>
+      <div class="luna-item reveal"><div class="luna llena" aria-hidden="true"></div><h3>Luna llena</h3><p>La noche. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar.</p></div>
+      <div class="luna-item reveal"><div class="luna menguante" aria-hidden="true"></div><h3>Luna menguante</h3><p>El jardín completo. Toda la escena creativa de Bogotá, mezclada como debe ser.</p></div>
+    </div>
+    <p class="fecha reveal">18<span>·</span>09</p>
+    <div class="count" id="countdown" aria-label="Cuenta regresiva">
+      <div><b id="cd-d">—</b><span>días</span></div>
+      <div><b id="cd-h">—</b><span>horas</span></div>
+      <div><b id="cd-m">—</b><span>min</span></div>
+      <div><b id="cd-s">—</b><span>seg</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divisor" aria-hidden="true">✦</div>
+
+<section>
+  <div class="wrap prosa">
+    <p class="cap reveal">Dicen que en Europa llenó ciento doce salones en cuatro capitales sin gastar un centavo en publicidad, y que las entradas se agotaban antes de que alguien supiera quién iba a tocar. Nadie lo creyó hasta que llegaron las fotos.</p>
+    <p class="reveal">Ahora el jardín se siembra en Bogotá. No preguntes dónde: los lugares, como los milagros, se anuncian solo a quienes ya creen. Lo que sí podemos decir: habrá <em>conocimiento compartido</em>, flores de verdad, música de verdad y la gente correcta — curada persona por persona, como se cura un tríptico.</p>
+    <p class="reveal">El resto florece adentro: el lugar, los anfitriones y la preventa llegan <em>primero</em> a la comunidad. Después, si sobra, para el resto. Y como en todo buen realismo mágico: cuando lo veas publicado, ya no habrá cupo.</p>
+  </div>
+</section>
+
+<footer id="adentro">
+  <div class="wrap">
+    <p class="mono reveal">La comunidad</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Los que están adentro,<br><em>florecen primero</em></h1>
+    <div class="reveal">
+      <a class="btn lleno" href="mailto:juanqriox@gmail.com?subject=Quiero%20entrar%20a%20Alma%20Socialit%C3%A9%20(WhatsApp)&body=Soy%20[tu%20nombre]%20y%20quiero%20estar%20adentro%20el%2018.09.">Entrar al WhatsApp</a>
+      &nbsp;&nbsp;
+      <a class="btn" href="mailto:juanqriox@gmail.com?subject=SUSCR%C3%8DBEME%20al%20newsletter%20de%20Alma">Newsletter</a>
+    </div>
+    <p class="mono">© 2026 Alma Socialité · Bogotá — <a href="https://tebiquinones.vercel.app">tebiquinones</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+  (function () {
+    var target = new Date("2026-09-18T18:30:00-05:00").getTime();
+    var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
+        m = document.getElementById("cd-m"), s = document.getElementById("cd-s");
+    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) { d.textContent = "00"; h.textContent = "00"; m.textContent = "00"; s.textContent = "00"; return; }
+      d.textContent = pad(Math.floor(diff / 86400000));
+      h.textContent = pad(Math.floor(diff / 3600000) % 24);
+      m.textContent = pad(Math.floor(diff / 60000) % 60);
+      s.textContent = pad(Math.floor(diff / 1000) % 60);
+      setTimeout(tick, 1000);
+    }
+    tick();
+  })();
+</script>
+</body>
+</html>

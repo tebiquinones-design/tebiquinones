@@ -3,98 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tebi Quiñones — Bogotá & Europa</title>
-<meta name="description" content="Cultural strategy y experiencias en Bogotá y Europa. Únete a la comunidad: newsletter + grupo de WhatsApp. Algo grande pasa el 18 de septiembre en Bogotá.">
-<meta property="og:title" content="Tebi Quiñones — Bogotá & Europa">
-<meta property="og:description" content="Experiencias que se sienten como belonging. Join the movement: 18.09 Bogotá.">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<title>El Jardín de Tebi</title>
+<meta name="description" content="Cultural strategy y experiencias entre Bogotá y Europa, contadas como un jardín de las delicias. Newsletter, comunidad de WhatsApp y algo grande el 18 de septiembre.">
+<meta property="og:title" content="El Jardín de Tebi — Bogotá & Europa">
+<meta property="og:description" content="Un tríptico, como el de El Bosco, pero en Bogotá. 18.09 — get in the garden.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --bg: #0B0B0A;
-    --bg-2: #141412;
-    --ink: #F4F2ED;
-    --ink-soft: #B9B6AD;
-    --ink-faint: #7A7870;
-    --line: #2A2A27;
-    --gold: #C8A96A;
-    --verde: #25D366;
-    --on-gold: #0B0B0A;
+    --parchment: #F3ECDA;
+    --parchment-2: #EAE1C8;
+    --garden: #2F5B3C;
+    --garden-deep: #1F3D28;
+    --meadow: #7FA06B;
+    --coral: #D95F43;
+    --rosa: #E7A0B0;
+    --lago: #7FA8B8;
+    --ink: #22301F;
+    --ink-soft: #4E5A45;
+    --ink-faint: #7E856F;
+    --line: #D5CBAF;
+    --on-garden: #F3ECDA;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; line-height: 1.6; }
+  body { margin: 0; background: var(--parchment); color: var(--ink); font-family: "Karla", "Helvetica Neue", Arial, sans-serif; line-height: 1.65; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 48px); }
-  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
-  .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+  .garamond { font-family: "Cormorant Garamond", Georgia, serif; }
 
-  nav { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 20px clamp(18px, 4vw, 48px); border-bottom: 1px solid var(--line); position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); z-index: 10; flex-wrap: wrap; }
-  .brand { font-weight: 800; letter-spacing: 0.04em; font-size: 14px; text-transform: uppercase; }
+  /* flor ornamental */
+  .flor { display: inline-block; width: 14px; height: 14px; border-radius: 50%; vertical-align: middle;
+    background: radial-gradient(circle at 50% 50%, var(--coral) 0 28%, transparent 30%),
+      radial-gradient(circle at 50% 12%, var(--rosa) 0 22%, transparent 24%),
+      radial-gradient(circle at 88% 50%, var(--rosa) 0 22%, transparent 24%),
+      radial-gradient(circle at 50% 88%, var(--rosa) 0 22%, transparent 24%),
+      radial-gradient(circle at 12% 50%, var(--rosa) 0 22%, transparent 24%); }
+
+  nav { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px clamp(18px, 4vw, 48px); border-bottom: 1px solid var(--line); position: sticky; top: 0; background: color-mix(in srgb, var(--parchment) 90%, transparent); backdrop-filter: blur(10px); z-index: 10; flex-wrap: wrap; }
+  .brand { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 19px; color: var(--garden); }
+  .brand i { color: var(--coral); font-style: italic; }
   nav .links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-  nav a { color: var(--ink-soft); text-decoration: none; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
-  nav a:hover, nav a:focus-visible { color: var(--gold); }
-  nav a.hot { color: var(--gold); }
+  nav a { color: var(--ink-soft); text-decoration: none; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+  nav a:hover, nav a:focus-visible { color: var(--coral); }
+  nav a.hot { color: var(--coral); }
 
-  header.hero { padding: clamp(64px, 11vw, 130px) 0 clamp(40px, 7vw, 70px); text-align: center; }
-  .hero .mono { color: var(--gold); }
-  h1 { font-variation-settings: "wdth" 120; font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 8.5vw, 110px); line-height: 0.95; margin: 16px 0 0; }
-  .tagline { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(19px, 3vw, 28px); color: var(--ink); margin: 26px auto 0; max-width: 32ch; line-height: 1.35; }
-  .tagline em { color: var(--gold); }
-  .credch { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
-  .chip { border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 12.5px; color: var(--ink-soft); }
-  .chip b { color: var(--gold); font-weight: 700; }
-  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+  header.hero { padding: clamp(56px, 9vw, 110px) 0 0; text-align: center; position: relative; overflow: hidden; }
+  .hero .mono { color: var(--garden); }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(46px, 9vw, 116px); line-height: 0.98; margin: 14px 0 0; color: var(--garden-deep); text-wrap: balance; }
+  h1 em { font-style: italic; color: var(--coral); font-weight: 600; }
+  .tagline { font-size: clamp(15.5px, 2vw, 18px); color: var(--ink-soft); margin: 24px auto 0; max-width: 54ch; }
+  .tagline strong { color: var(--ink); }
+  .credch { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  .chip { border: 1px solid var(--line); background: var(--parchment-2); border-radius: 999px; padding: 8px 18px; font-size: 12.5px; color: var(--ink-soft); }
+  .chip b { color: var(--garden); font-weight: 700; }
+  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 34px 0 0; position: relative; z-index: 2; }
 
-  .btn { display: inline-block; background: var(--gold); color: var(--on-gold); text-decoration: none; font-weight: 800; font-size: 13.5px; letter-spacing: 0.09em; text-transform: uppercase; padding: 16px 32px; border: 1px solid var(--gold); }
-  .btn:hover { background: transparent; color: var(--gold); }
-  .btn.wa { background: var(--verde); border-color: var(--verde); color: #0B0B0A; }
-  .btn.wa:hover { background: transparent; color: var(--verde); }
+  .btn { display: inline-block; background: var(--garden); color: var(--on-garden); text-decoration: none; font-weight: 700; font-size: 13.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 15px 30px; border-radius: 999px; border: 1.5px solid var(--garden); }
+  .btn:hover { background: transparent; color: var(--garden); }
+  .btn.coral { background: var(--coral); border-color: var(--coral); color: #FFF6EA; }
+  .btn.coral:hover { background: transparent; color: var(--coral); }
   .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-  .btn.ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .btn.ghost:hover { border-color: var(--coral); color: var(--coral); }
+
+  #meadow { display: block; width: 100%; height: 150px; margin-top: 40px; }
 
   section { padding: clamp(52px, 8vw, 96px) 0; border-bottom: 1px solid var(--line); }
-  h2 { font-variation-settings: "wdth" 116; font-weight: 900; text-transform: uppercase; font-size: clamp(26px, 4.4vw, 48px); line-height: 1.02; margin: 10px 0 14px; }
+  h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(32px, 5vw, 54px); line-height: 1.02; margin: 10px 0 14px; color: var(--garden-deep); text-wrap: balance; }
+  h2 em { font-style: italic; color: var(--coral); font-weight: 600; }
   .sub { color: var(--ink-soft); max-width: 60ch; font-size: 15.5px; margin: 0 0 34px; }
   .sub strong { color: var(--ink); }
 
-  /* 18.09 hype */
-  .evento { background: var(--bg-2); border-bottom: 1px solid var(--gold); }
-  .evento .mono { color: var(--gold); }
-  .fecha-grande { font-variation-settings: "wdth" 120; font-weight: 900; font-size: clamp(56px, 12vw, 150px); line-height: 0.9; letter-spacing: 0.01em; margin: 10px 0 6px; }
-  .fecha-grande span { color: var(--gold); }
-  .count { display: flex; gap: clamp(14px, 4vw, 36px); margin: 30px 0 8px; flex-wrap: wrap; }
-  .count div b { display: block; font-variation-settings: "wdth" 118; font-weight: 900; font-size: clamp(30px, 5vw, 52px); line-height: 1; font-variant-numeric: tabular-nums; }
-  .count div span { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
-  .teaser { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(19px, 2.8vw, 26px); max-width: 34ch; margin: 18px 0 0; }
-  .teaser em { color: var(--gold); }
-  .evento .nota { margin-top: 26px; font-size: 14px; color: var(--ink-soft); max-width: 52ch; }
-  .evento .nota strong { color: var(--gold); }
+  /* Tríptico 18.09 */
+  .evento { background: var(--garden-deep); color: var(--on-garden); border-bottom: none; position: relative; }
+  .evento .mono { color: var(--rosa); }
+  .evento h2 { color: var(--parchment); }
+  .evento h2 em { color: var(--rosa); }
+  .evento .sub { color: color-mix(in srgb, var(--parchment) 75%, transparent); }
+  .fecha { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(64px, 13vw, 160px); line-height: 0.9; margin: 6px 0 10px; color: var(--parchment); }
+  .fecha span { color: var(--coral); }
+  .paneles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 40px 0 8px; }
+  .panel { background: color-mix(in srgb, var(--parchment) 8%, transparent); border: 1px solid color-mix(in srgb, var(--parchment) 25%, transparent); border-radius: 130px 130px 14px 14px; padding: 44px 24px 28px; text-align: center; }
+  .panel .num { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 20px; color: var(--rosa); }
+  .panel h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 24px; margin: 6px 0 8px; color: var(--parchment); }
+  .panel p { margin: 0; font-size: 13.5px; color: color-mix(in srgb, var(--parchment) 72%, transparent); }
+  .count { display: flex; gap: clamp(14px, 4vw, 36px); margin: 30px 0 0; flex-wrap: wrap; justify-content: center; }
+  .count div { text-align: center; }
+  .count div b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(34px, 5vw, 54px); line-height: 1; font-variant-numeric: tabular-nums; color: var(--parchment); }
+  .count div span { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rosa); }
+  .evento .nota { margin: 26px auto 0; font-size: 14px; color: color-mix(in srgb, var(--parchment) 78%, transparent); max-width: 54ch; text-align: center; }
+  .evento .nota strong { color: var(--rosa); }
+  .evento .cta-row { margin-top: 30px; }
 
   .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 3.5vw, 44px) clamp(24px, 3.5vw, 52px); }
-  .service { border-top: 2px solid var(--gold); padding-top: 16px; }
-  .service h3 { margin: 0 0 8px; font-variation-settings: "wdth" 110; font-weight: 800; text-transform: uppercase; font-size: 16px; }
+  .service { border-top: 2px solid var(--meadow); padding-top: 16px; }
+  .service h3 { margin: 0 0 8px; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 22px; color: var(--garden-deep); }
   .service p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
-
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 38px; }
-  .stat { background: var(--bg); padding: 24px 22px; }
-  .stat b { display: block; font-variation-settings: "wdth" 118; font-weight: 900; font-size: clamp(30px, 4vw, 44px); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat { background: var(--parchment-2); padding: 24px 22px; }
+  .stat b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(34px, 4.5vw, 48px); line-height: 1; font-variant-numeric: tabular-nums; color: var(--garden-deep); }
   .stat span { display: block; margin-top: 8px; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
 
-  /* comunidad */
   .comunidad { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
-  .canal { border: 1px solid var(--line); padding: 30px 26px; display: flex; flex-direction: column; gap: 10px; }
-  .canal.wa { border-color: var(--verde); }
-  .canal.nl { border-color: var(--gold); }
-  .canal h3 { margin: 0; font-variation-settings: "wdth" 112; font-weight: 800; text-transform: uppercase; font-size: 19px; }
+  .canal { border: 1.5px solid var(--line); border-radius: 18px; background: var(--parchment-2); padding: 30px 26px; display: flex; flex-direction: column; gap: 10px; }
+  .canal.wa { border-color: var(--garden); }
+  .canal.nl { border-color: var(--coral); }
+  .canal h3 { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 26px; color: var(--garden-deep); }
   .canal p { margin: 0 0 8px; color: var(--ink-soft); font-size: 14.5px; }
   .canal .btn { align-self: flex-start; margin-top: auto; }
   .form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
-  .form input { flex: 1 1 200px; padding: 14px 16px; background: var(--bg-2); border: 1px solid var(--line); color: var(--ink); font-family: "Archivo", sans-serif; font-size: 14.5px; }
-  .form input:focus-visible { outline: 2px solid var(--gold); }
-  .form button { cursor: pointer; font-family: "Archivo", sans-serif; }
+  .form input { flex: 1 1 200px; padding: 13px 16px; background: #FDF9EF; border: 1.5px solid var(--line); border-radius: 999px; color: var(--ink); font-family: "Karla", sans-serif; font-size: 14.5px; }
+  .form input:focus-visible { outline: 2px solid var(--coral); }
+  .form button { cursor: pointer; font-family: "Karla", sans-serif; }
 
   footer { padding: 26px clamp(18px, 4vw, 48px); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; color: var(--ink-faint); font-size: 12.5px; }
   footer a { color: var(--ink-soft); text-decoration: none; }
-  footer a:hover { color: var(--gold); }
+  footer a:hover { color: var(--coral); }
 
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -104,11 +127,11 @@
 <body>
 
 <nav aria-label="Main">
-  <div class="brand">Tebi Quiñones</div>
+  <div class="brand">El Jardín de <i>Tebi</i></div>
   <div class="links">
-    <a href="#evento" class="hot">18.09</a>
+    <a href="/alma" class="hot">Alma · 18.09</a>
     <a href="#servicios">Servicios</a>
-    <a href="#comunidad">Comunidad</a>
+    <a href="#comunidad">El jardín</a>
     <a href="/cursos">Cursos</a>
     <a href="https://tebiquinones.com" target="_blank" rel="noopener">Portfolio ↗</a>
   </div>
@@ -116,43 +139,49 @@
 
 <header class="hero">
   <div class="wrap">
-    <p class="mono reveal">Bogotá × Europa · Cultural strategy & experiencias</p>
-    <h1 class="reveal">Hago que los espacios se sientan como home</h1>
-    <p class="tagline reveal">Seis años creando <em>belonging</em> en Paris, Madrid, Berlin y London. Ahora, de vuelta en Bogotá — y esto apenas empieza.</p>
+    <p class="mono reveal"><span class="flor"></span>&nbsp; Bogotá × Europa · Cultural strategy & experiencias &nbsp;<span class="flor"></span></p>
+    <h1 class="reveal">El jardín de las <em>delicias</em>, versión Bogotá</h1>
+    <p class="tagline reveal">Como en el tríptico de El Bosco: un jardín donde todo el mundo quiere estar. Soy <strong>Tebi Quiñones</strong> — seis años cultivando belonging en Paris, Madrid, Berlin y London. Ahora estoy sembrando el jardín en casa.</p>
     <div class="credch reveal">
       <span class="chip"><b>Forbes Under 30</b> · España 2025</span>
       <span class="chip"><b>Olympic Film Festival</b> · Paris 2024</span>
       <span class="chip"><b>112 eventos</b> · 4 capitales · 0 ads</span>
     </div>
     <div class="cta-row reveal">
-      <a class="btn wa" href="#comunidad">Únete al grupo de WhatsApp</a>
-      <a class="btn ghost" href="#evento">¿Qué pasa el 18.09?</a>
+      <a class="btn coral" href="#comunidad">Entrar al jardín</a>
+      <a class="btn ghost" href="#evento">¿Qué florece el 18.09?</a>
     </div>
   </div>
+  <canvas id="meadow" aria-hidden="true"></canvas>
 </header>
 
 <section class="evento" id="evento">
-  <div class="wrap">
+  <div class="wrap" style="text-align:center;">
     <p class="mono">Bogotá · Save the date</p>
-    <p class="fecha-grande">18<span>.</span>09</p>
+    <p class="fecha">18<span>.</span>09</p>
+    <h2>Un <em>tríptico</em>, como el de El Bosco</h2>
+    <div class="paneles">
+      <div class="panel reveal"><p class="num">Panel I</p><h3>La tarde</h3><p>Donde florecen las conversaciones. Solo ellas saben de qué.</p></div>
+      <div class="panel reveal"><p class="num">Panel II</p><h3>La noche</h3><p>Una cena entre flores, jazz en vivo y un violín que no para.</p></div>
+      <div class="panel reveal"><p class="num">Panel III</p><h3>El jardín completo</h3><p>Toda la escena creativa de Bogotá, mezclada como debe ser.</p></div>
+    </div>
     <div class="count" id="countdown" aria-label="Cuenta regresiva">
       <div><b id="cd-d">—</b><span>días</span></div>
       <div><b id="cd-h">—</b><span>horas</span></div>
       <div><b id="cd-m">—</b><span>min</span></div>
       <div><b id="cd-s">—</b><span>seg</span></div>
     </div>
-    <p class="teaser">Un día. Tres momentos. Tres causas. La escena creativa de Bogotá en un solo lugar — <em>y tú puedes estar adentro.</em></p>
-    <p class="nota">No vamos a publicar todo. Los detalles, el line-up y la <strong>preventa salen primero en el grupo de WhatsApp y el newsletter</strong>. Cupos limitados — así es como se hace en Europa, así lo haremos aquí.</p>
-    <div class="cta-row" style="justify-content:flex-start;">
-      <a class="btn wa" href="#comunidad">Quiero estar adentro</a>
+    <p class="nota">No vamos a publicar todo. El lugar, el line-up y la <strong>preventa florecen primero en el grupo de WhatsApp y el newsletter</strong>. Cupos limitados, por diseño.</p>
+    <div class="cta-row">
+      <a class="btn coral" href="/alma">Conoce a Alma Socialité →</a>
     </div>
   </div>
 </section>
 
 <section id="servicios">
   <div class="wrap">
-    <p class="mono">Servicios · Colombia & Europa</p>
-    <h2>What I do, en las dos orillas</h2>
+    <p class="mono"><span class="flor"></span>&nbsp; Servicios · Colombia & Europa</p>
+    <h2>What I do, <em>en las dos orillas</em></h2>
     <p class="sub">Para marcas, venues y fundadores que operan entre <strong>luxury, cultura y comportamiento humano</strong> — en Bogotá o entrando a Europa. Full Spanglish, full resultados.</p>
     <div class="services">
       <div class="service reveal"><h3>Experiencias & eventos</h3><p>Del underground de Berlin a los Juegos Olímpicos: eventos que se agotan por posicionamiento, no por line-up. LES Berlin: €28.500 en preventa, 12 días, cero ads.</p></div>
@@ -173,21 +202,21 @@
 
 <section id="comunidad">
   <div class="wrap">
-    <p class="mono">Comunidad</p>
-    <h2>Get in, que esto va rápido</h2>
-    <p class="sub">Todo lo que hagamos en Bogotá — el 18.09 y lo que viene después — sale <strong>primero</strong> aquí. Después, si sobra, para el resto.</p>
+    <p class="mono"><span class="flor"></span>&nbsp; El jardín</p>
+    <h2>Get in, que el jardín <em>florece rápido</em></h2>
+    <p class="sub">Todo lo que hagamos en Bogotá — el 18.09 y lo que viene después — florece <strong>primero</strong> aquí adentro. Después, si sobra, para el resto.</p>
     <div class="comunidad">
       <div class="canal wa reveal">
         <h3>El grupo de WhatsApp</h3>
-        <p>La comunidad de la escena: creativos, galeristas, emprendedores y la gente que hace que las cosas pasen. Acceso primero a preventas, invitaciones y planes que no se publican.</p>
-        <a class="btn wa" id="wa-btn" href="mailto:juanqriox@gmail.com?subject=Quiero%20entrar%20al%20grupo%20de%20WhatsApp&body=Soy%20[tu%20nombre]%20y%20quiero%20estar%20adentro.">Pedir acceso al grupo</a>
+        <p>La comunidad del jardín: creativos, galeristas, emprendedores y la gente que hace que las cosas pasen. Preventas, invitaciones y planes que no se publican.</p>
+        <a class="btn" id="wa-btn" href="mailto:juanqriox@gmail.com?subject=Quiero%20entrar%20al%20jard%C3%ADn%20(WhatsApp)&body=Soy%20[tu%20nombre]%20y%20quiero%20estar%20adentro.">Pedir acceso al grupo</a>
       </div>
       <div class="canal nl reveal">
         <h3>El newsletter</h3>
-        <p>Un correo cuando importa: la historia detrás de cada evento, los aprendizajes de construir entre Bogotá y Europa, y los anuncios antes que nadie.</p>
+        <p>Un correo cuando importa: la historia detrás de cada evento, los aprendizajes entre Bogotá y Europa, y los anuncios antes que nadie.</p>
         <form class="form" id="nl-form">
           <input type="email" name="email" placeholder="tu@correo.com" aria-label="Tu correo" required>
-          <button class="btn" type="submit">Suscribirme</button>
+          <button class="btn coral" type="submit">Suscribirme</button>
         </form>
       </div>
     </div>
@@ -208,6 +237,40 @@
     }, { threshold: 0.15 });
     els.forEach(function (e) { io.observe(e); });
   })();
+
+  /* pradera de flores estilo El Bosco */
+  (function () {
+    var cv = document.getElementById("meadow");
+    if (!cv) return;
+    var ctx = cv.getContext("2d");
+    var petals = ["#D95F43", "#E7A0B0", "#7FA8B8", "#C8A96A", "#F3ECDA"];
+    function draw() {
+      var w = cv.clientWidth, h = 150, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var grd = ctx.createLinearGradient(0, 0, 0, h);
+      grd.addColorStop(0, "#F3ECDA"); grd.addColorStop(1, "#7FA06B");
+      ctx.fillStyle = grd; ctx.fillRect(0, 0, w, h);
+      var n = Math.max(26, Math.floor(w / 34));
+      for (var i = 0; i < n; i++) {
+        var x = Math.random() * w;
+        var y = 44 + Math.random() * (h - 58);
+        var s = 3.5 + Math.random() * 6 * (y / h);
+        ctx.strokeStyle = "#2F5B3C"; ctx.lineWidth = 1.1;
+        ctx.beginPath(); ctx.moveTo(x, y + s * 3.2); ctx.quadraticCurveTo(x + 2, y + s * 1.6, x, y); ctx.stroke();
+        var col = petals[Math.floor(Math.random() * petals.length)];
+        for (var p = 0; p < 5; p++) {
+          var a = (Math.PI * 2 * p) / 5;
+          ctx.fillStyle = col;
+          ctx.beginPath(); ctx.arc(x + Math.cos(a) * s * 0.9, y + Math.sin(a) * s * 0.9, s * 0.62, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.fillStyle = "#C8A96A";
+        ctx.beginPath(); ctx.arc(x, y, s * 0.5, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    draw();
+    var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(draw, 200); });
+  })();
+
   (function () {
     var target = new Date("2026-09-18T18:30:00-05:00").getTime();
     var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
@@ -224,13 +287,13 @@
     }
     tick();
   })();
+
   (function () {
     var form = document.getElementById("nl-form");
     if (!form) return;
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var email = form.email.value;
-      location.href = "mailto:juanqriox@gmail.com?subject=SUSCR%C3%8DBEME%20al%20newsletter&body=" + encodeURIComponent(email);
+      location.href = "mailto:juanqriox@gmail.com?subject=SUSCR%C3%8DBEME%20al%20newsletter&body=" + encodeURIComponent(form.email.value);
     });
   })();
 </script>
