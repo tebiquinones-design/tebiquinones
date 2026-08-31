@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Cena de la Luna Llena</title>
+<meta name="description" content="Una cena de parejas bajo la luna llena de Bogotá: jazz en vivo, un violín que no se detiene y flores en cada mesa. 18 de septiembre, 9:00 pm. Cupos por pareja, muy limitados.">
+<meta property="og:title" content="La Cena de la Luna Llena — Alma Socialité">
+<meta property="og:description" content="Víspera de Amor y Amistad. Jazz, violín y flores. El amor que reconstruye. 18.09 · 9:00 pm.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --noche: #120F0D;
+    --noche-2: #1B1613;
+    --hueso: #F1EAD9;
+    --hueso-suave: #BFB6A2;
+    --hueso-tenue: #7A7264;
+    --linea: #2E2721;
+    --oro: #C8A96A;
+    --vino: #8E3B4A;
+    --rosa: #E7A0B0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--noche); color: var(--hueso); font-family: "Cormorant Garamond", Georgia, serif; line-height: 1.7; font-size: 18px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px clamp(20px, 5vw, 48px); }
+  .brand { font-size: 16px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; }
+  nav a { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+  nav a:hover { color: var(--oro); }
+
+  .cielo { text-align: center; padding: clamp(40px, 7vw, 80px) 0 0; position: relative; }
+  .luna {
+    width: clamp(140px, 28vw, 200px); aspect-ratio: 1; border-radius: 50%; margin: 0 auto 42px;
+    background: radial-gradient(circle at 38% 34%, #FBF6E8 0 55%, #E8DFC8 78%, #D9CFB4 100%);
+    box-shadow: 0 0 40px 8px color-mix(in srgb, var(--hueso) 30%, transparent), 0 0 130px 40px color-mix(in srgb, var(--oro) 14%, transparent);
+    animation: latir 9s ease-in-out infinite alternate;
+  }
+  @keyframes latir { from { box-shadow: 0 0 40px 8px color-mix(in srgb, var(--hueso) 26%, transparent), 0 0 120px 36px color-mix(in srgb, var(--oro) 12%, transparent); } to { box-shadow: 0 0 52px 12px color-mix(in srgb, var(--hueso) 34%, transparent), 0 0 150px 48px color-mix(in srgb, var(--oro) 18%, transparent); } }
+  @media (prefers-reduced-motion: reduce) { .luna { animation: none; } }
+
+  h1 { font-weight: 500; font-size: clamp(38px, 7vw, 70px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  h1 em { font-style: italic; color: var(--oro); }
+  .lede { font-size: clamp(19px, 2.6vw, 23px); font-style: italic; color: var(--hueso-suave); max-width: 42ch; margin: 24px auto 0; }
+  .lede strong { color: var(--hueso); font-style: normal; font-weight: 600; }
+
+  .datos { display: flex; justify-content: center; gap: clamp(18px, 5vw, 48px); flex-wrap: wrap; margin: 38px 0 0; }
+  .dato { text-align: center; }
+  .dato b { display: block; font-size: clamp(22px, 3.4vw, 32px); font-weight: 600; line-height: 1.15; }
+  .dato span { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  .btn { display: inline-block; margin-top: 40px; padding: 15px 36px; border-radius: 999px; border: 1px solid var(--oro); color: var(--oro); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .btn:hover { background: var(--oro); color: var(--noche); }
+  .btn.lleno { background: var(--oro); color: var(--noche); }
+  .btn.lleno:hover { background: transparent; color: var(--oro); }
+
+  section { padding: clamp(56px, 9vw, 100px) 0 0; }
+  .centrado { text-align: center; }
+
+  /* la velada en tres actos */
+  .actos { display: grid; gap: 0; max-width: 560px; margin: 44px auto 0; text-align: left; }
+  .acto { display: grid; grid-template-columns: 92px 1fr; gap: 20px; padding: 24px 0; border-top: 1px solid var(--linea); }
+  .acto:last-child { border-bottom: 1px solid var(--linea); }
+  .acto .hora { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.12em; color: var(--oro); padding-top: 6px; }
+  .acto h3 { margin: 0 0 4px; font-weight: 600; font-size: 22px; }
+  .acto p { margin: 0; font-size: 15.5px; font-style: italic; color: var(--hueso-suave); }
+
+  .detalles { display: flex; justify-content: center; gap: clamp(24px, 6vw, 56px); flex-wrap: wrap; margin: 46px 0 0; }
+  .detalle { max-width: 190px; text-align: center; }
+  .detalle .icono { font-size: 26px; color: var(--oro); margin-bottom: 10px; }
+  .detalle h4 { margin: 0 0 4px; font-weight: 600; font-size: 18px; letter-spacing: 0.03em; }
+  .detalle p { margin: 0; font-size: 14px; font-style: italic; color: var(--hueso-suave); line-height: 1.5; }
+
+  .prosa { max-width: 50ch; margin: 0 auto; }
+  .prosa p { margin: 0 0 22px; }
+  .prosa .cap::first-letter { font-size: 2.6em; float: left; line-height: 0.85; padding-right: 10px; color: var(--oro); }
+  .prosa em { color: var(--oro); }
+
+  .causa { background: var(--noche-2); border-block: 1px solid var(--linea); margin-top: clamp(56px, 9vw, 100px); padding: clamp(44px, 7vw, 70px) 0; text-align: center; }
+  .causa .vino { color: var(--rosa); }
+
+  .divisor { display: flex; align-items: center; gap: 16px; justify-content: center; margin: clamp(50px, 8vw, 84px) auto 0; color: var(--hueso-tenue); }
+  .divisor::before, .divisor::after { content: ""; height: 1px; width: min(110px, 22vw); background: var(--linea); }
+
+  footer { padding: clamp(50px, 8vw, 80px) clamp(20px, 5vw, 48px) 34px; text-align: center; }
+  footer .mono { margin-top: 38px; }
+  footer a { color: var(--hueso-suave); text-decoration: none; }
+  footer a:hover { color: var(--oro); }
+
+  /* pétalos que caen */
+  .petalo { position: fixed; top: -4vh; font-size: 13px; color: var(--rosa); opacity: 0.7; pointer-events: none; animation: caer linear infinite; z-index: 5; }
+  @keyframes caer {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(220deg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .petalo { display: none; } }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<span class="petalo" style="left: 14%; animation-duration: 21s;">❀</span>
+<span class="petalo" style="left: 52%; animation-duration: 30s; animation-delay: 7s;">❀</span>
+<span class="petalo" style="left: 83%; animation-duration: 25s; animation-delay: 14s; font-size: 10px;">❀</span>
+
+<nav aria-label="Main">
+  <div class="brand">Alma Socialité</div>
+  <a href="/alma">El tríptico ↗</a>
+</nav>
+
+<header class="cielo">
+  <div class="wrap">
+    <div class="luna reveal" aria-hidden="true"></div>
+    <p class="mono reveal">Panel II · Luna llena · Víspera de Amor y Amistad</p>
+    <h1 class="reveal">La cena de la <em>luna llena</em></h1>
+    <p class="lede reveal">Una mesa larga, flores que alguien cortó esa misma mañana, y un violín que no deja de sonar — porque hay cosas que solo se dicen <strong>mientras suena la música</strong>.</p>
+    <div class="datos reveal">
+      <div class="dato"><b>18.09</b><span>Viernes</span></div>
+      <div class="dato"><b>9:00 – 10:30</b><span>De la noche</span></div>
+      <div class="dato"><b>Por parejas</b><span>Menú cerrado</span></div>
+      <div class="dato"><b>Bogotá</b><span>El lugar se susurra</span></div>
+    </div>
+    <a class="btn lleno reveal" href="#reserva">Reservar la mesa</a>
+  </div>
+</header>
+
+<section class="centrado">
+  <div class="wrap">
+    <p class="mono reveal">La velada</p>
+    <div class="actos">
+      <div class="acto reveal"><div class="hora">9:00</div><div><h3>Las flores</h3><p>Llegan las parejas. En cada mesa, un jardín pequeño. El violín ya está sonando — no se detendrá en toda la noche.</p></div></div>
+      <div class="acto reveal"><div class="hora">9:20</div><div><h3>La voz</h3><p>Una voz de jazz bogotana — de esas que ya conoces sin saber de dónde — canta como se cantaba en los años cuarenta: cerca.</p></div></div>
+      <div class="acto reveal"><div class="hora">10:15</div><div><h3>El brindis</h3><p>La causa de la noche, dicha en voz alta. Un brindis por el amor que reconstruye. Y luego, el jardín completo.</p></div></div>
+    </div>
+    <div class="detalles">
+      <div class="detalle reveal"><div class="icono">♪</div><h4>Jazz en vivo</h4><p>Voz y estándares de los 40s y 50s, a la luz de las velas.</p></div>
+      <div class="detalle reveal"><div class="icono">✦</div><h4>Violín continuo</h4><p>Un hilo de música que no se corta de la primera copa a la última.</p></div>
+      <div class="detalle reveal"><div class="icono">❀</div><h4>Flores de verdad</h4><p>Cortadas esa mañana. Cada mesa, un pedazo del jardín.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divisor" aria-hidden="true">❀</div>
+
+<section>
+  <div class="wrap prosa">
+    <p class="cap reveal">Era la víspera de Amor y Amistad y las parejas de Bogotá aún no sabían que esa noche cenarían dentro de un cuadro. Después dirían que el violín nunca dejó de sonar, que las flores olían a madrugada, y que la voz que cantó esa noche la habían escuchado antes — quizás en un sueño, quizás en un vinilo de la abuela.</p>
+    <p class="reveal">Son pocas mesas, por diseño: una cena no es un concierto, es una <em>conversación con banda sonora</em>. Cada pareja recibe el lugar exacto un día antes, como se entregan los secretos.</p>
+  </div>
+</section>
+
+<section class="causa">
+  <div class="wrap">
+    <p class="mono reveal">La causa</p>
+    <h1 class="reveal" style="font-size: clamp(26px, 4.6vw, 42px);">El amor que <em class="vino">reconstruye</em></h1>
+    <p class="lede reveal" style="font-size: 17px;">Lo recaudado en la cena abandera la respuesta a desastres en Colombia: la donación va directo al canal oficial de la fundación de la noche, con informe público después. Amar también es reconstruir.</p>
+  </div>
+</section>
+
+<footer id="reserva">
+  <div class="wrap">
+    <p class="mono reveal">Las mesas</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 44px);">Reserva antes de que<br><em>se acaben los secretos</em></h1>
+    <p class="lede reveal" style="font-size: 16px;">La reserva se confirma por WhatsApp, pareja por pareja. Quienes están en la comunidad de Alma florecen primero.</p>
+    <div class="reveal">
+      <a class="btn lleno" href="mailto:juanqriox@gmail.com?subject=Reserva%20—%20Cena%20de%20la%20Luna%20Llena%2018.09&body=Somos%20[nombres]%20y%20queremos%20nuestra%20mesa%20bajo%20la%20luna.">Reservar la mesa</a>
+      &nbsp;&nbsp;
+      <a class="btn" href="/alma">Ver el tríptico completo</a>
+    </div>
+    <p class="mono">© 2026 Alma Socialité · Bogotá</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>
