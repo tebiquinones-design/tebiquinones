@@ -1,263 +1,230 @@
-<title>Tebi Quiñones</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Karla:wght@400;500;700&display=swap">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tebi Quiñones — Cultural Strategist & Experience Designer</title>
+<meta name="description" content="Cultural strategy, experience design and ecosystem building. Forbes Under 30 Spain 2025. 112 events across four European capitals. Olympic Film Festival award winner, Paris 2024.">
+<meta property="og:title" content="Tebi Quiñones — Cultural Strategist & Experience Designer">
+<meta property="og:description" content="I build the rooms that make belonging feel inevitable. Forbes Under 30 · Olympic Film Festival award · 112 events across 4 capitals.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --paper: #FBF8F1;
-    --paper-2: #F1ECDF;
-    --ink: #1E2230;
-    --ink-soft: #4C5163;
-    --ink-faint: #858A9C;
-    --line: #DFD9C9;
-    --azul: #2947C6;
-    --azul-soft: #E4E8FA;
-    --on-azul: #FBF8F1;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #14161E;
-      --paper-2: #1D2029;
-      --ink: #ECEDF2;
-      --ink-soft: #B8BCCA;
-      --ink-faint: #7C8194;
-      --line: #313542;
-      --azul: #8CA0F5;
-      --azul-soft: #232A45;
-      --on-azul: #14161E;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #14161E;
-    --paper-2: #1D2029;
-    --ink: #ECEDF2;
-    --ink-soft: #B8BCCA;
-    --ink-faint: #7C8194;
-    --line: #313542;
-    --azul: #8CA0F5;
-    --azul-soft: #232A45;
-    --on-azul: #14161E;
+    --bg: #0B0B0A;
+    --bg-2: #131312;
+    --ink: #F4F2ED;
+    --ink-soft: #B9B6AD;
+    --ink-faint: #7A7870;
+    --line: #2A2A27;
+    --gold: #C8A96A;
+    --on-gold: #0B0B0A;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font-family: "Karla", "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.65; padding: 0 20px 60px;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
   }
-  .wrap { max-width: 900px; margin: 0 auto; }
-  .serif { font-family: "Fraunces", Georgia, serif; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+  .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
 
-  nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; flex-wrap: wrap; gap: 10px; }
-  .marca { font-family: "Fraunces", Georgia, serif; font-weight: 700; font-size: 19px; }
-  .marca i { font-style: italic; color: var(--azul); }
-  .lbl { text-transform: uppercase; letter-spacing: 0.12em; font-size: 11.5px; font-weight: 700; color: var(--azul); }
+  nav {
+    display: flex; justify-content: space-between; align-items: center; gap: 14px;
+    padding: 20px clamp(18px, 4vw, 48px); border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); z-index: 10; flex-wrap: wrap;
+  }
+  .brand { font-weight: 800; letter-spacing: 0.04em; font-size: 14px; text-transform: uppercase; }
+  nav .links { display: flex; gap: 22px; flex-wrap: wrap; }
+  nav a { color: var(--ink-soft); text-decoration: none; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  nav a:hover, nav a:focus-visible { color: var(--gold); }
+  nav a.es { color: var(--gold); }
 
-  header.hero { padding: clamp(40px, 8vw, 90px) 0 clamp(30px, 5vw, 56px); }
+  header.hero { padding: clamp(70px, 12vw, 150px) 0 clamp(40px, 7vw, 80px); text-align: center; }
+  .hero .mono { color: var(--gold); }
   h1 {
-    font-family: "Fraunces", Georgia, serif; font-weight: 600;
-    font-size: clamp(36px, 6.5vw, 62px); line-height: 1.08; margin: 12px 0 0;
-    text-wrap: balance; letter-spacing: -0.01em;
+    font-variation-settings: "wdth" 120; font-weight: 900; text-transform: uppercase;
+    font-size: clamp(44px, 9.5vw, 128px); line-height: 0.94; margin: 18px 0 0; letter-spacing: 0.005em;
   }
-  h1 em { font-style: italic; color: var(--azul); }
-  .hero p { font-size: clamp(16px, 2.2vw, 18.5px); color: var(--ink-soft); max-width: 56ch; margin: 22px 0 0; }
-  .hero p strong { color: var(--ink); }
-  .cta-row { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+  h1 .wink { color: var(--gold); }
+  .roles { margin: 26px 0 0; font-size: clamp(13px, 1.8vw, 16px); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); }
+  .credch { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+  .chip { border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 12.5px; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .chip b { color: var(--gold); font-weight: 700; }
+
+  .ticker { border-block: 1px solid var(--line); overflow: hidden; padding: 13px 0; white-space: nowrap; }
+  .ticker span { display: inline-block; padding-right: 48px; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faint); animation: tick 36s linear infinite; }
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker span { animation: none; } }
+
+  section { padding: clamp(56px, 9vw, 110px) 0; border-bottom: 1px solid var(--line); }
+  h2 { font-variation-settings: "wdth" 116; font-weight: 900; text-transform: uppercase; font-size: clamp(28px, 4.6vw, 52px); line-height: 1; margin: 10px 0 14px; }
+  .sub { color: var(--ink-soft); max-width: 62ch; font-size: 16px; margin: 0 0 40px; }
+  .sub .serif { color: var(--ink); font-size: 1.15em; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .stat { background: var(--bg); padding: 30px 26px; }
+  .stat b { display: block; font-variation-settings: "wdth" 118; font-weight: 900; font-size: clamp(38px, 5vw, 56px); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat span { display: block; margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .works { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .work { background: var(--bg); padding: 34px 28px; display: flex; flex-direction: column; gap: 10px; transition: background 0.25s ease; }
+  .work:hover { background: var(--bg-2); }
+  .work .num { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--gold); letter-spacing: 0.14em; }
+  .work h3 { margin: 0; font-variation-settings: "wdth" 112; font-weight: 800; text-transform: uppercase; font-size: 21px; line-height: 1.15; }
+  .work p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+  .work .tag { margin-top: auto; padding-top: 14px; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 56px); }
+  .service { border-top: 2px solid var(--gold); padding-top: 18px; }
+  .service h3 { margin: 0 0 8px; font-variation-settings: "wdth" 110; font-weight: 800; text-transform: uppercase; font-size: 16.5px; letter-spacing: 0.03em; }
+  .service p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+
+  .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(28px, 4vw, 56px); }
+  .about h3 { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin: 0 0 12px; }
+  .about p { margin: 0 0 12px; color: var(--ink-soft); font-size: 15px; }
+  .about p strong { color: var(--ink); }
+  .bigline { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(26px, 4.4vw, 44px); line-height: 1.2; margin: 0 0 40px; max-width: 22ch; color: var(--ink); }
+  .bigline em { color: var(--gold); font-style: italic; }
+
+  .cta { text-align: center; border-bottom: none; }
   .btn {
-    display: inline-block; background: var(--azul); color: var(--on-azul); text-decoration: none;
-    font-weight: 700; font-size: 15px; padding: 13px 26px; border-radius: 999px; border: 2px solid var(--azul);
+    display: inline-block; background: var(--gold); color: var(--on-gold); text-decoration: none;
+    font-weight: 800; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 17px 38px; border: 1px solid var(--gold); margin-top: 30px;
   }
-  .btn:hover { background: transparent; color: var(--azul); }
-  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-  .btn.ghost:hover { border-color: var(--azul); color: var(--azul); }
+  .btn:hover { background: transparent; color: var(--gold); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); margin-left: 10px; }
+  .btn.ghost:hover { border-color: var(--gold); color: var(--gold); }
 
-  section { padding: clamp(36px, 6vw, 60px) 0; border-top: 1px solid var(--line); }
-  h2 { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: clamp(26px, 4vw, 38px); margin: 8px 0 12px; line-height: 1.12; text-wrap: balance; }
-  .sub { color: var(--ink-soft); max-width: 60ch; margin: 0 0 26px; font-size: 15.5px; }
+  footer { padding: 26px clamp(18px, 4vw, 48px); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; color: var(--ink-faint); font-size: 12.5px; border-top: 1px solid var(--line); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
 
-  /* historia */
-  .capitulos { display: grid; gap: 0; }
-  .cap { display: grid; grid-template-columns: 64px 1fr; gap: 18px; padding: 18px 0; border-bottom: 1px dashed var(--line); }
-  .cap:last-child { border-bottom: none; }
-  .cap .n { font-family: "Fraunces", Georgia, serif; font-style: italic; font-size: 26px; color: var(--azul); }
-  .cap h3 { margin: 0 0 4px; font-size: 17px; }
-  .cap p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
-
-  /* monedas */
-  .monedas { display: inline-flex; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; margin: 0 0 22px; }
-  .monedas button {
-    font-family: "Karla", sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 0.04em;
-    background: transparent; color: var(--ink-soft); border: none; padding: 9px 18px; cursor: pointer;
-  }
-  .monedas button[aria-pressed="true"] { background: var(--azul); color: var(--on-azul); }
-  .monedas button:focus-visible { outline: 2px solid var(--azul); outline-offset: -2px; }
-  .nota-moneda { font-size: 12.5px; color: var(--ink-faint); margin: -12px 0 22px; }
-
-  .cursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-  .curso { background: var(--paper-2); border-radius: 16px; padding: 26px 24px; display: flex; flex-direction: column; gap: 9px; }
-  .curso.destacado { background: var(--azul-soft); }
-  .curso .tipo { text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; font-weight: 700; color: var(--azul); }
-  .curso h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 21px; margin: 0; line-height: 1.2; }
-  .curso p { margin: 0; font-size: 14px; color: var(--ink-soft); }
-  .curso .precio { font-family: "Fraunces", Georgia, serif; font-size: 26px; font-weight: 700; color: var(--ink); margin-top: 6px; font-variant-numeric: tabular-nums; }
-  .curso .precio small { font-family: "Karla", sans-serif; font-size: 12.5px; font-weight: 400; color: var(--ink-faint); display: block; }
-  .curso a { margin-top: 10px; text-align: center; }
-
-  /* lead magnet */
-  .regalo { background: var(--azul); color: var(--on-azul); border-radius: 20px; padding: clamp(28px, 5vw, 44px); }
-  .regalo .lbl { color: var(--on-azul); opacity: 0.8; }
-  .regalo h2 { color: var(--on-azul); margin-top: 6px; }
-  .regalo p { opacity: 0.88; max-width: 54ch; font-size: 15.5px; }
-  .form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
-  .form input {
-    flex: 1 1 220px; padding: 13px 18px; border-radius: 999px; border: none;
-    font-family: "Karla", sans-serif; font-size: 15px; background: var(--paper); color: var(--ink);
-  }
-  .form button {
-    padding: 13px 26px; border-radius: 999px; border: 2px solid var(--on-azul);
-    background: var(--on-azul); color: var(--azul); font-family: "Karla", sans-serif; font-weight: 700; font-size: 15px; cursor: pointer;
-  }
-  .form button:hover { background: transparent; color: var(--on-azul); }
-  .regalo .aviso { font-size: 12px; opacity: 0.65; margin-top: 12px; }
-
-  .proyectos { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-  .proy { border: 1.5px solid var(--line); border-radius: 14px; padding: 20px; }
-  .proy h3 { margin: 0 0 4px; font-family: "Fraunces", Georgia, serif; font-size: 18px; }
-  .proy p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
-
-  footer { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 20px; color: var(--ink-faint); font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .hero h1, .hero p, .hero .cta-row { animation: rise 0.55s ease both; }
-    .hero p { animation-delay: 0.1s; } .hero .cta-row { animation-delay: 0.2s; }
-    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 </style>
+</head>
+<body>
 
-<div class="wrap">
-  <nav>
-    <div class="marca">Tebi <i>Quiñones</i></div>
-    <div class="lbl">Bogotá · Madrid</div>
-  </nav>
+<nav aria-label="Main">
+  <div class="brand">Tebi Quiñones</div>
+  <div class="links">
+    <a href="#works">Works</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a class="es" href="/cursos" lang="es">Cursos · ES</a>
+  </div>
+</nav>
 
-  <header class="hero">
-    <p class="lbl">Liderazgo · Emprendimiento · Historia real</p>
-    <h1>Todo lo que he construido, lo construí <em>de poquito en poquito.</em></h1>
-    <p>Soy Juan Esteban "Tebi" Quiñones: creativo y emprendedor colombiano entre Bogotá y Madrid. He montado eventos en cuatro capitales de Europa sin presupuesto, estoy construyendo <strong>Alma Socialité</strong> en Colombia y estudié liderazgo en la práctica: empezando sin plata, con método y con gente. Aquí enseño exactamente cómo.</p>
-    <div class="cta-row">
-      <a class="btn" href="#cursos">Ver los cursos</a>
-      <a class="btn ghost" href="#gratis">Empieza gratis</a>
+<header class="hero">
+  <div class="wrap">
+    <p class="mono reveal">Bogotá → Paris · Madrid · Berlin · London</p>
+    <h1 class="reveal">Juan Est(eb)i <span class="wink">;)</span><br>Quiñones</h1>
+    <p class="roles reveal">Cultural Strategist · Filmmaker · Experience Designer</p>
+    <div class="credch reveal">
+      <span class="chip"><b>Forbes Under 30</b> · Entertainment, Spain 2025</span>
+      <span class="chip"><b>Olympic Film Festival</b> · First Latin American award, Paris 2024</span>
     </div>
-  </header>
+  </div>
+</header>
 
-  <section>
-    <p class="lbl">La historia</p>
-    <h2>De poquito en poquito, en serio</h2>
-    <p class="sub">No vengo a venderte una fórmula mágica. Vengo a mostrarte el camino real, con los números y los errores incluidos.</p>
-    <div class="capitulos">
-      <div class="cap"><div class="n serif">I</div><div><h3>Bogotá, el arranque</h3><p>Aprender a moverse sin capital: la primera comunidad, los primeros eventos, la regla que me acompaña hasta hoy — cada proyecto nace pagado o no se hace.</p></div></div>
-      <div class="cap"><div class="n serif">II</div><div><h3>Europa, la prueba de fuego</h3><p>112 eventos en 4 capitales, €28.500 en 12 días, sin publicidad pagada. Lo que funciona cuando solo tienes método, comunidad y disciplina.</p></div></div>
-      <div class="cap"><div class="n serif">III</div><div><h3>Madrid, la formación</h3><p>LSE Career Accelerator, sistemas de IA para trabajar como un equipo de diez, y la decisión de construir marcas que vivan más que un evento.</p></div></div>
-      <div class="cap"><div class="n serif">IV</div><div><h3>Colombia, la apuesta grande</h3><p>Volver a Bogotá a construir Alma Socialité con mi familia: holding, eventos con causa y una plataforma. Esto está pasando ahora — y lo estoy documentando para ti.</p></div></div>
-    </div>
-  </section>
+<div class="ticker" aria-hidden="true"><span>Paris · Madrid · Berlin · London · Milan · Bogotá · NYC · Miami · Paris · Madrid · Berlin · London · Milan · Bogotá · NYC · Miami ·&nbsp;</span></div>
 
-  <section id="cursos">
-    <p class="lbl">Cursos y mentoría</p>
-    <h2>Aprende el método completo</h2>
-    <p class="sub">Elige tu moneda. En Colombia cobro en pesos; fuera de Colombia, en euros — y si prefieres, pagas en dólares. Pago seguro con Stripe.</p>
-    <div class="monedas" role="group" aria-label="Moneda">
-      <button type="button" data-cur="cop" aria-pressed="true">COP $</button>
-      <button type="button" data-cur="eur" aria-pressed="false">EUR €</button>
-      <button type="button" data-cur="usd" aria-pressed="false">USD $</button>
+<section id="numbers">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b>112</b><span>Events produced since 2019</span></div>
+      <div class="stat"><b>4</b><span>European capitals, simultaneously</span></div>
+      <div class="stat"><b>59</b><span>Artists curated & platformed</span></div>
+      <div class="stat"><b>0</b><span>Euros spent on paid ads</span></div>
     </div>
-    <p class="nota-moneda" id="nota-moneda">Precios en pesos colombianos — pago con tarjeta, PSE o Nequi.</p>
-    <div class="cursos">
-      <div class="curso">
-        <span class="tipo">Curso online</span>
-        <h3>Emprender de poquito en poquito</h3>
-        <p>Cómo lanzar un negocio real sin capital: canje, preventa, comunidad y la regla del "nace pagado". Casos reales míos, plantillas y guiones.</p>
-        <p class="precio" data-cop="$200.000" data-eur="€45" data-usd="US$50">$200.000<small>pago único · acceso de por vida</small></p>
-        <a class="btn" href="#" data-stripe="curso-emprender">Inscribirme</a>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <p class="mono">Selected works</p>
+    <h2>The rooms I built</h2>
+    <p class="sub">From Berlin underground to Olympic institutions, from Silicon Valley startups to the Sahara Desert. <span class="serif">Everything can be built from zero.</span></p>
+    <div class="works">
+      <div class="work reveal"><span class="num">01</span><h3>OLY House — Olympics Paris 2024</h3><p>Cultural strategy & communications for the Olympic Games. Built the narrative for the first-ever Olympic Film Festival — no brief, no precedent. Recognized by HSH Prince Albert II of Monaco and Thomas Bach.</p><span class="tag">PR & Communications</span></div>
+      <div class="work reveal"><span class="num">02</span><h3>Alma Socialité</h3><p>112 events. 4 capitals. No ads. No investors. A cultural ecosystem operating across Europe since 2021 — now expanding to Bogotá.</p><span class="tag">Ecosystem building</span></div>
+      <div class="work reveal"><span class="num">03</span><h3>LES Berlin</h3><p>€28,500 in presales in 12 days, sold out before the lineup was announced. Zero paid ads. The room sold because of how it was positioned — not what was in it.</p><span class="tag">Cultural activation</span></div>
+      <div class="work reveal"><span class="num">04</span><h3>Sahara Desert × Alma × IE University</h3><p>300 people. 5 days. Middle of the Sahara. Full experience design and production where there is no infrastructure at all.</p><span class="tag">Experience design</span></div>
+      <div class="work reveal"><span class="num">05</span><h3>Athlete IQ</h3><p>4 continents. 400+ interviews. A sports-media platform built from zero.</p><span class="tag">Creative direction</span></div>
+      <div class="work reveal"><span class="num">06</span><h3>Studio 1111 × Fashion Week</h3><p>Berlin's first immersive digital screen venue, launched during Fashion Week.</p><span class="tag">Market entry</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <p class="mono">Services</p>
+    <h2>What I do for brands</h2>
+    <p class="sub">For brands operating at the intersection of luxury, culture and human behavior — entering niche European markets or repositioning within saturated ones.</p>
+    <div class="services">
+      <div class="service reveal"><h3>Creative Direction & Talent Development</h3><p>Six years directing cultural experiences across four capitals — from underground Berlin to the Olympic Games. The aesthetic serves the strategy. Always.</p></div>
+      <div class="service reveal"><h3>Cultural Activation</h3><p>Rooms that sell out on positioning, not lineups. LES Berlin proved it: 12 days, zero paid ads, sold out before the program was public.</p></div>
+      <div class="service reveal"><h3>Ecosystem Building</h3><p>The relational infrastructure that makes a brand feel like it belongs before it asks to — community, artist development and brand × audience alignment across markets.</p></div>
+      <div class="service reveal"><h3>Market Entry Strategy</h3><p>I operate simultaneously in Paris, Madrid, Berlin and London with established networks in each. I know which doors open — and which ones don't.</p></div>
+      <div class="service reveal"><h3>PR & Communications</h3><p>I created my own communications role at the Olympic Games and built the first Olympic Film Festival's narrative from scratch.</p></div>
+      <div class="service reveal"><h3>Strategic Consulting</h3><p>Leading luxury hospitality groups and venues in Madrid, Paris, Berlin and London — growing client bases and building cultural credibility advertising can't manufacture.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <p class="mono">About</p>
+    <p class="bigline reveal">I build the rooms that make <em>belonging</em> feel inevitable.</p>
+    <div class="about">
+      <div class="reveal">
+        <h3>Background</h3>
+        <p>Originally from <strong>Bogotá, Colombia</strong>; based between Paris and Madrid, +7 years abroad. Founder of Alma Socialité. Forbes Under 30 in Entertainment, Spain 2025. First Latin American film to win at the inaugural Olympic Film Festival, Paris 2024.</p>
       </div>
-      <div class="curso destacado">
-        <span class="tipo">Curso online</span>
-        <h3>Liderazgo que convoca</h3>
-        <p>Liderar sin cargo y sin plata: armar equipos por visión, negociar canjes, dirigir creativos y sostener la energía de un proyecto grande.</p>
-        <p class="precio" data-cop="$2.000.000" data-eur="€450" data-usd="US$500">$2.000.000<small>pago único · acceso de por vida</small></p>
-        <a class="btn" href="#" data-stripe="curso-liderazgo">Inscribirme</a>
+      <div class="reveal">
+        <h3>Approach</h3>
+        <p>I don't separate business from culture. The most powerful commercial moments happen when a brand <strong>stops broadcasting and starts belonging</strong>. Art, human behavior, architecture, film and entrepreneurship — not as aesthetic references, but as active strategic lenses.</p>
+        <p>I don't wait for roles to exist. I see what's missing and build it before anyone asks.</p>
       </div>
-      <div class="curso">
-        <span class="tipo">Mentoría 1:1</span>
-        <h3>Tu proyecto, conmigo</h3>
-        <p>Cuatro sesiones para aterrizar tu idea con el método: modelo, primer evento o lanzamiento, y plan de 30 días. Cupos limitados por mes.</p>
-        <p class="precio" data-cop="$20.000.000" data-eur="€4.500" data-usd="US$5.000">$20.000.000<small>programa premium · 4 sesiones · 1 mes</small></p>
-        <a class="btn" href="#" data-stripe="mentoria">Aplicar</a>
+      <div class="reveal">
+        <h3>Education & Speaking</h3>
+        <p>BSc Management · ESCP Business School (Paris, Madrid, Berlin). Digital Marketing & AI · London School of Economics. Big Data · UAB Barcelona. Fluent in Spanish, English and French.</p>
+        <p>Speaking: ESCP Alumni Network · CESA Bogotá · Colombian Founders Network Spain.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="gratis">
-    <div class="regalo">
-      <p class="lbl">Gratis</p>
-      <h2>Guía: tu primer evento que nace pagado</h2>
-      <p>El checklist exacto que uso para montar un evento sin poner un peso de bolsillo: canje, patrocinio y preventa, con los guiones de contacto listos para copiar. Te la mando al correo.</p>
-      <form class="form" id="lead-form">
-        <input type="email" name="email" placeholder="tu@correo.com" aria-label="Tu correo" required>
-        <button type="submit">Mándamela</button>
-      </form>
-      <p class="aviso">Sin spam. Solo el método, historias reales y avisos cuando abro cupos.</p>
-    </div>
-  </section>
+<section class="cta" id="contact">
+  <div class="wrap">
+    <p class="mono">Contact</p>
+    <h2>Let's build the room</h2>
+    <p class="sub" style="margin-inline:auto;">One conversation is enough to know if there's a project.</p>
+    <a class="btn" href="mailto:juanqriox@gmail.com?subject=Project%20inquiry%20—%20tebiquinones.com">Contact me</a>
+    <a class="btn ghost" href="/cursos" lang="es">Cursos en español</a>
+  </div>
+</section>
 
-  <section>
-    <p class="lbl">Lo que estoy construyendo</p>
-    <h2>Mis proyectos, en vivo</h2>
-    <div class="proyectos">
-      <div class="proy"><h3>Alma Socialité</h3><p>Experiencias y hospitality con curaduría social, en construcción en Bogotá. Eventos con causa que nacen pagados.</p></div>
-      <div class="proy"><h3>Planta Alta</h3><p>Diagnóstico y rediseño web para firmas de arquitectura en Bogotá — que la primera impresión digital esté a la altura de la obra.</p></div>
-      <div class="proy"><h3>Sistema Tebi</h3><p>Mi ecosistema de IA para trabajar como un equipo de diez personas. Lo que aprendo montándolo, lo enseño en los cursos.</p></div>
-    </div>
-  </section>
-
-  <footer>
-    <span>© 2026 Tebi Quiñones · Bogotá / Madrid</span>
-    <a href="mailto:juanqriox@gmail.com" style="color: var(--azul); text-decoration: none; font-weight: 700;">juanqriox@gmail.com</a>
-  </footer>
-</div>
+<footer>
+  <span>© 2026 Tebi Quiñones · Paris / Madrid / Bogotá</span>
+  <span><a href="mailto:juanqriox@gmail.com">juanqriox@gmail.com</a></span>
+</footer>
 
 <script>
   (function () {
-    var notas = {
-      cop: "Precios en pesos colombianos — pago con tarjeta, PSE o Nequi.",
-      eur: "Precios en euros para fuera de Colombia — pago seguro con Stripe.",
-      usd: "Prefieres dólares: mismo curso, cobro vía Stripe."
-    };
-    var botones = document.querySelectorAll(".monedas button");
-    var precios = document.querySelectorAll(".precio");
-    var nota = document.getElementById("nota-moneda");
-    botones.forEach(function (b) {
-      b.addEventListener("click", function () {
-        var cur = b.getAttribute("data-cur");
-        botones.forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-        precios.forEach(function (p) {
-          var v = p.getAttribute("data-" + cur);
-          if (v) { p.firstChild.textContent = v; }
-        });
-        if (nota && notas[cur]) { nota.textContent = notas[cur]; }
-        try { localStorage.setItem("tq-cur", cur); } catch (e) {}
-      });
-    });
-    try {
-      var saved = localStorage.getItem("tq-cur");
-      if (saved) {
-        var btn = document.querySelector('.monedas button[data-cur="' + saved + '"]');
-        if (btn) { btn.click(); }
-      }
-    } catch (e) {}
-    var form = document.getElementById("lead-form");
-    if (form) {
-      form.addEventListener("submit", function (ev) {
-        ev.preventDefault();
-        alert("Demo: en la versión publicada este formulario se conecta al CRM (HubSpot) y te llega la guía al correo.");
-      });
-    }
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function (e) { io.observe(e); });
   })();
 </script>
+</body>
+</html>
