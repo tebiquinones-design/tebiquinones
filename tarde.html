@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Tarde de la Luna Creciente</title>
+<meta name="description" content="Tríptico I — Un aperitivo al atardecer para las mujeres que hacen que las cosas pasen en Bogotá. Conversación, arte y saber compartido. 18 de septiembre, 6:30 pm.">
+<meta property="og:title" content="La Tarde de la Luna Creciente — Alma Socialité">
+<meta property="og:description" content="Tríptico I · 18.09 · 6:30 pm. Una mesa larga de mujeres, al atardecer. El conocimiento se comparte en voz baja.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --noche: #14100F;
+    --atardecer-1: #2B1A1E;
+    --hueso: #F1EAD9;
+    --hueso-suave: #C4B8A8;
+    --hueso-tenue: #837768;
+    --linea: #322722;
+    --oro: #C8A96A;
+    --rosa: #E7A0B0;
+    --coral: #D95F43;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--noche); color: var(--hueso); font-family: "Cormorant Garamond", Georgia, serif; line-height: 1.7; font-size: 18px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px clamp(20px, 5vw, 48px); }
+  .brand { font-size: 16px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; }
+  nav a { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+  nav a:hover { color: var(--rosa); }
+
+  .cielo { text-align: center; padding: clamp(40px, 7vw, 80px) 0 0; background: linear-gradient(180deg, var(--atardecer-1) 0%, var(--noche) 62%); }
+  .luna {
+    width: clamp(140px, 28vw, 200px); aspect-ratio: 1; border-radius: 50%; margin: 0 auto 42px; position: relative; overflow: hidden;
+    background: #241E1B;
+    box-shadow: 0 0 36px 6px color-mix(in srgb, var(--rosa) 22%, transparent), 0 0 120px 34px color-mix(in srgb, var(--coral) 10%, transparent);
+  }
+  .luna::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 40% 36%, #FBF6E8 0 55%, #EBDFC8 80%, #DCCFB2 100%); clip-path: inset(0 0 0 58%); }
+
+  h1 { font-weight: 500; font-size: clamp(38px, 7vw, 70px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  h1 em { font-style: italic; color: var(--rosa); }
+  .lede { font-size: clamp(19px, 2.6vw, 23px); font-style: italic; color: var(--hueso-suave); max-width: 42ch; margin: 24px auto 0; }
+  .lede strong { color: var(--hueso); font-style: normal; font-weight: 600; }
+
+  .datos { display: flex; justify-content: center; gap: clamp(18px, 5vw, 48px); flex-wrap: wrap; margin: 38px 0 0; }
+  .dato { text-align: center; }
+  .dato b { display: block; font-size: clamp(22px, 3.4vw, 32px); font-weight: 600; line-height: 1.15; }
+  .dato span { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  .btn { display: inline-block; margin-top: 40px; padding: 15px 36px; border-radius: 999px; border: 1px solid var(--rosa); color: var(--rosa); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .btn:hover { background: var(--rosa); color: var(--noche); }
+  .btn.lleno { background: var(--rosa); color: var(--noche); }
+  .btn.lleno:hover { background: transparent; color: var(--rosa); }
+
+  section { padding: clamp(56px, 9vw, 100px) 0 0; }
+  .centrado { text-align: center; }
+  .actos { display: grid; gap: 0; max-width: 560px; margin: 44px auto 0; text-align: left; }
+  .acto { display: grid; grid-template-columns: 92px 1fr; gap: 20px; padding: 24px 0; border-top: 1px solid var(--linea); }
+  .acto:last-child { border-bottom: 1px solid var(--linea); }
+  .acto .hora { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.12em; color: var(--rosa); padding-top: 6px; }
+  .acto h3 { margin: 0 0 4px; font-weight: 600; font-size: 22px; }
+  .acto p { margin: 0; font-size: 15.5px; font-style: italic; color: var(--hueso-suave); }
+
+  .prosa { max-width: 50ch; margin: 0 auto; }
+  .prosa p { margin: 0 0 22px; }
+  .prosa .cap::first-letter { font-size: 2.6em; float: left; line-height: 0.85; padding-right: 10px; color: var(--rosa); }
+  .prosa em { color: var(--rosa); }
+
+  .causa { background: #191412; border-block: 1px solid var(--linea); margin-top: clamp(56px, 9vw, 100px); padding: clamp(44px, 7vw, 70px) 0; text-align: center; }
+
+  .triptico-nav { display: flex; justify-content: center; gap: clamp(16px, 4vw, 36px); flex-wrap: wrap; margin-top: clamp(50px, 8vw, 84px); }
+  .triptico-nav a { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--hueso-tenue); }
+  .triptico-nav a:hover { color: var(--rosa); }
+  .triptico-nav a.actual { color: var(--rosa); border-bottom: 1px solid var(--rosa); padding-bottom: 3px; }
+
+  footer { padding: clamp(50px, 8vw, 80px) clamp(20px, 5vw, 48px) 34px; text-align: center; }
+  footer .mono { margin-top: 38px; }
+  footer a { color: var(--hueso-suave); text-decoration: none; }
+  footer a:hover { color: var(--rosa); }
+
+  .petalo { position: fixed; top: -4vh; font-size: 13px; color: var(--rosa); opacity: 0.6; pointer-events: none; animation: caer linear infinite; z-index: 5; }
+  @keyframes caer { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(110vh) rotate(220deg); } }
+  @media (prefers-reduced-motion: reduce) { .petalo { display: none; } }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<span class="petalo" style="left: 18%; animation-duration: 24s;">❀</span>
+<span class="petalo" style="left: 70%; animation-duration: 31s; animation-delay: 9s;">❀</span>
+
+<nav aria-label="Main">
+  <div class="brand">Alma Socialité</div>
+  <a href="/alma">El tríptico ↗</a>
+</nav>
+
+<header class="cielo">
+  <div class="wrap">
+    <div class="luna reveal" aria-hidden="true"></div>
+    <p class="mono reveal">Tríptico I · Luna creciente · Al atardecer</p>
+    <h1 class="reveal">La tarde de la <em>luna creciente</em></h1>
+    <p class="lede reveal">Una mesa larga de <strong>mujeres que hacen que las cosas pasen</strong> — creativas, galeristas, fundadoras, doctoras — compartiendo lo que saben mientras el cielo cambia de color.</p>
+    <div class="datos reveal">
+      <div class="dato"><b>18.09</b><span>Viernes</span></div>
+      <div class="dato"><b>6:30 – 8:00</b><span>De la tarde</span></div>
+      <div class="dato"><b>Solo mujeres</b><span>Curado una a una</span></div>
+      <div class="dato"><b>Bogotá</b><span>El lugar se susurra</span></div>
+    </div>
+    <a class="btn lleno reveal" href="#reserva">Pedir mi silla</a>
+  </div>
+</header>
+
+<section class="centrado">
+  <div class="wrap">
+    <p class="mono reveal">La tarde</p>
+    <div class="actos">
+      <div class="acto reveal"><div class="hora">6:30</div><div><h3>El atardecer</h3><p>Llegan ellas. Aperitivo en mano, el sol cayendo sobre Bogotá, arte de mujeres en las paredes.</p></div></div>
+      <div class="acto reveal"><div class="hora">7:00</div><div><h3>La conversación</h3><p>El conocimiento se comparte en voz baja: cada mesa tiene una anfitriona y una pregunta que nadie quiere dejar de responder.</p></div></div>
+      <div class="acto reveal"><div class="hora">7:45</div><div><h3>El brindis</h3><p>Por la causa de la tarde: el empoderamiento de la mujer. Lo recaudado florece directo en su fundación.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prosa">
+    <p class="cap reveal">Las mujeres de Bogotá llevaban años cenando juntas, pero nadie las había sentado a la misma mesa al atardecer, con la ciudad de fondo y una luna apenas naciendo. Después dirían que fue ahí donde empezaron tres negocios, dos amistades de por vida y un rumor hermoso.</p>
+    <p class="reveal">Son pocas sillas, por diseño. Cada una se asigna con nombre propio, y quienes están en la comunidad de Alma <em>florecen primero</em>.</p>
+  </div>
+</section>
+
+<section class="causa">
+  <div class="wrap">
+    <p class="mono reveal">La causa</p>
+    <h1 class="reveal" style="font-size: clamp(26px, 4.6vw, 42px);">Mujeres que <em>levantan</em> mujeres</h1>
+    <p class="lede reveal" style="font-size: 17px;">Lo recaudado en la tarde abandera el empoderamiento de la mujer en Colombia: donación directa al canal oficial de la fundación, con informe público después.</p>
+  </div>
+</section>
+
+<footer id="reserva">
+  <div class="wrap">
+    <p class="mono reveal">Las sillas</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 44px);">Pide tu silla antes de que<br><em>caiga el sol</em></h1>
+    <div class="reveal">
+      <a class="btn lleno" href="mailto:juanqriox@gmail.com?subject=Mi%20silla%20—%20La%20Tarde%2018.09&body=Soy%20[tu%20nombre]%20y%20quiero%20mi%20silla%20al%20atardecer.">Pedir mi silla</a>
+    </div>
+    <div class="triptico-nav reveal">
+      <a href="/tarde" class="actual">I · La tarde</a>
+      <a href="/cena">II · La cena</a>
+      <a href="/after">III · El after</a>
+    </div>
+    <p class="mono">© 2026 Alma Socialité · Bogotá · <a href="/alma">El tríptico</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>

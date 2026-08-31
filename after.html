@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El After de la Luna Menguante</title>
+<meta name="description" content="Tríptico III — El jardín completo: toda la escena creativa de Bogotá mezclada como debe ser. Música, arte y una luna que se va apagando. 18 de septiembre, desde las 10:30 pm.">
+<meta property="og:title" content="El After de la Luna Menguante — Alma Socialité">
+<meta property="og:description" content="Tríptico III · 18.09 · desde las 10:30 pm. El jardín completo. Y para los que aguanten: el after del after.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --noche: #0C0E13;
+    --noche-2: #131721;
+    --hueso: #F1EAD9;
+    --hueso-suave: #B6B4AD;
+    --hueso-tenue: #6C7078;
+    --linea: #232833;
+    --oro: #C8A96A;
+    --lago: #7FA8B8;
+    --rosa: #E7A0B0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--noche); color: var(--hueso); font-family: "Cormorant Garamond", Georgia, serif; line-height: 1.7; font-size: 18px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px clamp(20px, 5vw, 48px); }
+  .brand { font-size: 16px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; }
+  nav a { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+  nav a:hover { color: var(--lago); }
+
+  .cielo { text-align: center; padding: clamp(40px, 7vw, 80px) 0 0; }
+  .luna {
+    width: clamp(140px, 28vw, 200px); aspect-ratio: 1; border-radius: 50%; margin: 0 auto 42px; position: relative; overflow: hidden;
+    background: #1B202B;
+    box-shadow: 0 0 36px 6px color-mix(in srgb, var(--lago) 20%, transparent), 0 0 120px 34px color-mix(in srgb, var(--lago) 9%, transparent);
+  }
+  .luna::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 60% 36%, #FBF6E8 0 55%, #EBDFC8 80%, #DCCFB2 100%); clip-path: inset(0 58% 0 0); }
+
+  h1 { font-weight: 500; font-size: clamp(38px, 7vw, 70px); line-height: 1.05; margin: 0; text-wrap: balance; }
+  h1 em { font-style: italic; color: var(--lago); }
+  .lede { font-size: clamp(19px, 2.6vw, 23px); font-style: italic; color: var(--hueso-suave); max-width: 42ch; margin: 24px auto 0; }
+  .lede strong { color: var(--hueso); font-style: normal; font-weight: 600; }
+
+  .datos { display: flex; justify-content: center; gap: clamp(18px, 5vw, 48px); flex-wrap: wrap; margin: 38px 0 0; }
+  .dato { text-align: center; }
+  .dato b { display: block; font-size: clamp(22px, 3.4vw, 32px); font-weight: 600; line-height: 1.15; }
+  .dato span { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hueso-tenue); }
+
+  .btn { display: inline-block; margin-top: 40px; padding: 15px 36px; border-radius: 999px; border: 1px solid var(--lago); color: var(--lago); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; }
+  .btn:hover { background: var(--lago); color: var(--noche); }
+  .btn.lleno { background: var(--lago); color: var(--noche); }
+  .btn.lleno:hover { background: transparent; color: var(--lago); }
+
+  section { padding: clamp(56px, 9vw, 100px) 0 0; }
+  .centrado { text-align: center; }
+  .actos { display: grid; gap: 0; max-width: 560px; margin: 44px auto 0; text-align: left; }
+  .acto { display: grid; grid-template-columns: 92px 1fr; gap: 20px; padding: 24px 0; border-top: 1px solid var(--linea); }
+  .acto:last-child { border-bottom: 1px solid var(--linea); }
+  .acto .hora { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.12em; color: var(--lago); padding-top: 6px; }
+  .acto h3 { margin: 0 0 4px; font-weight: 600; font-size: 22px; }
+  .acto p { margin: 0; font-size: 15.5px; font-style: italic; color: var(--hueso-suave); }
+
+  .prosa { max-width: 50ch; margin: 0 auto; }
+  .prosa p { margin: 0 0 22px; }
+  .prosa .cap::first-letter { font-size: 2.6em; float: left; line-height: 0.85; padding-right: 10px; color: var(--lago); }
+  .prosa em { color: var(--lago); }
+
+  .causa { background: var(--noche-2); border-block: 1px solid var(--linea); margin-top: clamp(56px, 9vw, 100px); padding: clamp(44px, 7vw, 70px) 0; text-align: center; }
+
+  /* el secreto */
+  .secreto { text-align: center; padding: clamp(56px, 9vw, 100px) 0 0; }
+  .secreto .caja {
+    max-width: 480px; margin: 0 auto; border: 1px dashed var(--linea); border-radius: 16px;
+    padding: clamp(30px, 5vw, 48px) clamp(22px, 4vw, 40px);
+  }
+  .secreto h2 { font-weight: 500; font-size: clamp(24px, 4vw, 34px); margin: 0 0 12px; }
+  .secreto h2 em { font-style: italic; color: var(--oro); }
+  .secreto p { margin: 0; font-style: italic; color: var(--hueso-suave); font-size: 16px; }
+  .secreto .mono { margin-bottom: 14px; color: var(--oro); }
+
+  .triptico-nav { display: flex; justify-content: center; gap: clamp(16px, 4vw, 36px); flex-wrap: wrap; margin-top: clamp(50px, 8vw, 84px); }
+  .triptico-nav a { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--hueso-tenue); }
+  .triptico-nav a:hover { color: var(--lago); }
+  .triptico-nav a.actual { color: var(--lago); border-bottom: 1px solid var(--lago); padding-bottom: 3px; }
+
+  footer { padding: clamp(50px, 8vw, 80px) clamp(20px, 5vw, 48px) 34px; text-align: center; }
+  footer .mono { margin-top: 38px; }
+  footer a { color: var(--hueso-suave); text-decoration: none; }
+  footer a:hover { color: var(--lago); }
+
+  .estrella { position: fixed; font-size: 11px; color: var(--hueso); opacity: 0.4; pointer-events: none; animation: titilar ease-in-out infinite alternate; z-index: 5; }
+  @keyframes titilar { from { opacity: 0.12; } to { opacity: 0.55; } }
+  @media (prefers-reduced-motion: reduce) { .estrella { animation: none; opacity: 0.3; } }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<span class="estrella" style="left: 10%; top: 22%; animation-duration: 3.2s;">✦</span>
+<span class="estrella" style="left: 86%; top: 14%; animation-duration: 4.4s;">✦</span>
+<span class="estrella" style="left: 64%; top: 34%; animation-duration: 2.7s;">✦</span>
+<span class="estrella" style="left: 28%; top: 8%; animation-duration: 5.1s;">✦</span>
+
+<nav aria-label="Main">
+  <div class="brand">Alma Socialité</div>
+  <a href="/alma">El tríptico ↗</a>
+</nav>
+
+<header class="cielo">
+  <div class="wrap">
+    <div class="luna reveal" aria-hidden="true"></div>
+    <p class="mono reveal">Tríptico III · Luna menguante · La noche completa</p>
+    <h1 class="reveal">El after de la <em>luna menguante</em></h1>
+    <p class="lede reveal">El jardín completo: <strong>toda la escena creativa de Bogotá</strong> — los del atardecer, los de la cena, y todos los que faltaban — mezclados como debe ser, con música hasta que la luna se apague.</p>
+    <div class="datos reveal">
+      <div class="dato"><b>18.09</b><span>Viernes</span></div>
+      <div class="dato"><b>10:30 →</b><span>Hasta que dure</span></div>
+      <div class="dato"><b>Todos</b><span>La escena completa</span></div>
+      <div class="dato"><b>Bogotá</b><span>El lugar se susurra</span></div>
+    </div>
+    <a class="btn lleno reveal" href="#entrada">Quiero mi entrada</a>
+  </div>
+</header>
+
+<section class="centrado">
+  <div class="wrap">
+    <p class="mono reveal">La noche</p>
+    <div class="actos">
+      <div class="acto reveal"><div class="hora">10:30</div><div><h3>Las puertas</h3><p>Se abren para todos. Los que cenaron ya están adentro; los demás llegan con la noche encima.</p></div></div>
+      <div class="acto reveal"><div class="hora">11:00</div><div><h3>La música</h3><p>DJ y artistas de la escena. El arte en las paredes es de verdad y está a la venta — por su causa.</p></div></div>
+      <div class="acto reveal"><div class="hora">12:00</div><div><h3>El reconocimiento</h3><p>Bajo la última luna se nombra, en voz alta, a quien más le dio al jardín esa noche. Los jardines agradecen.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prosa">
+    <p class="cap reveal">Al after llegaron los que siempre llegan y también los que nunca habían sido invitados a nada, y esa mezcla — dijeron después — fue el verdadero espectáculo. Nadie recuerda quién puso la última canción. Todos recuerdan con quién la bailaron.</p>
+    <p class="reveal">La entrada del after es la más fácil de conseguir del tríptico — y aun así, <em>se acaba</em>. La comunidad de Alma entra primero, como siempre.</p>
+  </div>
+</section>
+
+<section class="causa">
+  <div class="wrap">
+    <p class="mono reveal">La causa</p>
+    <h1 class="reveal" style="font-size: clamp(26px, 4.6vw, 42px);">El arte que <em style="color: var(--lago);">no se apaga</em></h1>
+    <p class="lede reveal" style="font-size: 17px;">Lo recaudado en el after abandera el arte y la cultura en Colombia: donación directa al canal oficial de la fundación de la noche, con informe público después.</p>
+  </div>
+</section>
+
+<section class="secreto">
+  <div class="wrap">
+    <div class="caja reveal">
+      <p class="mono">✦ Rumor</p>
+      <h2>Dicen que habrá un <em>after del after</em></h2>
+      <p>Nosotros no confirmamos nada. Solo decimos que cuando la última luna se apague, algunos no se irán a casa — y que la dirección solo se dirá al oído, a los que sigan de pie. Los rumores, como las flores, hay que regarlos estando ahí.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="entrada">
+  <div class="wrap">
+    <p class="mono reveal">Las entradas</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 44px);">Entra antes de que<br><em>se apague la luna</em></h1>
+    <div class="reveal">
+      <a class="btn lleno" href="mailto:juanqriox@gmail.com?subject=Mi%20entrada%20—%20El%20After%2018.09&body=Soy%20[tu%20nombre]%20y%20quiero%20estar%20cuando%20se%20apague%20la%20luna.">Quiero mi entrada</a>
+    </div>
+    <div class="triptico-nav reveal">
+      <a href="/tarde">I · La tarde</a>
+      <a href="/cena">II · La cena</a>
+      <a href="/after" class="actual">III · El after</a>
+    </div>
+    <p class="mono">© 2026 Alma Socialité · Bogotá · <a href="/alma">El tríptico</a></p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>

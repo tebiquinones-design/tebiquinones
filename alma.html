@@ -71,6 +71,9 @@
   .luna.creciente::after { background: var(--hueso); clip-path: inset(0 0 0 55%); }
   .luna.llena::after { background: var(--hueso); }
   .luna.menguante::after { background: var(--hueso); clip-path: inset(0 55% 0 0); }
+  a.luna-item { text-decoration: none; color: inherit; border-radius: 14px; padding: 14px; margin: -14px; transition: background 0.3s ease; }
+  a.luna-item:hover, a.luna-item:focus-visible { background: var(--noche-2); }
+  a.luna-item:hover h3 { color: var(--oro); }
   .luna-item h3 { font-weight: 600; font-size: 21px; margin: 0 0 4px; letter-spacing: 0.04em; }
   .luna-item p { margin: 0; font-size: 15px; font-style: italic; color: var(--hueso-suave); line-height: 1.55; }
 
@@ -133,9 +136,9 @@
   <div class="wrap">
     <p class="mono reveal">Un día · Tres lunas · Tres causas</p>
     <div class="lunas">
-      <div class="luna-item reveal"><div class="luna creciente" aria-hidden="true"></div><h3>Luna creciente</h3><p>La tarde. Donde el conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p></div>
-      <div class="luna-item reveal"><div class="luna llena" aria-hidden="true"></div><h3>Luna llena</h3><p>La noche. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar.</p></div>
-      <div class="luna-item reveal"><div class="luna menguante" aria-hidden="true"></div><h3>Luna menguante</h3><p>El jardín completo. Toda la escena creativa de Bogotá, mezclada como debe ser.</p></div>
+      <a class="luna-item reveal" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico I</p><h3>La tarde</h3><p>Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p class="mono" style="margin:12px 0 0;">Entrar →</p></a>
+      <a class="luna-item reveal" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico II</p><h3>La cena</h3><p>Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar.</p><p class="mono" style="margin:12px 0 0;">Entrar →</p></a>
+      <a class="luna-item reveal" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico III</p><h3>El after</h3><p>Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p class="mono" style="margin:12px 0 0;">Entrar →</p></a>
     </div>
     <p class="fecha reveal">18<span>·</span>09</p>
     <div class="count" id="countdown" aria-label="Cuenta regresiva">
