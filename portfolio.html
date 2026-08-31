@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tebi Quiñones — Cultural Strategist & Experience Designer</title>
+<meta name="description" content="Cultural strategy, experience design and ecosystem building. Forbes Under 30 Spain 2025. 112 events across four European capitals. Olympic Film Festival award winner, Paris 2024.">
+<meta property="og:title" content="Tebi Quiñones — Cultural Strategist & Experience Designer">
+<meta property="og:description" content="I build the rooms that make belonging feel inevitable. Forbes Under 30 · Olympic Film Festival award · 112 events across 4 capitals.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #0B0B0A;
+    --bg-2: #131312;
+    --ink: #F4F2ED;
+    --ink-soft: #B9B6AD;
+    --ink-faint: #7A7870;
+    --line: #2A2A27;
+    --gold: #C8A96A;
+    --on-gold: #0B0B0A;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+  .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
+
+  nav {
+    display: flex; justify-content: space-between; align-items: center; gap: 14px;
+    padding: 20px clamp(18px, 4vw, 48px); border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); z-index: 10; flex-wrap: wrap;
+  }
+  .brand { font-weight: 800; letter-spacing: 0.04em; font-size: 14px; text-transform: uppercase; }
+  nav .links { display: flex; gap: 22px; flex-wrap: wrap; }
+  nav a { color: var(--ink-soft); text-decoration: none; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  nav a:hover, nav a:focus-visible { color: var(--gold); }
+  nav a.es { color: var(--gold); }
+
+  header.hero { padding: clamp(70px, 12vw, 150px) 0 clamp(40px, 7vw, 80px); text-align: center; }
+  .hero .mono { color: var(--gold); }
+  h1 {
+    font-variation-settings: "wdth" 120; font-weight: 900; text-transform: uppercase;
+    font-size: clamp(44px, 9.5vw, 128px); line-height: 0.94; margin: 18px 0 0; letter-spacing: 0.005em;
+  }
+  h1 .wink { color: var(--gold); }
+  .roles { margin: 26px 0 0; font-size: clamp(13px, 1.8vw, 16px); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); }
+  .credch { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+  .chip { border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px; font-size: 12.5px; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .chip b { color: var(--gold); font-weight: 700; }
+
+  .ticker { border-block: 1px solid var(--line); overflow: hidden; padding: 13px 0; white-space: nowrap; }
+  .ticker span { display: inline-block; padding-right: 48px; font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faint); animation: tick 36s linear infinite; }
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker span { animation: none; } }
+
+  section { padding: clamp(56px, 9vw, 110px) 0; border-bottom: 1px solid var(--line); }
+  h2 { font-variation-settings: "wdth" 116; font-weight: 900; text-transform: uppercase; font-size: clamp(28px, 4.6vw, 52px); line-height: 1; margin: 10px 0 14px; }
+  .sub { color: var(--ink-soft); max-width: 62ch; font-size: 16px; margin: 0 0 40px; }
+  .sub .serif { color: var(--ink); font-size: 1.15em; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .stat { background: var(--bg); padding: 30px 26px; }
+  .stat b { display: block; font-variation-settings: "wdth" 118; font-weight: 900; font-size: clamp(38px, 5vw, 56px); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat span { display: block; margin-top: 10px; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .works { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .work { background: var(--bg); padding: 34px 28px; display: flex; flex-direction: column; gap: 10px; transition: background 0.25s ease; }
+  .work:hover { background: var(--bg-2); }
+  .work .num { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--gold); letter-spacing: 0.14em; }
+  .work h3 { margin: 0; font-variation-settings: "wdth" 112; font-weight: 800; text-transform: uppercase; font-size: 21px; line-height: 1.15; }
+  .work p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+  .work .tag { margin-top: auto; padding-top: 14px; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 4vw, 48px) clamp(28px, 4vw, 56px); }
+  .service { border-top: 2px solid var(--gold); padding-top: 18px; }
+  .service h3 { margin: 0 0 8px; font-variation-settings: "wdth" 110; font-weight: 800; text-transform: uppercase; font-size: 16.5px; letter-spacing: 0.03em; }
+  .service p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+
+  .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(28px, 4vw, 56px); }
+  .about h3 { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin: 0 0 12px; }
+  .about p { margin: 0 0 12px; color: var(--ink-soft); font-size: 15px; }
+  .about p strong { color: var(--ink); }
+  .bigline { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(26px, 4.4vw, 44px); line-height: 1.2; margin: 0 0 40px; max-width: 22ch; color: var(--ink); }
+  .bigline em { color: var(--gold); font-style: italic; }
+
+  .cta { text-align: center; border-bottom: none; }
+  .btn {
+    display: inline-block; background: var(--gold); color: var(--on-gold); text-decoration: none;
+    font-weight: 800; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 17px 38px; border: 1px solid var(--gold); margin-top: 30px;
+  }
+  .btn:hover { background: transparent; color: var(--gold); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); margin-left: 10px; }
+  .btn.ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  footer { padding: 26px clamp(18px, 4vw, 48px); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; color: var(--ink-faint); font-size: 12.5px; border-top: 1px solid var(--line); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="brand">Tebi Quiñones</div>
+  <div class="links">
+    <a href="#works">Works</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a class="es" href="/cursos" lang="es">Cursos · ES</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="mono reveal">Bogotá → Paris · Madrid · Berlin · London</p>
+    <h1 class="reveal">Juan Est(eb)i <span class="wink">;)</span><br>Quiñones</h1>
+    <p class="roles reveal">Cultural Strategist · Filmmaker · Experience Designer</p>
+    <div class="credch reveal">
+      <span class="chip"><b>Forbes Under 30</b> · Entertainment, Spain 2025</span>
+      <span class="chip"><b>Olympic Film Festival</b> · First Latin American award, Paris 2024</span>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><span>Paris · Madrid · Berlin · London · Milan · Bogotá · NYC · Miami · Paris · Madrid · Berlin · London · Milan · Bogotá · NYC · Miami ·&nbsp;</span></div>
+
+<section id="numbers">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b>112</b><span>Events produced since 2019</span></div>
+      <div class="stat"><b>4</b><span>European capitals, simultaneously</span></div>
+      <div class="stat"><b>59</b><span>Artists curated & platformed</span></div>
+      <div class="stat"><b>0</b><span>Euros spent on paid ads</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <p class="mono">Selected works</p>
+    <h2>The rooms I built</h2>
+    <p class="sub">From Berlin underground to Olympic institutions, from Silicon Valley startups to the Sahara Desert. <span class="serif">Everything can be built from zero.</span></p>
+    <div class="works">
+      <div class="work reveal"><span class="num">01</span><h3>OLY House — Olympics Paris 2024</h3><p>Cultural strategy & communications for the Olympic Games. Built the narrative for the first-ever Olympic Film Festival — no brief, no precedent. Recognized by HSH Prince Albert II of Monaco and Thomas Bach.</p><span class="tag">PR & Communications</span></div>
+      <div class="work reveal"><span class="num">02</span><h3>Alma Socialité</h3><p>112 events. 4 capitals. No ads. No investors. A cultural ecosystem operating across Europe since 2021 — now expanding to Bogotá.</p><span class="tag">Ecosystem building</span></div>
+      <div class="work reveal"><span class="num">03</span><h3>LES Berlin</h3><p>€28,500 in presales in 12 days, sold out before the lineup was announced. Zero paid ads. The room sold because of how it was positioned — not what was in it.</p><span class="tag">Cultural activation</span></div>
+      <div class="work reveal"><span class="num">04</span><h3>Sahara Desert × Alma × IE University</h3><p>300 people. 5 days. Middle of the Sahara. Full experience design and production where there is no infrastructure at all.</p><span class="tag">Experience design</span></div>
+      <div class="work reveal"><span class="num">05</span><h3>Athlete IQ</h3><p>4 continents. 400+ interviews. A sports-media platform built from zero.</p><span class="tag">Creative direction</span></div>
+      <div class="work reveal"><span class="num">06</span><h3>Studio 1111 × Fashion Week</h3><p>Berlin's first immersive digital screen venue, launched during Fashion Week.</p><span class="tag">Market entry</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <p class="mono">Services</p>
+    <h2>What I do for brands</h2>
+    <p class="sub">For brands operating at the intersection of luxury, culture and human behavior — entering niche European markets or repositioning within saturated ones.</p>
+    <div class="services">
+      <div class="service reveal"><h3>Creative Direction & Talent Development</h3><p>Six years directing cultural experiences across four capitals — from underground Berlin to the Olympic Games. The aesthetic serves the strategy. Always.</p></div>
+      <div class="service reveal"><h3>Cultural Activation</h3><p>Rooms that sell out on positioning, not lineups. LES Berlin proved it: 12 days, zero paid ads, sold out before the program was public.</p></div>
+      <div class="service reveal"><h3>Ecosystem Building</h3><p>The relational infrastructure that makes a brand feel like it belongs before it asks to — community, artist development and brand × audience alignment across markets.</p></div>
+      <div class="service reveal"><h3>Market Entry Strategy</h3><p>I operate simultaneously in Paris, Madrid, Berlin and London with established networks in each. I know which doors open — and which ones don't.</p></div>
+      <div class="service reveal"><h3>PR & Communications</h3><p>I created my own communications role at the Olympic Games and built the first Olympic Film Festival's narrative from scratch.</p></div>
+      <div class="service reveal"><h3>Strategic Consulting</h3><p>Leading luxury hospitality groups and venues in Madrid, Paris, Berlin and London — growing client bases and building cultural credibility advertising can't manufacture.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <p class="mono">About</p>
+    <p class="bigline reveal">I build the rooms that make <em>belonging</em> feel inevitable.</p>
+    <div class="about">
+      <div class="reveal">
+        <h3>Background</h3>
+        <p>Originally from <strong>Bogotá, Colombia</strong>; based between Paris and Madrid, +7 years abroad. Founder of Alma Socialité. Forbes Under 30 in Entertainment, Spain 2025. First Latin American film to win at the inaugural Olympic Film Festival, Paris 2024.</p>
+      </div>
+      <div class="reveal">
+        <h3>Approach</h3>
+        <p>I don't separate business from culture. The most powerful commercial moments happen when a brand <strong>stops broadcasting and starts belonging</strong>. Art, human behavior, architecture, film and entrepreneurship — not as aesthetic references, but as active strategic lenses.</p>
+        <p>I don't wait for roles to exist. I see what's missing and build it before anyone asks.</p>
+      </div>
+      <div class="reveal">
+        <h3>Education & Speaking</h3>
+        <p>BSc Management · ESCP Business School (Paris, Madrid, Berlin). Digital Marketing & AI · London School of Economics. Big Data · UAB Barcelona. Fluent in Spanish, English and French.</p>
+        <p>Speaking: ESCP Alumni Network · CESA Bogotá · Colombian Founders Network Spain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap">
+    <p class="mono">Contact</p>
+    <h2>Let's build the room</h2>
+    <p class="sub" style="margin-inline:auto;">One conversation is enough to know if there's a project.</p>
+    <a class="btn" href="mailto:juanqriox@gmail.com?subject=Project%20inquiry%20—%20tebiquinones.com">Contact me</a>
+    <a class="btn ghost" href="/cursos" lang="es">Cursos en español</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Tebi Quiñones · Paris / Madrid / Bogotá</span>
+  <span><a href="mailto:juanqriox@gmail.com">juanqriox@gmail.com</a></span>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>
