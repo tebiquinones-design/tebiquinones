@@ -126,14 +126,27 @@
   footer a { color: var(--hueso-suave); text-decoration: none; }
   footer a:hover { color: var(--oro); }
 
-  /* mariposas amarillas */
-  .mariposa { position: fixed; font-size: 15px; color: var(--mariposa); pointer-events: none; opacity: 0.85; animation: volar linear infinite; z-index: 5; }
+  /* mariposas amarillas de Mauricio Babilonia */
+  .mariposa { position: fixed; width: 20px; pointer-events: none; opacity: 0.85; animation: volar linear infinite; z-index: 5; }
+  .mariposa svg { width: 100%; height: auto; display: block; fill: var(--mariposa); animation: aleteo 0.5s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--mariposa) 45%, transparent)); }
+  .mariposa.chica { width: 13px; opacity: 0.6; }
   @keyframes volar {
-    0% { transform: translate(0, 100vh) rotate(0deg); }
-    50% { transform: translate(6vw, 45vh) rotate(14deg); }
-    100% { transform: translate(-3vw, -10vh) rotate(-10deg); }
+    0% { transform: translate(0, 104vh) rotate(0deg); }
+    25% { transform: translate(5vw, 74vh) rotate(12deg); }
+    50% { transform: translate(-4vw, 48vh) rotate(-10deg); }
+    75% { transform: translate(6vw, 22vh) rotate(14deg); }
+    100% { transform: translate(-3vw, -12vh) rotate(-8deg); }
   }
+  @keyframes aleteo { from { transform: scaleX(1); } to { transform: scaleX(0.45); } }
   @media (prefers-reduced-motion: reduce) { .mariposa { display: none; } }
+
+  /* mariposas quietas detrás del tríptico */
+  #triptico { position: relative; overflow: hidden; }
+  #triptico .wrap { position: relative; z-index: 1; }
+  .mariposa-fija { position: absolute; width: 22px; pointer-events: none; opacity: 0.35; z-index: 0; }
+  .mariposa-fija svg { width: 100%; height: auto; fill: var(--mariposa); animation: aleteo 0.7s ease-in-out infinite alternate; }
+  .mariposa-fija.lenta svg { animation-duration: 1.1s; }
+  @media (prefers-reduced-motion: reduce) { .mariposa-fija svg { animation: none; } }
 
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -142,9 +155,14 @@
 </head>
 <body>
 
-<span class="mariposa" style="left: 12%; animation-duration: 34s;">✦</span>
-<span class="mariposa" style="left: 78%; animation-duration: 46s; animation-delay: 8s;">✦</span>
-<span class="mariposa" style="left: 45%; animation-duration: 56s; animation-delay: 20s; font-size: 11px;">✦</span>
+<svg style="display:none" aria-hidden="true"><defs><g id="mari"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z M11.6 8 L10.2 3.4 M12.4 8 L13.8 3.4" /></g></defs></svg>
+
+<span class="mariposa" style="left: 10%; animation-duration: 34s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+<span class="mariposa" style="left: 78%; animation-duration: 46s; animation-delay: 6s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+<span class="mariposa chica" style="left: 45%; animation-duration: 56s; animation-delay: 16s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+<span class="mariposa" style="left: 27%; animation-duration: 41s; animation-delay: 24s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+<span class="mariposa chica" style="left: 62%; animation-duration: 38s; animation-delay: 11s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+<span class="mariposa chica" style="left: 90%; animation-duration: 50s; animation-delay: 30s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
 
 <nav aria-label="Main">
   <div class="brand">Alma Socialité</div>
@@ -162,13 +180,19 @@
 </header>
 
 <section class="centrado" id="triptico">
+  <span class="mariposa-fija" style="left: 6%; top: 18%;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+  <span class="mariposa-fija lenta" style="left: 14%; top: 62%; width: 16px;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+  <span class="mariposa-fija" style="right: 8%; top: 26%; width: 18px;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+  <span class="mariposa-fija lenta" style="right: 15%; top: 70%;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+  <span class="mariposa-fija lenta" style="left: 48%; top: 8%; width: 15px;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
   <div class="wrap">
     <p class="mono reveal">Un día · Tres lunas · Tres causas</p>
     <div class="lunas">
-      <a class="luna-item reveal" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico I</p><h3>La tarde</h3><p>Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p class="mono" style="margin:12px 0 0;">Entrar →</p></a>
-      <a class="luna-item reveal" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico II</p><h3>La cena</h3><p>Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar.</p><p class="mono" style="margin:12px 0 0;">Entrar →</p></a>
-      <a class="luna-item reveal" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico III</p><h3>El after</h3><p>Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p class="mono" style="margin:12px 0 0;">Entrar →</p></a>
+      <a class="luna-item reveal" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico I</p><h3>La tarde</h3><p>Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">$600.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
+      <a class="luna-item reveal" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico II</p><h3>La cena</h3><p>Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar. Menú incluido.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">$1.500.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
+      <a class="luna-item reveal" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico III</p><h3>El after</h3><p>Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">$700.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
     </div>
+    <p class="lede reveal" style="font-size:16px; margin-top:28px;">Cada luna se puede vivir sola. Pero por separado suman <strong style="color:var(--hueso); font-style:normal;">$2.800.000</strong> — y el pase del jardín completo cuesta menos. Sigue bajando. ↓</p>
     <p class="fecha reveal">18<span>·</span>09</p>
     <div class="count" id="countdown" aria-label="Cuenta regresiva">
       <div><b id="cd-d">—</b><span>días</span></div>
@@ -183,6 +207,7 @@
   <div class="wrap">
     <p class="mono reveal">El pase del jardín · Precios claros</p>
     <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Un pase. Los tres momentos. <em>Sin letra pequeña.</em></h1>
+    <p class="lede reveal" style="font-size: 17px;">«¿Y cuánto cuesta entrar a un jardín así?», preguntaron los primeros curiosos. «Depende», dijo el jardinero, contando diez semillas doradas, «de qué tan temprano lleguen las mariposas.»</p>
     <div class="precios reveal">
       <div class="precio-card early">
         <p class="etiqueta">✦ Early Bird · Solo 10 cupos</p>
@@ -193,7 +218,7 @@
         </div>
         <p class="despues">Cuando se acaben los 10, el pase pasa a <b>$2.500.000</b>. Así de simple.</p>
       </div>
-      <p class="incluye reveal"><b>El pase incluye los tres momentos del 18.09:</b> la tarde (aperitivo al atardecer), la cena (jazz, violín y flores, menú incluido) y el after (el jardín completo). También habrá cupos por momento — esos florecen primero en la comunidad.</p>
+      <p class="incluye reveal"><b>El pase incluye los tres momentos del 18.09:</b> la tarde ($600.000), la cena ($1.500.000, menú incluido) y el after ($700.000). Por separado: $2.800.000. Con el pase completo: <b>$2.500.000</b> — y los 10 primeros, $500.000. Cada momento también se compra solo, en su propia página.</p>
       <a class="btn lleno reveal" href="mailto:juanqriox@gmail.com?subject=EARLY%20BIRD%20—%20Pase%20del%20jard%C3%ADn%2018.09&body=Soy%20[tu%20nombre]%20y%20quiero%20uno%20de%20los%2010%20cupos%20early%20bird%20($500.000).">Quiero mi cupo Early Bird</a>
     </div>
   </div>
@@ -206,7 +231,7 @@
       <details><summary>¿Dónde es?</summary><p>En Bogotá. El lugar exacto <b>se susurra un día antes</b> a quienes tienen su cupo — es parte del diseño del jardín.</p></details>
       <details><summary>¿Qué incluye mi pase?</summary><p>Los tres momentos del día: aperitivo al atardecer, cena con jazz en vivo, violín y flores (menú incluido) y el after con toda la escena. <b>Todo el 18 de septiembre.</b></p></details>
       <details><summary>¿Cómo reservo y pago?</summary><p>Pides tu cupo con el botón (correo o WhatsApp), te confirmamos disponibilidad y te enviamos los datos de pago. <b>Tu cupo queda firme al pagar.</b></p></details>
-      <details><summary>¿Puedo ir a un solo momento?</summary><p>Sí. Los cupos por momento individual se abren <b>primero en la comunidad de WhatsApp</b> — entra al jardín y te enteras antes que nadie.</p></details>
+      <details><summary>¿Puedo ir a un solo momento?</summary><p>Sí. Cada luna tiene su precio y su página: <b>la tarde $600.000</b>, <b>la cena $1.500.000</b> (menú incluido) y <b>el after $700.000</b>, por persona. Reservas en la página de cada momento. Los cupos vuelan primero en la comunidad de WhatsApp.</p></details>
       <details><summary>¿A dónde va el dinero?</summary><p>Cada momento abandera una causa: empoderamiento de la mujer, respuesta a desastres, y arte y cultura. Las donaciones van <b>directo a los canales oficiales de las fundaciones</b> y publicamos informe de transparencia después del evento.</p></details>
     </div>
   </div>
