@@ -42,9 +42,25 @@
     box-shadow: 0 0 34px 7px color-mix(in srgb, var(--oro) 55%, transparent), 0 0 110px 30px color-mix(in srgb, var(--oro) 16%, transparent);
     background: radial-gradient(circle, var(--oro) 62%, transparent 63%);
   }
-  .eclipse .sombra { position: absolute; inset: -1.5%; border-radius: 50%; background: var(--noche); transform: translateX(-8%); animation: eclipse 26s ease-in-out infinite alternate; }
-  @keyframes eclipse { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
-  @media (prefers-reduced-motion: reduce) { .eclipse .sombra { animation: none; transform: none; } }
+  .eclipse .sombra { position: absolute; inset: -1.5%; border-radius: 50%; background: var(--noche); transform: translateX(-105%); will-change: transform; }
+  .eclipse .corona { transition: filter 0.3s ease; }
+
+  /* grano de película (bogachev) */
+  #grano { position: fixed; inset: -50%; z-index: 50; pointer-events: none; opacity: 0.055; animation: granear 0.6s steps(3) infinite; }
+  @keyframes granear { 0% { transform: translate(0,0); } 33% { transform: translate(-2%,1.5%); } 66% { transform: translate(1.5%,-2%); } 100% { transform: translate(0,0); } }
+
+  /* riel de progreso con las tres lunas */
+  .riel { position: fixed; left: clamp(10px, 2.4vw, 26px); top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; align-items: center; gap: 0; }
+  .riel .linea { width: 1px; height: 34vh; background: var(--linea); position: relative; overflow: hidden; }
+  .riel .linea i { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: var(--oro); }
+  .riel .fase { width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--hueso-tenue); margin: 7px 0; position: relative; overflow: hidden; background: transparent; transition: border-color 0.3s ease; }
+  .riel .fase::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--oro); opacity: 0; transition: opacity 0.3s ease; }
+  .riel .fase.f1::after { clip-path: inset(0 0 0 55%); }
+  .riel .fase.f3::after { clip-path: inset(0 55% 0 0); }
+  .riel .fase.activa { border-color: var(--oro); }
+  .riel .fase.activa::after { opacity: 1; }
+  .riel .lbl-riel { font-family: "IBM Plex Mono", monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--hueso-tenue); writing-mode: vertical-rl; margin-top: 8px; }
+  @media (max-width: 640px) { .riel { display: none; } }
 
   h1 { font-weight: 500; font-size: clamp(38px, 7vw, 72px); line-height: 1.06; margin: 0; letter-spacing: 0.015em; text-wrap: balance; }
   h1 em { font-style: italic; color: var(--oro); }
@@ -169,9 +185,19 @@
 <span class="mariposa chica" style="left: 62%; animation-duration: 32s; animation-delay: -26s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
 <span class="mariposa chica" style="left: 90%; animation-duration: 40s; animation-delay: -10s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
 
+<canvas id="grano" aria-hidden="true"></canvas>
+
+<div class="riel" aria-hidden="true">
+  <span class="fase f1" data-sec="triptico"></span>
+  <span class="fase f2" data-sec="pase"></span>
+  <span class="fase f3" data-sec="adentro"></span>
+  <div class="linea"><i id="riel-fill"></i></div>
+  <span class="lbl-riel">18 · 09 · Bogotá</span>
+</div>
+
 <nav aria-label="Main">
   <div class="brand">Alma Socialité</div>
-  <a href="https://tebiquinones.vercel.app">El jardín de Tebi ↗</a>
+  <a href="https://tebiquinones.com">El jardín de Tebi ↗</a>
 </nav>
 
 <header class="cielo">
@@ -350,6 +376,52 @@
     h1.addEventListener("click", maybe);
     h1.addEventListener("touchstart", maybe, { passive: true });
     setTimeout(maybe, 1100);
+  })();
+
+  /* grano de película */
+  (function () {
+    var g = document.getElementById("grano");
+    var gx = g.getContext("2d");
+    g.width = 160; g.height = 160;
+    var img = gx.createImageData(160, 160);
+    for (var i = 0; i < img.data.length; i += 4) {
+      var v = Math.random() * 255;
+      img.data[i] = v; img.data[i+1] = v; img.data[i+2] = v; img.data[i+3] = 255;
+    }
+    gx.putImageData(img, 0, 0);
+    g.style.backgroundImage = "url(" + g.toDataURL() + ")";
+    g.style.backgroundRepeat = "repeat";
+    g.width = 0; g.height = 0;
+  })();
+
+  /* el eclipse obedece al scroll — la sombra cruza el sol mientras bajas */
+  (function () {
+    var sombra = document.querySelector(".eclipse .sombra");
+    var corona = document.querySelector(".eclipse .corona");
+    var fill = document.getElementById("riel-fill");
+    var fases = document.querySelectorAll(".riel .fase");
+    var secs = {};
+    fases.forEach(function (f) { secs[f.dataset.sec] = document.getElementById(f.dataset.sec); });
+    var ticking = false;
+    function paint() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+      if (sombra) {
+        var ecl = Math.min(1, p / 0.55); /* totalidad al 55% del viaje */
+        sombra.style.transform = "translateX(" + (-105 + ecl * 105) + "%)";
+        if (corona) corona.style.filter = "brightness(" + (1 + ecl * 0.6) + ")";
+      }
+      if (fill) fill.style.height = (p * 100) + "%";
+      var vh2 = innerHeight * 0.55;
+      fases.forEach(function (f) {
+        var el = secs[f.dataset.sec];
+        if (el) f.classList.toggle("activa", el.getBoundingClientRect().top < vh2);
+      });
+    }
+    addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(paint); } }, { passive: true });
+    addEventListener("resize", paint);
+    paint();
   })();
 
   (function () {
