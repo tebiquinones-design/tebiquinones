@@ -89,6 +89,35 @@
   .prosa .cap::first-letter { font-size: 2.6em; float: left; line-height: 0.85; padding-right: 10px; color: var(--oro); font-style: normal; }
   .prosa em { color: var(--oro); }
 
+  /* precios */
+  .precios { max-width: 640px; margin: 44px auto 0; }
+  .precio-card { border: 1px solid var(--linea); border-radius: 18px; padding: clamp(26px, 4vw, 38px); text-align: center; background: var(--noche-2); }
+  .precio-card.early { border-color: var(--oro); }
+  .precio-card .etiqueta { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--oro); }
+  .precio-card .valor { font-size: clamp(42px, 7vw, 64px); font-weight: 600; line-height: 1; margin: 12px 0 4px; font-variant-numeric: tabular-nums; }
+  .precio-card .despues { margin: 10px 0 0; font-style: italic; color: var(--hueso-suave); font-size: 15.5px; }
+  .precio-card .despues b { color: var(--hueso); font-style: normal; }
+  .cupos { display: flex; justify-content: center; gap: 7px; margin: 18px 0 0; }
+  .cupo { width: 13px; height: 13px; border-radius: 50%; border: 1px solid var(--oro); background: transparent; }
+  .incluye { margin: 22px auto 0; max-width: 46ch; font-size: 15px; color: var(--hueso-suave); }
+  .incluye b { color: var(--hueso); }
+
+  /* preguntas */
+  .faq { max-width: 620px; margin: 40px auto 0; text-align: left; }
+  .faq details { border-top: 1px solid var(--linea); padding: 4px 0; }
+  .faq details:last-child { border-bottom: 1px solid var(--linea); }
+  .faq summary { cursor: pointer; padding: 16px 0; font-weight: 600; font-size: 19px; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--oro); font-size: 22px; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { margin: 0 0 18px; font-size: 15.5px; font-style: italic; color: var(--hueso-suave); }
+  .faq details p b { color: var(--hueso); font-style: normal; }
+
+  /* el cuadro */
+  .cuadro { margin: 44px auto 0; max-width: 880px; }
+  .cuadro img { width: 100%; display: block; border-radius: 10px; border: 1px solid var(--linea); }
+  .cuadro figcaption { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hueso-tenue); margin-top: 12px; text-align: center; }
+
   .divisor { display: flex; align-items: center; gap: 16px; justify-content: center; margin: clamp(56px, 9vw, 96px) auto 0; color: var(--hueso-tenue); }
   .divisor::before, .divisor::after { content: ""; height: 1px; width: min(120px, 24vw); background: var(--linea); }
 
@@ -150,6 +179,39 @@
   </div>
 </section>
 
+<section class="centrado" id="pase">
+  <div class="wrap">
+    <p class="mono reveal">El pase del jardín · Precios claros</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Un pase. Los tres momentos. <em>Sin letra pequeña.</em></h1>
+    <div class="precios reveal">
+      <div class="precio-card early">
+        <p class="etiqueta">✦ Early Bird · Solo 10 cupos</p>
+        <p class="valor">$500.000</p>
+        <p class="mono">Pesos colombianos · Pase día completo</p>
+        <div class="cupos" aria-label="10 cupos early bird">
+          <span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span>
+        </div>
+        <p class="despues">Cuando se acaben los 10, el pase pasa a <b>$2.500.000</b>. Así de simple.</p>
+      </div>
+      <p class="incluye reveal"><b>El pase incluye los tres momentos del 18.09:</b> la tarde (aperitivo al atardecer), la cena (jazz, violín y flores, menú incluido) y el after (el jardín completo). También habrá cupos por momento — esos florecen primero en la comunidad.</p>
+      <a class="btn lleno reveal" href="mailto:juanqriox@gmail.com?subject=EARLY%20BIRD%20—%20Pase%20del%20jard%C3%ADn%2018.09&body=Soy%20[tu%20nombre]%20y%20quiero%20uno%20de%20los%2010%20cupos%20early%20bird%20($500.000).">Quiero mi cupo Early Bird</a>
+    </div>
+  </div>
+</section>
+
+<section class="centrado" id="preguntas">
+  <div class="wrap">
+    <p class="mono reveal">Preguntas claras, respuestas claras</p>
+    <div class="faq reveal">
+      <details><summary>¿Dónde es?</summary><p>En Bogotá. El lugar exacto <b>se susurra un día antes</b> a quienes tienen su cupo — es parte del diseño del jardín.</p></details>
+      <details><summary>¿Qué incluye mi pase?</summary><p>Los tres momentos del día: aperitivo al atardecer, cena con jazz en vivo, violín y flores (menú incluido) y el after con toda la escena. <b>Todo el 18 de septiembre.</b></p></details>
+      <details><summary>¿Cómo reservo y pago?</summary><p>Pides tu cupo con el botón (correo o WhatsApp), te confirmamos disponibilidad y te enviamos los datos de pago. <b>Tu cupo queda firme al pagar.</b></p></details>
+      <details><summary>¿Puedo ir a un solo momento?</summary><p>Sí. Los cupos por momento individual se abren <b>primero en la comunidad de WhatsApp</b> — entra al jardín y te enteras antes que nadie.</p></details>
+      <details><summary>¿A dónde va el dinero?</summary><p>Cada momento abandera una causa: empoderamiento de la mujer, respuesta a desastres, y arte y cultura. Las donaciones van <b>directo a los canales oficiales de las fundaciones</b> y publicamos informe de transparencia después del evento.</p></details>
+    </div>
+  </div>
+</section>
+
 <div class="divisor" aria-hidden="true">✦</div>
 
 <section>
@@ -157,6 +219,16 @@
     <p class="cap reveal">Dicen que en Europa llenó ciento doce salones en cuatro capitales sin gastar un centavo en publicidad, y que las entradas se agotaban antes de que alguien supiera quién iba a tocar. Nadie lo creyó hasta que llegaron las fotos.</p>
     <p class="reveal">Ahora el jardín se siembra en Bogotá. No preguntes dónde: los lugares, como los milagros, se anuncian solo a quienes ya creen. Lo que sí podemos decir: habrá <em>conocimiento compartido</em>, flores de verdad, música de verdad y la gente correcta — curada persona por persona, como se cura un tríptico.</p>
     <p class="reveal">El resto florece adentro: el lugar, los anfitriones y la preventa llegan <em>primero</em> a la comunidad. Después, si sobra, para el resto. Y como en todo buen realismo mágico: cuando lo veas publicado, ya no habrá cupo.</p>
+  </div>
+</section>
+
+<section class="centrado">
+  <div class="wrap">
+    <p class="mono reveal">La inspiración</p>
+    <figure class="cuadro reveal" style="margin-left:auto; margin-right:auto;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1920px-The_Garden_of_earthly_delights.jpg" alt="El Jardín de las Delicias, tríptico de El Bosco: tres paneles con un jardín fantástico lleno de figuras, flores y frutas" loading="lazy">
+      <figcaption>El Jardín de las Delicias · El Bosco (1490–1500) · Museo del Prado — tres paneles, como nuestras tres lunas</figcaption>
+    </figure>
   </div>
 </section>
 

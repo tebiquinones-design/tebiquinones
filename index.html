@@ -67,6 +67,19 @@
 
   #meadow { display: block; width: 100%; height: 150px; margin-top: 40px; }
 
+  /* El Bosco */
+  .bosco { padding: clamp(40px, 6vw, 70px) 0; border-bottom: 1px solid var(--line); text-align: center; }
+  .bosco figure { margin: 26px 0 0; }
+  .bosco img.completo { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--line); }
+  .bosco figcaption { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 12px; }
+  .detalles-bosco { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  .detalles-bosco .det { aspect-ratio: 3 / 4; overflow: hidden; border-radius: 10px; border: 1px solid var(--line); }
+  .detalles-bosco img { width: 100%; height: 100%; object-fit: cover; }
+  .detalles-bosco .det.d1 img { object-position: 8% 40%; }
+  .detalles-bosco .det.d2 img { object-position: 50% 55%; }
+  .detalles-bosco .det.d3 img { object-position: 92% 45%; }
+  .detalles-bosco .lbl-det { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 8px; }
+
   section { padding: clamp(52px, 8vw, 96px) 0; border-bottom: 1px solid var(--line); }
   h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(32px, 5vw, 54px); line-height: 1.02; margin: 10px 0 14px; color: var(--garden-deep); text-wrap: balance; }
   h2 em { font-style: italic; color: var(--coral); font-weight: 600; }
@@ -148,12 +161,34 @@
       <span class="chip"><b>112 eventos</b> · 4 capitales · 0 ads</span>
     </div>
     <div class="cta-row reveal">
-      <a class="btn coral" href="#comunidad">Entrar al jardín</a>
-      <a class="btn ghost" href="#evento">¿Qué florece el 18.09?</a>
+      <a class="btn coral" href="/alma">Ver el jardín →</a>
+      <a class="btn ghost" href="#comunidad">Entrar a la comunidad</a>
     </div>
   </div>
   <canvas id="meadow" aria-hidden="true"></canvas>
 </header>
+
+<section class="bosco">
+  <div class="wrap">
+    <p class="mono"><span class="flor"></span>&nbsp; La inspiración · El Bosco</p>
+    <h2>Un <em>tríptico</em> de hace 500 años</h2>
+    <p class="sub" style="margin-inline:auto;">El Jardín de las Delicias es un tríptico: tres paneles, tres mundos. El nuestro también — <strong>tres momentos el 18.09</strong>. Haz clic y entra al jardín.</p>
+    <figure>
+      <a href="/alma"><img class="completo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1920px-The_Garden_of_earthly_delights.jpg" alt="El Jardín de las Delicias de El Bosco: tríptico completo con sus tres paneles" loading="lazy"></a>
+      <div class="detalles-bosco">
+        <a class="det d1" href="/tarde" aria-label="Tríptico I — La tarde"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg" alt="Detalle del panel izquierdo del Jardín de las Delicias" loading="lazy"></a>
+        <a class="det d2" href="/cena" aria-label="Tríptico II — La cena"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg" alt="Detalle del panel central del Jardín de las Delicias" loading="lazy"></a>
+        <a class="det d3" href="/after" aria-label="Tríptico III — El after"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg" alt="Detalle del panel derecho del Jardín de las Delicias" loading="lazy"></a>
+      </div>
+      <div class="detalles-bosco" style="margin-top:0;">
+        <p class="lbl-det">I · La tarde</p>
+        <p class="lbl-det">II · La cena</p>
+        <p class="lbl-det">III · El after</p>
+      </div>
+      <figcaption>El Jardín de las Delicias · El Bosco (1490–1500) · Museo del Prado · dominio público</figcaption>
+    </figure>
+  </div>
+</section>
 
 <section class="evento" id="evento">
   <div class="wrap" style="text-align:center;">
