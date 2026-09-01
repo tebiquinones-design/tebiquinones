@@ -72,9 +72,9 @@
   .bosco .wrap { position: relative; z-index: 1; }
 
   /* mariposas amarillas de Mauricio Babilonia */
-  .mari { position: absolute; width: 22px; pointer-events: none; opacity: 0.75; z-index: 0; animation: revolotear ease-in-out infinite alternate; }
+  .mari { position: absolute; width: 28px; pointer-events: none; opacity: 0.9; z-index: 0; animation: revolotear ease-in-out infinite alternate; }
   .mari svg { width: 100%; height: auto; display: block; fill: #E8B33C; animation: aleteo 0.55s ease-in-out infinite alternate; filter: drop-shadow(0 0 5px rgba(232, 179, 60, 0.45)); }
-  .mari.chica { width: 14px; opacity: 0.55; }
+  .mari.chica { width: 18px; opacity: 0.7; }
   @keyframes revolotear { from { transform: translate(0, 0) rotate(-8deg); } to { transform: translate(14px, -22px) rotate(10deg); } }
   @keyframes aleteo { from { transform: scaleX(1); } to { transform: scaleX(0.45); } }
   @media (prefers-reduced-motion: reduce) { .mari, .mari svg { animation: none; } }
@@ -177,15 +177,13 @@
   <canvas id="meadow" aria-hidden="true"></canvas>
 </header>
 
-<svg style="display:none" aria-hidden="true"><defs><g id="mari"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z" /></g></defs></svg>
-
 <section class="bosco">
-  <span class="mari" style="left: 5%; top: 16%; animation-duration: 5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
-  <span class="mari chica" style="left: 12%; top: 58%; animation-duration: 7s; animation-delay: 1s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
-  <span class="mari" style="right: 6%; top: 24%; animation-duration: 6s; animation-delay: 0.5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
-  <span class="mari chica" style="right: 13%; top: 66%; animation-duration: 8s; animation-delay: 2s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
-  <span class="mari chica" style="left: 48%; top: 6%; animation-duration: 6.5s; animation-delay: 1.5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
-  <span class="mari" style="left: 30%; top: 82%; animation-duration: 7.5s; animation-delay: 3s;"><svg viewBox="0 0 24 15" aria-hidden="true"><use href="#mari"/></svg></span>
+  <span class="mari" style="left: 5%; top: 16%; animation-duration: 5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari chica" style="left: 12%; top: 58%; animation-duration: 7s; animation-delay: 1s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari" style="right: 6%; top: 24%; animation-duration: 6s; animation-delay: 0.5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari chica" style="right: 13%; top: 66%; animation-duration: 8s; animation-delay: 2s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari chica" style="left: 48%; top: 6%; animation-duration: 6.5s; animation-delay: 1.5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari" style="left: 30%; top: 82%; animation-duration: 7.5s; animation-delay: 3s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
   <div class="wrap">
     <p class="mono"><span class="flor"></span>&nbsp; La inspiración · El Bosco</p>
     <h2>Un <em>tríptico</em> de hace 500 años</h2>
