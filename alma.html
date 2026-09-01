@@ -284,6 +284,74 @@
     }, { threshold: 0.12 });
     els.forEach(function (e) { io.observe(e); });
   })();
+  /* sol de mariposas amarillas al pasar por el título */
+  (function () {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var header = document.querySelector("header.cielo");
+    var h1 = header && header.querySelector("h1");
+    if (!header || !h1) return;
+    var cv = document.createElement("canvas");
+    cv.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;";
+    cv.setAttribute("aria-hidden", "true");
+    header.style.position = "relative";
+    var wrap = header.querySelector(".wrap");
+    if (wrap) { wrap.style.position = "relative"; wrap.style.zIndex = "1"; }
+    header.insertBefore(cv, header.firstChild);
+    var ctx = cv.getContext("2d"), parts = [], raf = null, W, H;
+    function size() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = header.clientWidth; H = header.clientHeight;
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    size(); window.addEventListener("resize", size);
+    var COLS = ["#E8B33C", "#F0C75E", "#D99A26", "#C8A96A"];
+    function burst() {
+      var r = h1.getBoundingClientRect(), hr = header.getBoundingClientRect();
+      var cx = r.left - hr.left + r.width / 2, cy = r.top - hr.top + r.height / 2;
+      var n = 48;
+      for (var i = 0; i < n; i++) {
+        var a = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.3;
+        parts.push({ x: cx, y: cy, a: a, sp: 1.8 + Math.random() * 3, life: 0,
+          max: 120 + Math.random() * 80, s: 4.5 + Math.random() * 7,
+          ph: Math.random() * 6.28, col: COLS[i % COLS.length] });
+      }
+      if (!raf) tick();
+    }
+    function drawB(p) {
+      var flap = Math.abs(Math.sin(p.life * 0.32 + p.ph));
+      ctx.save();
+      ctx.translate(p.x, p.y); ctx.rotate(p.a + Math.PI / 2);
+      ctx.globalAlpha = Math.max(0, 1 - p.life / p.max) * 0.95;
+      ctx.fillStyle = p.col;
+      var w = p.s * (0.3 + 0.7 * flap);
+      ctx.beginPath(); ctx.ellipse(-w * 0.7, -p.s * 0.15, w, p.s * 0.62, -0.5, 0, 6.29); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(-w * 0.55, p.s * 0.38, w * 0.7, p.s * 0.42, -0.4, 0, 6.29); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(w * 0.7, -p.s * 0.15, w, p.s * 0.62, 0.5, 0, 6.29); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(w * 0.55, p.s * 0.38, w * 0.7, p.s * 0.42, 0.4, 0, 6.29); ctx.fill();
+      ctx.restore();
+    }
+    function tick() {
+      raf = requestAnimationFrame(tick);
+      ctx.clearRect(0, 0, W, H);
+      for (var i = parts.length - 1; i >= 0; i--) {
+        var p = parts[i]; p.life++;
+        var drift = Math.sin(p.life * 0.12 + p.ph) * 0.9;
+        p.x += Math.cos(p.a) * p.sp + Math.cos(p.a + Math.PI / 2) * drift;
+        p.y += Math.sin(p.a) * p.sp + Math.sin(p.a + Math.PI / 2) * drift - 0.3;
+        p.sp *= 0.986;
+        if (p.life > p.max) { parts.splice(i, 1); continue; }
+        drawB(p);
+      }
+      if (!parts.length) { cancelAnimationFrame(raf); raf = null; ctx.clearRect(0, 0, W, H); }
+    }
+    var last = 0;
+    function maybe() { var now = Date.now(); if (now - last > 700) { last = now; burst(); } }
+    h1.addEventListener("mouseenter", maybe);
+    h1.addEventListener("click", maybe);
+    h1.addEventListener("touchstart", maybe, { passive: true });
+    setTimeout(maybe, 1100);
+  })();
+
   (function () {
     var target = new Date("2026-09-18T18:30:00-05:00").getTime();
     var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
