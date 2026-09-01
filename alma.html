@@ -138,7 +138,14 @@
     100% { transform: translate(-3vw, -12vh) rotate(-8deg); }
   }
   @keyframes aleteo { from { transform: scaleX(1); } to { transform: scaleX(0.45); } }
-  @media (prefers-reduced-motion: reduce) { .mariposa { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .mariposa, .mariposa svg { animation: none; }
+    .mariposa { top: 22vh; }
+    .mariposa:nth-of-type(2) { top: 48vh; }
+    .mariposa.chica { top: 64vh; }
+    .mariposa:nth-of-type(4) { top: 34vh; }
+    .mariposa:nth-of-type(6) { top: 76vh; }
+  }
 
   /* mariposas quietas detrás del tríptico */
   #triptico { position: relative; overflow: hidden; }
