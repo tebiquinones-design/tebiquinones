@@ -13,62 +13,65 @@
     --noche: #0E1116;
     --noche-2: #151A22;
     --hueso: #F1EAD9;
-    --hueso-suave: #B9B4A4;
-    --hueso-tenue: #6E6D64;
-    --linea: #262B33;
+    --hueso-suave: #C2BDAD;
+    --hueso-tenue: #8A897D;
+    --linea: #2E333C;
     --oro: #C8A96A;
     --verde: #25D366;
     --mariposa: #E8B33C;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--noche); color: var(--hueso); font-family: "Cormorant Garamond", Georgia, serif; line-height: 1.6; font-size: 18px; min-height: 100vh; }
-  .wrap { max-width: 480px; margin: 0 auto; padding: clamp(36px, 8vw, 64px) 22px 48px; text-align: center; }
+  body { margin: 0; background: var(--noche); color: var(--hueso); font-family: "Cormorant Garamond", Georgia, serif; line-height: 1.55; font-size: 18px; min-height: 100vh; }
+
+  /* El Bosco difuminado de fondo */
+  .fondo { position: fixed; inset: -30px; z-index: 0; pointer-events: none;
+    background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg") center 30% / cover no-repeat;
+    filter: blur(16px) saturate(0.9) brightness(0.5); transform: scale(1.06); }
+  .fondo::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--noche) 68%, transparent) 0%, color-mix(in srgb, var(--noche) 86%, transparent) 55%, var(--noche) 100%); }
+
+  .wrap { position: relative; z-index: 2; max-width: 480px; margin: 0 auto; padding: clamp(36px, 8vw, 60px) 22px 48px; text-align: center; }
   .mono { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hueso-tenue); }
 
-  .luna { width: 84px; aspect-ratio: 1; border-radius: 50%; margin: 0 auto 20px;
-    background: radial-gradient(circle at 38% 34%, #FBF6E8 0 55%, #E8DFC8 78%, #D9CFB4 100%);
-    box-shadow: 0 0 24px 5px color-mix(in srgb, var(--hueso) 25%, transparent), 0 0 70px 22px color-mix(in srgb, var(--oro) 13%, transparent); }
+  .retrato { width: 116px; height: 116px; border-radius: 50%; margin: 0 auto 18px; overflow: hidden;
+    border: 2px solid var(--oro);
+    box-shadow: 0 0 26px 5px color-mix(in srgb, var(--oro) 35%, transparent), 0 0 80px 24px color-mix(in srgb, var(--oro) 12%, transparent); }
+  .retrato img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; }
   h1 { font-weight: 600; font-size: 30px; margin: 0 0 2px; letter-spacing: 0.02em; }
-  .bio { font-style: italic; color: var(--hueso-suave); font-size: 16px; margin: 6px 0 0; }
+  .bio { font-style: italic; color: var(--hueso-suave); font-size: 16px; margin: 6px auto 0; max-width: 34ch; }
   .bio b { color: var(--oro); font-style: normal; font-weight: 600; }
 
-  .links { display: grid; gap: 13px; margin: 34px 0 0; }
+  .links { display: grid; gap: 13px; margin: 32px 0 0; }
   a.link {
-    display: block; text-decoration: none; color: var(--hueso);
-    border: 1px solid var(--linea); border-radius: 999px; padding: 16px 22px;
-    background: var(--noche-2); transition: border-color 0.25s ease, transform 0.15s ease;
+    display: block; text-decoration: none; color: var(--hueso); text-align: center;
+    border: 1px solid var(--linea); border-radius: 22px; padding: 15px 20px 13px;
+    background: color-mix(in srgb, var(--noche-2) 84%, transparent);
+    backdrop-filter: blur(6px);
+    transition: border-color 0.25s ease, transform 0.15s ease;
   }
   a.link:hover, a.link:focus-visible { border-color: var(--oro); transform: translateY(-1px); }
-  a.link .t { font-weight: 600; font-size: 19px; letter-spacing: 0.02em; }
-  a.link .d { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--hueso-tenue); margin-top: 2px; }
-  a.link.oro { border-color: var(--oro); background: color-mix(in srgb, var(--oro) 10%, var(--noche-2)); }
+  a.link .t { display: block; font-weight: 600; font-size: 20px; letter-spacing: 0.02em; line-height: 1.25; }
+  a.link .d { display: block; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--hueso-tenue); margin-top: 5px; line-height: 1.7; }
+  a.link.oro { border-color: var(--oro); background: color-mix(in srgb, var(--oro) 13%, var(--noche-2)); }
   a.link.oro .d { color: var(--oro); }
   a.link.wa { border-color: color-mix(in srgb, var(--verde) 55%, var(--linea)); }
   a.link.wa .d { color: var(--verde); }
 
-  .redes { display: flex; justify-content: center; gap: 22px; margin-top: 34px; }
+  .redes { display: flex; justify-content: center; gap: 22px; margin-top: 32px; }
   .redes a { color: var(--hueso-suave); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
   .redes a:hover { color: var(--oro); }
-  footer { margin-top: 36px; }
+  footer { margin-top: 34px; }
 
-  .mariposa { position: fixed; width: 20px; pointer-events: none; opacity: 0.8; animation: volar linear infinite; z-index: 5; }
-  .mariposa svg { width: 100%; height: auto; fill: var(--mariposa); animation: aleteo 0.5s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--mariposa) 45%, transparent)); }
-  @keyframes volar { 0% { transform: translate(0, 104vh) rotate(0deg); } 50% { transform: translate(5vw, 45vh) rotate(12deg); } 100% { transform: translate(-4vw, -12vh) rotate(-9deg); } }
-  @keyframes aleteo { from { transform: scaleX(1); } to { transform: scaleX(0.45); } }
-  @media (prefers-reduced-motion: reduce) {
-    .mariposa, .mariposa svg { animation: none; }
-    .mariposa { transform: translateY(30vh) rotate(-8deg); }
-    .mariposa:nth-of-type(2) { transform: translateY(64vh) rotate(10deg); }
-  }
+  #cielo { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 </style>
 </head>
 <body>
 
-<span class="mariposa" style="left: 12%; animation-duration: 30s; animation-delay: -8s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-<span class="mariposa" style="left: 82%; animation-duration: 38s; animation-delay: -22s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+<div class="fondo" aria-hidden="true"></div>
+<canvas id="cielo" aria-hidden="true"></canvas>
 
 <div class="wrap">
-  <div class="luna" aria-hidden="true"></div>
+  <div class="retrato"><img src="/tebi.jpg" alt="Tebi Quiñones"></div>
   <h1>Tebi Quiñones</h1>
   <p class="bio">Cultural strategist · <b>Forbes Under 30</b> · Bogotá × Europa. Sembrando jardines donde la gente florece.</p>
 
@@ -89,5 +92,95 @@
 
   <footer class="mono">© 2026 · tebiquinones.com/links</footer>
 </div>
+
+<script>
+/* Mariposas amarillas: siguen el mouse y estallan en sol al tocar.
+   El Bosco × Cien años de soledad — las mariposas de Mauricio Babilonia. */
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cv = document.getElementById("cielo");
+  var ctx = cv.getContext("2d");
+  var W, H;
+  function size() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  size(); addEventListener("resize", size);
+
+  var COLS = ["#E8B33C", "#F0C75E", "#D99A26", "#C8A96A"];
+  var burst = [];      /* sol de mariposas (tap/click) */
+  var seguidoras = []; /* cortejo que sigue el mouse */
+  var mx = W / 2, my = H / 3, mouseActivo = false;
+
+  for (var i = 0; i < 5; i++) {
+    seguidoras.push({ x: Math.random() * W, y: Math.random() * H, ph: Math.random() * 6.28,
+      s: 5 + Math.random() * 3.5, lag: 0.028 + i * 0.014, col: COLS[i % COLS.length], a: 0 });
+  }
+
+  function drawB(x, y, ang, s, col, alpha, t, ph) {
+    var flap = Math.abs(Math.sin(t * 0.32 + ph));
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = col;
+    ctx.shadowColor = col; ctx.shadowBlur = 8;
+    var w = s * (0.3 + 0.7 * flap);
+    ctx.beginPath(); ctx.ellipse(-w * 0.7, -s * 0.15, w, s * 0.62, -0.5, 0, 6.29); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-w * 0.55, s * 0.38, w * 0.7, s * 0.42, -0.4, 0, 6.29); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(w * 0.7, -s * 0.15, w, s * 0.62, 0.5, 0, 6.29); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(w * 0.55, s * 0.38, w * 0.7, s * 0.42, 0.4, 0, 6.29); ctx.fill();
+    ctx.restore();
+  }
+
+  function sol(x, y) {
+    var n = 42;
+    for (var i = 0; i < n; i++) {
+      var a = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.3;
+      burst.push({ x: x, y: y, a: a, sp: 1.8 + Math.random() * 3, life: 0,
+        max: 110 + Math.random() * 70, s: 4 + Math.random() * 6.5,
+        ph: Math.random() * 6.28, col: COLS[i % COLS.length] });
+    }
+  }
+
+  addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; mouseActivo = true; }, { passive: true });
+  addEventListener("pointerdown", function (e) { if (!reduce) sol(e.clientX, e.clientY); }, { passive: true });
+
+  var t = 0;
+  function tick() {
+    requestAnimationFrame(tick);
+    t++;
+    ctx.clearRect(0, 0, W, H);
+    if (reduce) { /* quietas, decorativas */
+      drawB(W * 0.12, H * 0.22, -0.15, 8, COLS[0], 0.8, 8, 1);
+      drawB(W * 0.86, H * 0.55, 0.2, 6, COLS[1], 0.6, 4, 2);
+      return;
+    }
+    /* cortejo del mouse: revolotean alrededor del cursor (o pasean solas) */
+    for (var i = 0; i < seguidoras.length; i++) {
+      var m = seguidoras[i];
+      var orbitX = Math.cos(t * 0.02 + m.ph) * (26 + i * 14);
+      var orbitY = Math.sin(t * 0.027 + m.ph) * (20 + i * 10);
+      var tx = (mouseActivo ? mx : W / 2 + Math.cos(t * 0.008 + i) * W * 0.3) + orbitX;
+      var ty = (mouseActivo ? my : H / 3 + Math.sin(t * 0.006 + i) * H * 0.25) + orbitY;
+      var dx = tx - m.x, dy = ty - m.y;
+      m.x += dx * m.lag; m.y += dy * m.lag;
+      m.a = Math.atan2(dy, dx) + Math.PI / 2;
+      drawB(m.x, m.y, m.a * 0.35, m.s, m.col, 0.85, t, m.ph);
+    }
+    /* sol de mariposas */
+    for (var j = burst.length - 1; j >= 0; j--) {
+      var p = burst[j]; p.life++;
+      var drift = Math.sin(p.life * 0.12 + p.ph) * 0.9;
+      p.x += Math.cos(p.a) * p.sp + Math.cos(p.a + Math.PI / 2) * drift;
+      p.y += Math.sin(p.a) * p.sp + Math.sin(p.a + Math.PI / 2) * drift - 0.3;
+      p.sp *= 0.986;
+      if (p.life > p.max) { burst.splice(j, 1); continue; }
+      drawB(p.x, p.y, p.a + Math.PI / 2, p.s, p.col, Math.max(0, 1 - p.life / p.max), p.life, p.ph);
+    }
+  }
+  tick();
+  if (!reduce) setTimeout(function () { sol(W / 2, H * 0.24); }, 900);
+})();
+</script>
 </body>
 </html>
