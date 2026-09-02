@@ -105,7 +105,9 @@
   function size() {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = innerWidth; H = innerHeight;
-    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   size(); addEventListener("resize", size);
 
