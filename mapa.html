@@ -64,9 +64,16 @@
   #tip .ciudad { font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; letter-spacing: 0.03em; display: block; }
 
   /* loader */
-  #velo { position: fixed; inset: 0; z-index: 20; background: var(--pergamino); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; transition: opacity 0.7s ease; }
-  #velo .disco { width: 74px; height: 74px; border-radius: 50%; background: var(--tinta); color: var(--pergamino); display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: 0.08em; box-shadow: 0 0 40px 10px color-mix(in srgb, var(--tinta) 15%, transparent); }
-  #velo p { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tinta-suave); margin: 0; }
+  #velo { position: fixed; inset: 0; z-index: 20; background: #0E1116; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; transition: opacity 0.9s ease; }
+  #velo .disco { width: 74px; height: 74px; border-radius: 50%; background: #F1EAD9; color: #0E1116; display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: 0.08em; box-shadow: 0 0 46px 12px rgba(200,169,106,0.25); }
+  #velo p { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #B9B4A4; margin: 0; }
+
+  /* apertura: el tríptico cerrado, 1490 */
+  #apertura { position: fixed; inset: 0; z-index: 18; background: #0E1116; display: flex; align-items: center; justify-content: center; text-align: center; opacity: 1; transition: opacity 1.6s ease; }
+  #apertura.fuera { opacity: 0; pointer-events: none; }
+  #apertura .mono-a { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #C8951F; }
+  #apertura h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 500; font-size: clamp(28px, 4.6vw, 50px); color: #F1EAD9; margin: 16px auto 0; max-width: 18ch; line-height: 1.15; }
+  #apertura h2 em { font-style: italic; color: #C8A96A; }
   #velo.fuera { opacity: 0; pointer-events: none; }
 
   /* acto final: cae la noche e invita al tríptico */
@@ -100,6 +107,13 @@
 <body>
 
 <canvas id="globo"></canvas>
+
+<div id="apertura" aria-hidden="true">
+  <div>
+    <div class="mono-a">1490 · 's-Hertogenbosch</div>
+    <h2>El Bosco pinta <em>El jardín de las delicias</em></h2>
+  </div>
+</div>
 
 <div id="velo"><div class="disco" id="velo-pct">0%</div><p>Sembrando 112 eventos…</p></div>
 
@@ -277,11 +291,17 @@
   }
 
   function acercar(a, b, f) { var d = ((b - a + 540) % 360) - 180; return a + d * f; }
+  /* el globo viaja SIEMPRE hacia la derecha (rumbo este), con velocidad limitada */
+  function acercarDer(a, b, f) {
+    var d = ((b - a) % 360 + 360) % 360;
+    if (d < 0.05) return b;
+    return a + Math.min(d * f, 3.4);
+  }
 
   d3.timer(function (t) {
     if (tour.activo) {
-      rot[0] = acercar(rot[0], tour.obj[0], 0.045);
-      rot[1] = acercar(rot[1], tour.obj[1], 0.045);
+      rot[0] = acercarDer(rot[0], tour.obj[0], 0.05);
+      rot[1] = acercar(rot[1], tour.obj[1], 0.05);
     } else if (!arrastrando) {
       quieto++;
       if (quieto > 60) rot[0] += vel * 16;
@@ -289,9 +309,11 @@
     pintar(t);
   });
 
-  cv.addEventListener("pointerdown", function (e) { tour.activo = false; arrastrando = true; ux = e.clientX; uy = e.clientY; cv.classList.add("agarrando"); cv.setPointerCapture(e.pointerId); });
+  var dx0 = 0, dy0 = 0, viaje = 0;
+  cv.addEventListener("pointerdown", function (e) { tour.activo = false; arrastrando = true; ux = e.clientX; uy = e.clientY; dx0 = e.clientX; dy0 = e.clientY; viaje = 0; cv.classList.add("agarrando"); cv.setPointerCapture(e.pointerId); });
   cv.addEventListener("pointermove", function (e) {
     if (arrastrando) {
+      viaje += Math.abs(e.clientX - ux) + Math.abs(e.clientY - uy);
       rot[0] += (e.clientX - ux) * 0.35;
       rot[1] = Math.max(-70, Math.min(70, rot[1] - (e.clientY - uy) * 0.35));
       ux = e.clientX; uy = e.clientY;
@@ -307,15 +329,26 @@
         var n = cuenta(mejor, anio);
         var html = '<span class="ciudad">' + mejor.n + '</span>';
         if (n > 0) html += '<b>' + n + '</b> evento' + (n > 1 ? 's' : '') + ' · ' + mejor.nota;
-        if (mejor.prox && anio >= 2026) html += (n > 0 ? '<br>' : '') + '<b>PRÓXIMO:</b> ' + mejor.notaProx;
+        if (mejor.prox && anio >= 2026) html += (n > 0 ? '<br>' : '') + '<b>PRÓXIMO:</b> ' + mejor.notaProx + '<br><b>→ toca para entrar al jardín</b>';
+        cv.style.cursor = mejor.prox ? "pointer" : "grab";
         tip.innerHTML = html;
         tip.style.left = Math.min(W - 250, e.clientX + 16) + "px";
         tip.style.top = (e.clientY - 14) + "px";
         tip.style.opacity = 1;
-      } else tip.style.opacity = 0;
+      } else { tip.style.opacity = 0; cv.style.cursor = "grab"; }
     }
   });
-  ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) {
+  cv.addEventListener("pointerup", function (e) {
+    if (arrastrando && viaje < 8) {
+      var b = CIUDADES[CIUDADES.length - 1];  /* Bogotá */
+      if (b.px) {
+        var dxp = e.clientX - b.px[0], dyp = e.clientY - b.px[1];
+        if (Math.sqrt(dxp*dxp + dyp*dyp) < (b.pr || 6) + 14) { location.href = "/alma"; }
+      }
+    }
+    arrastrando = false; quieto = 0; cv.classList.remove("agarrando");
+  });
+  ["pointercancel", "pointerleave"].forEach(function (ev) {
     cv.addEventListener(ev, function () { arrastrando = false; quieto = 0; cv.classList.remove("agarrando"); });
   });
 
@@ -334,28 +367,50 @@
   slider.addEventListener("input", function () { tour.activo = false; actualizar(); });
   actualizar();
 
-  /* LA PELÍCULA: los años pasan solos hasta el futuro */
-  var pasos = null;
+  /* LA PELÍCULA: 1490 (El Bosco) → los siglos vuelan → 2019-2026 → el futuro */
+  var pasos = null, vuelo = null;
   function contarHistoria() {
     if (pasos) clearInterval(pasos);
-    slider.value = 2019; actualizar();
-    rot = [74, -8]; tour.obj = RUMBOS[2019]; tour.activo = true;
+    if (vuelo) clearInterval(vuelo);
+    document.getElementById("final").classList.remove("on");
+    var ap = document.getElementById("apertura");
+    ap.classList.remove("fuera");
     chispas = [];
     CIUDADES.forEach(function (d) { d.dr = 0; d.objAnt = 0; d.flash = 0; });
-    pasos = setInterval(function () {
-      var y = +slider.value;
-      if (y >= 2026 || !tour.activo) {
-        clearInterval(pasos); pasos = null;
-        if (tour.activo) {
-          setTimeout(estallidoBogota, 900);
-          setTimeout(function(){ tour.activo = false; }, 2600);
-          setTimeout(function(){ document.getElementById("final").classList.add("on"); }, 3400);
+    rot = [-5.3, -52];                 /* 1490: 's-Hertogenbosch, la Holanda de El Bosco */
+    tour.obj = [-5.3, -52]; tour.activo = true;
+    anio = 1490; anioLbl.textContent = "1490";
+    totalLbl.innerHTML = "El Bosco pinta <b>el jardín</b>";
+    futuroLbl.textContent = "";
+    slider.value = 2019;
+
+    setTimeout(function () {
+      ap.classList.add("fuera");
+      tour.obj = [74, -8];             /* rumbo derecha, cruzando el mundo hacia Bogotá */
+      /* los años pasan rápido: 1490 → 2019 */
+      vuelo = setInterval(function () {
+        anio = Math.min(2019, anio + 11);
+        anioLbl.textContent = anio;
+        if (anio >= 2019) {
+          clearInterval(vuelo); vuelo = null;
+          slider.value = 2019; actualizar();
+          pasos = setInterval(function () {
+            var y = +slider.value;
+            if (y >= 2026 || !tour.activo) {
+              clearInterval(pasos); pasos = null;
+              if (tour.activo) {
+                setTimeout(estallidoBogota, 900);
+                setTimeout(function(){ tour.activo = false; }, 2600);
+                setTimeout(function(){ document.getElementById("final").classList.add("on"); }, 3400);
+              }
+              return;
+            }
+            y++; slider.value = y; actualizar();
+            tour.obj = RUMBOS[y] || tour.obj;
+          }, 1500);
         }
-        return;
-      }
-      y++; slider.value = y; actualizar();
-      tour.obj = RUMBOS[y] || tour.obj;
-    }, 1500);
+      }, 42);
+    }, 2600);
   }
   document.getElementById("replay").addEventListener("click", function (e) { e.preventDefault(); document.getElementById("final").classList.remove("on"); contarHistoria(); });
   document.getElementById("seguir-mapa").addEventListener("click", function () { document.getElementById("final").classList.remove("on"); });
