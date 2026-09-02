@@ -69,6 +69,27 @@
   #velo p { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tinta-suave); margin: 0; }
   #velo.fuera { opacity: 0; pointer-events: none; }
 
+  /* acto final: cae la noche e invita al tríptico */
+  #final { position: fixed; inset: 0; z-index: 15; display: flex; align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(ellipse at center, rgba(14,17,22,0.88) 0%, rgba(14,17,22,0.97) 70%);
+    opacity: 0; pointer-events: none; transition: opacity 1.4s ease; }
+  #final.on { opacity: 1; pointer-events: auto; }
+  #final .caja { max-width: 560px; padding: 30px; color: #F1EAD9; }
+  #final .mono-f { font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: #C8951F; }
+  #final h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(30px, 5vw, 52px); line-height: 1.08; margin: 14px 0 6px; }
+  #final h2 em { font-style: italic; color: #C8A96A; }
+  #final .lunitas { display: flex; gap: 26px; justify-content: center; margin: 24px 0 6px; }
+  #final .lunita { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #3a4150; background: #151A22; position: relative; overflow: hidden; }
+  #final .lunita::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #F1EAD9; }
+  #final .lunita.c::after { clip-path: inset(0 0 0 55%); }
+  #final .lunita.m::after { clip-path: inset(0 55% 0 0); }
+  #final p.sub-f { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 18px; color: #B9B4A4; margin: 10px 0 0; }
+  #final .botones { margin-top: 30px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  #final a.oro-btn { display: inline-block; padding: 15px 34px; border-radius: 999px; background: #C8A96A; color: #0E1116; text-decoration: none; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase; }
+  #final a.oro-btn:hover { background: transparent; color: #C8A96A; box-shadow: inset 0 0 0 1px #C8A96A; }
+  #final button.seguir { background: none; border: none; color: #6E6D64; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; padding: 15px 10px; }
+  #final button.seguir:hover { color: #C8A96A; }
+
   @media (max-width: 720px) {
     .leyenda { display: none; }
     .pista { display: none; }
@@ -95,17 +116,31 @@
 </div>
 
 <div class="ui tiempo">
-  <div class="anio" id="anio-lbl">2026</div>
+  <div class="anio" id="anio-lbl">2019</div>
+  <div class="mono" id="futuro-lbl" style="color:var(--oro-vivo); letter-spacing:0.3em; font-size:11px; height:16px;"></div>
   <div class="total" id="total-lbl"><b>111</b> eventos florecidos</div>
-  <input type="range" id="anio" min="2019" max="2026" step="1" value="2026" aria-label="Año">
+  <input type="range" id="anio" min="2019" max="2026" step="1" value="2019" aria-label="Año">
   <div class="marcas"><span>2019</span><span>2021</span><span>2023</span><span>2026</span></div>
 </div>
 
-<div class="ui pista">Gira solo · arrástralo para explorar · toca un punto</div>
+<div class="ui pista">Gira solo · arrástralo para explorar · toca un punto<br><a href="#" id="replay" style="color:var(--oro); text-decoration:none;">↻ ver la historia otra vez</a></div>
 
 <div class="ui volver"><a href="/alma">El tríptico · 18.09 →</a></div>
 
 <div id="tip"></div>
+
+<div id="final" aria-hidden="true">
+  <div class="caja">
+    <div class="mono-f">2026 · Bogotá · El futuro florece</div>
+    <h2>El jardín de las <em>delicias</em>,<br>versión Bogotá</h2>
+    <div class="lunitas"><span class="lunita c"></span><span class="lunita"></span><span class="lunita m"></span></div>
+    <p class="sub-f">Un día · Tres lunas · Tres causas — como el tríptico de El Bosco, pero con mariposas amarillas. El lugar se susurra. Los cupos se acaban.</p>
+    <div class="botones">
+      <a class="oro-btn" href="/alma">Entrar al jardín · 18.09 →</a>
+      <button class="seguir" id="seguir-mapa">✕ seguir explorando el mundo</button>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
@@ -127,14 +162,19 @@
   var ctx = cv.getContext("2d");
   var tip = document.getElementById("tip");
   var W, H, R, dpr;
-  var rot = [74, -12];         /* arranca mirando a América — Bogotá al frente */
-  var vel = 0.006;             /* rotación automática, lenta y constante */
+  var rot = [74, -8];
+  var vel = 0.010;
   var arrastrando = false, ux = 0, uy = 0, quieto = 0;
-  var anio = 2026;
+  var anio = 2019;
   var tierra = null;
   var proj = d3.geoOrthographic().clipAngle(90);
   var path = d3.geoPath(proj, ctx);
   var esfera = { type: "Sphere" };
+  var chispas = [];
+
+  /* LA HISTORIA: gira el mundo año a año y vuelve a Bogotá, el futuro */
+  var RUMBOS = { 2019: [74, -8], 2020: [74, -8], 2021: [-13, -50], 2022: [0, -46], 2023: [2, -40], 2024: [35, -42], 2025: [3.7, -42], 2026: [74, -8] };
+  var tour = { activo: false, obj: [74, -8] };
 
   function medir() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -158,75 +198,104 @@
     return d3.geoDistance(coord, [-r[0], -r[1]]) < Math.PI / 2 - 0.03;
   }
 
+  function estallidoBogota() {
+    var b = CIUDADES[CIUDADES.length - 1];
+    if (!visible(b.c)) return;
+    var p = proj(b.c);
+    for (var i = 0; i < 26; i++) {
+      var a = (Math.PI * 2 * i) / 26 + Math.random() * 0.3;
+      chispas.push({ x: p[0], y: p[1], a: a, v: 1.2 + Math.random() * 2.4, vida: 0, max: 70 + Math.random() * 40 });
+    }
+  }
+
   function pintar(t) {
     ctx.clearRect(0, 0, W, H);
     proj.rotate(rot);
 
-    /* halo del planeta */
     var g = ctx.createRadialGradient(W/2, H/2, R * 0.85, W/2, H/2, R * 1.25);
     g.addColorStop(0, "rgba(58,52,40,0.10)");
     g.addColorStop(1, "rgba(58,52,40,0)");
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(W/2, H/2, R * 1.25, 0, 6.29); ctx.fill();
 
-    /* esfera */
     ctx.beginPath(); path(esfera);
     ctx.fillStyle = "#EDE5D0"; ctx.fill();
     ctx.strokeStyle = "rgba(58,52,40,0.25)"; ctx.lineWidth = 1; ctx.stroke();
 
-    /* tierra */
     if (tierra) {
       ctx.beginPath(); path(tierra);
       ctx.fillStyle = "#D8CBA4"; ctx.fill();
       ctx.strokeStyle = "rgba(58,52,40,0.30)"; ctx.lineWidth = 0.6; ctx.stroke();
     }
 
-    /* ciudades */
     var pulso = 1 + Math.sin(t / 450) * 0.28;
     CIUDADES.forEach(function (d) {
+      var n = cuenta(d, anio);
+      var objetivo = n > 0 ? 3 + Math.sqrt(n) * 2.4 : 0;
+      if (d.dr === undefined) d.dr = 0;
+      if (objetivo > (d.objAnt || 0)) d.flash = 1;   /* florece: destello */
+      d.objAnt = objetivo;
+      d.dr += (objetivo - d.dr) * 0.09;              /* se va llenando, suave */
+      if (d.flash) { d.flash *= 0.94; if (d.flash < 0.03) d.flash = 0; }
+
       if (!visible(d.c)) { d.px = null; return; }
       var p = proj(d.c); d.px = p;
-      var n = cuenta(d, anio);
-      if (n > 0) {
-        var r = 3 + Math.sqrt(n) * 2.4;
-        d.pr = r;
-        ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, 6.29);
+
+      if (d.dr > 0.4) {
+        ctx.beginPath(); ctx.arc(p[0], p[1], d.dr, 0, 6.29);
         ctx.fillStyle = "rgba(166,124,46,0.88)"; ctx.fill();
         ctx.strokeStyle = "#F0EAD9"; ctx.lineWidth = 1.4; ctx.stroke();
-      } else { d.pr = 0; }
-      /* el próximo: Bogotá pulsando en oro vivo */
+      }
+      if (d.flash) {   /* anillo de florecimiento */
+        ctx.beginPath(); ctx.arc(p[0], p[1], d.dr + (1 - d.flash) * 26, 0, 6.29);
+        ctx.strokeStyle = "rgba(200,149,31," + (d.flash * 0.8) + ")"; ctx.lineWidth = 2; ctx.stroke();
+      }
+      d.pr = Math.max(d.dr, 4);
       if (d.prox && anio >= 2026) {
-        ctx.beginPath(); ctx.arc(p[0], p[1], (10 + Math.sqrt(cuenta(d, anio) || 1)) * pulso, 0, 6.29);
+        ctx.beginPath(); ctx.arc(p[0], p[1], (10 + Math.sqrt(n || 1)) * pulso, 0, 6.29);
         ctx.strokeStyle = "rgba(200,149,31,0.9)"; ctx.lineWidth = 2; ctx.stroke();
         ctx.beginPath(); ctx.arc(p[0], p[1], (16 + 4 * pulso) * pulso, 0, 6.29);
         ctx.strokeStyle = "rgba(200,149,31,0.28)"; ctx.lineWidth = 1.2; ctx.stroke();
-        d.pr = Math.max(d.pr || 0, 18);
+        d.pr = Math.max(d.pr, 18);
       }
-      /* etiqueta de ciudad */
-      ctx.font = "10.5px 'IBM Plex Mono', monospace";
-      ctx.fillStyle = "rgba(58,52,40,0.72)";
-      ctx.textAlign = "left";
-      ctx.fillText(d.n, p[0] + (d.pr || 4) + 6, p[1] + 3.5);
+      if (d.dr > 0.4 || (d.prox && anio >= 2026)) {
+        ctx.font = "10.5px 'IBM Plex Mono', monospace";
+        ctx.fillStyle = "rgba(58,52,40,0.72)";
+        ctx.textAlign = "left";
+        ctx.fillText(d.n, p[0] + d.pr + 6, p[1] + 3.5);
+      }
     });
+
+    /* chispas del futuro */
+    for (var i = chispas.length - 1; i >= 0; i--) {
+      var c = chispas[i]; c.vida++;
+      c.x += Math.cos(c.a) * c.v; c.y += Math.sin(c.a) * c.v - 0.2; c.v *= 0.97;
+      if (c.vida > c.max) { chispas.splice(i, 1); continue; }
+      ctx.beginPath(); ctx.arc(c.x, c.y, 2.2, 0, 6.29);
+      ctx.fillStyle = "rgba(200,149,31," + Math.max(0, 1 - c.vida / c.max) + ")"; ctx.fill();
+    }
   }
 
+  function acercar(a, b, f) { var d = ((b - a + 540) % 360) - 180; return a + d * f; }
+
   d3.timer(function (t) {
-    if (!arrastrando) {
+    if (tour.activo) {
+      rot[0] = acercar(rot[0], tour.obj[0], 0.045);
+      rot[1] = acercar(rot[1], tour.obj[1], 0.045);
+    } else if (!arrastrando) {
       quieto++;
-      if (quieto > 60) rot[0] += vel * 16;  /* retoma el giro solo tras soltar */
+      if (quieto > 60) rot[0] += vel * 16;
     }
     pintar(t);
   });
 
-  /* arrastrar para girar */
-  cv.addEventListener("pointerdown", function (e) { arrastrando = true; ux = e.clientX; uy = e.clientY; cv.classList.add("agarrando"); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointerdown", function (e) { tour.activo = false; arrastrando = true; ux = e.clientX; uy = e.clientY; cv.classList.add("agarrando"); cv.setPointerCapture(e.pointerId); });
   cv.addEventListener("pointermove", function (e) {
     if (arrastrando) {
       rot[0] += (e.clientX - ux) * 0.35;
       rot[1] = Math.max(-70, Math.min(70, rot[1] - (e.clientY - uy) * 0.35));
       ux = e.clientX; uy = e.clientY;
     } else {
-      /* hover tooltip */
       var mejor = null, md = 18;
       CIUDADES.forEach(function (d) {
         if (!d.px) return;
@@ -250,22 +319,47 @@
     cv.addEventListener(ev, function () { arrastrando = false; quieto = 0; cv.classList.remove("agarrando"); });
   });
 
-  /* línea de tiempo */
   var slider = document.getElementById("anio");
   var anioLbl = document.getElementById("anio-lbl");
   var totalLbl = document.getElementById("total-lbl");
+  var futuroLbl = document.getElementById("futuro-lbl");
   function actualizar() {
     anio = +slider.value;
     anioLbl.textContent = anio;
     var total = 0;
     CIUDADES.forEach(function (d) { total += cuenta(d, anio); });
-    var extra = anio >= 2026 ? " · el próximo pulsa en Bogotá" : "";
-    totalLbl.innerHTML = "<b>" + total + "</b> evento" + (total === 1 ? "" : "s") + " florecidos" + extra;
+    totalLbl.innerHTML = "<b>" + total + "</b> evento" + (total === 1 ? "" : "s") + " florecidos";
+    futuroLbl.textContent = anio >= 2026 ? "HOY · EL FUTURO · BOGOTÁ 18.09" : "";
   }
-  slider.addEventListener("input", actualizar);
+  slider.addEventListener("input", function () { tour.activo = false; actualizar(); });
   actualizar();
 
-  /* cargar el mundo */
+  /* LA PELÍCULA: los años pasan solos hasta el futuro */
+  var pasos = null;
+  function contarHistoria() {
+    if (pasos) clearInterval(pasos);
+    slider.value = 2019; actualizar();
+    rot = [74, -8]; tour.obj = RUMBOS[2019]; tour.activo = true;
+    chispas = [];
+    CIUDADES.forEach(function (d) { d.dr = 0; d.objAnt = 0; d.flash = 0; });
+    pasos = setInterval(function () {
+      var y = +slider.value;
+      if (y >= 2026 || !tour.activo) {
+        clearInterval(pasos); pasos = null;
+        if (tour.activo) {
+          setTimeout(estallidoBogota, 900);
+          setTimeout(function(){ tour.activo = false; }, 2600);
+          setTimeout(function(){ document.getElementById("final").classList.add("on"); }, 3400);
+        }
+        return;
+      }
+      y++; slider.value = y; actualizar();
+      tour.obj = RUMBOS[y] || tour.obj;
+    }, 1500);
+  }
+  document.getElementById("replay").addEventListener("click", function (e) { e.preventDefault(); document.getElementById("final").classList.remove("on"); contarHistoria(); });
+  document.getElementById("seguir-mapa").addEventListener("click", function () { document.getElementById("final").classList.remove("on"); });
+
   var velo = document.getElementById("velo");
   var pct = document.getElementById("velo-pct");
   var fake = 0;
@@ -273,10 +367,10 @@
   d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json").then(function (mundo) {
     tierra = topojson.feature(mundo, mundo.objects.land);
     clearInterval(vv); pct.textContent = "100%";
-    setTimeout(function () { velo.classList.add("fuera"); }, 350);
+    setTimeout(function () { velo.classList.add("fuera"); contarHistoria(); }, 400);
   }).catch(function () {
     clearInterval(vv); pct.textContent = "🌙";
-    setTimeout(function () { velo.classList.add("fuera"); }, 600);
+    setTimeout(function () { velo.classList.add("fuera"); contarHistoria(); }, 600);
   });
 })();
 </script>
