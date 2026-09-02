@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donde floreció el jardín</title>
+<meta name="description" content="Los 112 eventos de Alma Socialité puestos en el mapa del mundo donde florecieron — de Berlín al Sahara. El próximo florece en Bogotá, el 18 de septiembre.">
+<meta property="og:title" content="Donde floreció el jardín">
+<meta property="og:description" content="112 eventos · 9 ciudades · 2019—2026. El próximo florece en Bogotá. 🌙">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --pergamino: #F0EAD9;
+    --pergamino-2: #E6DEC7;
+    --tinta: #3A3428;
+    --tinta-suave: #6E6656;
+    --tinta-tenue: #9C937E;
+    --linea: #D3C9AF;
+    --oro: #A67C2E;
+    --oro-vivo: #C8951F;
+    --futuro: #7C90C4;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--pergamino); color: var(--tinta); font-family: "IBM Plex Mono", monospace; overflow: hidden; }
+
+  #globo { position: fixed; inset: 0; cursor: grab; touch-action: none; }
+  #globo.agarrando { cursor: grabbing; }
+
+  .ui { position: fixed; z-index: 5; pointer-events: none; }
+  .ui * { pointer-events: auto; }
+
+  .titulo { top: clamp(18px, 3.5vh, 36px); left: clamp(18px, 3.5vw, 40px); max-width: 400px; }
+  .titulo h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.02; margin: 0; letter-spacing: 0.01em; }
+  .titulo p { font-size: 11.5px; letter-spacing: 0.06em; color: var(--tinta-suave); margin: 10px 0 0; line-height: 1.7; }
+  .titulo p b { color: var(--oro); font-weight: 500; }
+
+  .leyenda { top: clamp(18px, 3.5vh, 36px); right: clamp(18px, 3.5vw, 40px); text-align: left; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tinta-suave); }
+  .leyenda .fila { display: flex; align-items: center; gap: 10px; margin: 9px 0; }
+  .leyenda .punto { width: 12px; height: 12px; border-radius: 50%; background: var(--oro); flex: none; }
+  .leyenda .punto.chico { width: 7px; height: 7px; }
+  .leyenda .punto.prox { background: transparent; border: 2px solid var(--oro-vivo); box-shadow: 0 0 8px var(--oro-vivo); }
+  .leyenda .titulo-ley { color: var(--tinta); letter-spacing: 0.2em; margin-bottom: 4px; }
+
+  /* línea de tiempo */
+  .tiempo { bottom: clamp(18px, 4vh, 40px); left: 50%; transform: translateX(-50%); width: min(560px, 86vw); text-align: center; }
+  .tiempo .anio { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(30px, 4.5vw, 44px); color: var(--tinta); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  .tiempo .total { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tinta-suave); margin-top: 2px; }
+  .tiempo .total b { color: var(--oro); font-weight: 500; }
+  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; margin-top: 14px; height: 2px; background: var(--linea); outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--oro); border: 3px solid var(--pergamino); box-shadow: 0 0 0 1px var(--oro); cursor: pointer; }
+  input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--oro); border: 3px solid var(--pergamino); box-shadow: 0 0 0 1px var(--oro); cursor: pointer; }
+  .tiempo .marcas { display: flex; justify-content: space-between; font-size: 9.5px; letter-spacing: 0.12em; color: var(--tinta-tenue); margin-top: 6px; }
+
+  .pista { bottom: clamp(18px, 4vh, 40px); left: clamp(18px, 3.5vw, 40px); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tinta-tenue); max-width: 180px; line-height: 2; }
+
+  .volver { bottom: clamp(18px, 4vh, 40px); right: clamp(18px, 3.5vw, 40px); }
+  .volver a { display: inline-block; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--oro); text-decoration: none; border: 1px solid var(--oro); border-radius: 999px; padding: 11px 20px; background: color-mix(in srgb, var(--pergamino) 75%, transparent); }
+  .volver a:hover { background: var(--oro); color: var(--pergamino); }
+
+  /* tooltip */
+  #tip { position: fixed; z-index: 9; pointer-events: none; background: var(--tinta); color: var(--pergamino); border-radius: 8px; padding: 9px 13px; font-size: 11px; letter-spacing: 0.08em; opacity: 0; transition: opacity 0.15s ease; max-width: 230px; line-height: 1.7; }
+  #tip b { color: var(--oro-vivo); font-weight: 500; }
+  #tip .ciudad { font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; letter-spacing: 0.03em; display: block; }
+
+  /* loader */
+  #velo { position: fixed; inset: 0; z-index: 20; background: var(--pergamino); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; transition: opacity 0.7s ease; }
+  #velo .disco { width: 74px; height: 74px; border-radius: 50%; background: var(--tinta); color: var(--pergamino); display: flex; align-items: center; justify-content: center; font-size: 13px; letter-spacing: 0.08em; box-shadow: 0 0 40px 10px color-mix(in srgb, var(--tinta) 15%, transparent); }
+  #velo p { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tinta-suave); margin: 0; }
+  #velo.fuera { opacity: 0; pointer-events: none; }
+
+  @media (max-width: 720px) {
+    .leyenda { display: none; }
+    .pista { display: none; }
+    .titulo { max-width: 72vw; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="globo"></canvas>
+
+<div id="velo"><div class="disco" id="velo-pct">0%</div><p>Sembrando 112 eventos…</p></div>
+
+<div class="ui titulo">
+  <h1>Donde floreció el jardín</h1>
+  <p>Cada evento de <b>Alma Socialité</b>, puesto donde floreció · 2019 — 2026<br>Y el próximo florece en <b>Bogotá · 18.09</b></p>
+</div>
+
+<div class="ui leyenda">
+  <div class="titulo-ley">Cómo leer</div>
+  <div class="fila"><span class="punto chico"></span> Pocos eventos</div>
+  <div class="fila"><span class="punto"></span> Muchos eventos</div>
+  <div class="fila"><span class="punto prox"></span> El próximo · Bogotá</div>
+</div>
+
+<div class="ui tiempo">
+  <div class="anio" id="anio-lbl">2026</div>
+  <div class="total" id="total-lbl"><b>111</b> eventos florecidos</div>
+  <input type="range" id="anio" min="2019" max="2026" step="1" value="2026" aria-label="Año">
+  <div class="marcas"><span>2019</span><span>2021</span><span>2023</span><span>2026</span></div>
+</div>
+
+<div class="ui pista">Gira solo · arrástralo para explorar · toca un punto</div>
+
+<div class="ui volver"><a href="/alma">El tríptico · 18.09 →</a></div>
+
+<div id="tip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson.min.js"></script>
+<script>
+(function () {
+  var CIUDADES = [
+    { n: "Berlín",  c: [13.40, 52.52],  y: {2021:6, 2022:12, 2023:12, 2024:8}, nota: "Les Berlin: €28.500 en preventa, 12 días, cero ads" },
+    { n: "Madrid",  c: [-3.70, 40.42],  y: {2022:6, 2023:8, 2024:8, 2025:6, 2026:2}, nota: "Lula, ELITE x Barceló, la escena de lujo" },
+    { n: "París",   c: [2.35, 48.86],   y: {2022:4, 2023:6, 2024:8}, nota: "OLY House · Juegos Olímpicos 2024" },
+    { n: "Londres", c: [-0.13, 51.51],  y: {2023:6, 2024:6}, nota: "Hospitality y noche premium" },
+    { n: "Milán",   c: [9.19, 45.46],   y: {2023:4}, nota: "Design week season" },
+    { n: "Sahara",  c: [-4.01, 31.10],  y: {2023:1}, nota: "300 personas · 5 días · pleno desierto" },
+    { n: "Nueva York", c: [-74.01, 40.71], y: {2024:3}, nota: "La escena cruzando el Atlántico" },
+    { n: "Miami",   c: [-80.19, 25.76], y: {2024:2}, nota: "El Caribe del norte" },
+    { n: "Bogotá",  c: [-74.07, 4.71],  y: {2019:2, 2020:1}, nota: "Donde empezó todo — y donde sigue", prox: true, notaProx: "El Tríptico · 18 de septiembre · tres lunas, tres causas" }
+  ];
+
+  var cv = document.getElementById("globo");
+  var ctx = cv.getContext("2d");
+  var tip = document.getElementById("tip");
+  var W, H, R, dpr;
+  var rot = [74, -12];         /* arranca mirando a América — Bogotá al frente */
+  var vel = 0.006;             /* rotación automática, lenta y constante */
+  var arrastrando = false, ux = 0, uy = 0, quieto = 0;
+  var anio = 2026;
+  var tierra = null;
+  var proj = d3.geoOrthographic().clipAngle(90);
+  var path = d3.geoPath(proj, ctx);
+  var esfera = { type: "Sphere" };
+
+  function medir() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R = Math.min(W, H) * 0.40;
+    proj.scale(R).translate([W / 2, H / 2]);
+  }
+  medir(); addEventListener("resize", medir);
+
+  function cuenta(ciudad, hasta) {
+    var t = 0;
+    for (var y in ciudad.y) if (+y <= hasta) t += ciudad.y[y];
+    return t;
+  }
+
+  function visible(coord) {
+    var r = proj.rotate();
+    return d3.geoDistance(coord, [-r[0], -r[1]]) < Math.PI / 2 - 0.03;
+  }
+
+  function pintar(t) {
+    ctx.clearRect(0, 0, W, H);
+    proj.rotate(rot);
+
+    /* halo del planeta */
+    var g = ctx.createRadialGradient(W/2, H/2, R * 0.85, W/2, H/2, R * 1.25);
+    g.addColorStop(0, "rgba(58,52,40,0.10)");
+    g.addColorStop(1, "rgba(58,52,40,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(W/2, H/2, R * 1.25, 0, 6.29); ctx.fill();
+
+    /* esfera */
+    ctx.beginPath(); path(esfera);
+    ctx.fillStyle = "#EDE5D0"; ctx.fill();
+    ctx.strokeStyle = "rgba(58,52,40,0.25)"; ctx.lineWidth = 1; ctx.stroke();
+
+    /* tierra */
+    if (tierra) {
+      ctx.beginPath(); path(tierra);
+      ctx.fillStyle = "#DCD2B6"; ctx.fill();
+      ctx.strokeStyle = "rgba(58,52,40,0.30)"; ctx.lineWidth = 0.6; ctx.stroke();
+    }
+
+    /* ciudades */
+    var pulso = 1 + Math.sin(t / 450) * 0.28;
+    CIUDADES.forEach(function (d) {
+      if (!visible(d.c)) { d.px = null; return; }
+      var p = proj(d.c); d.px = p;
+      var n = cuenta(d, anio);
+      if (n > 0) {
+        var r = 3 + Math.sqrt(n) * 2.4;
+        d.pr = r;
+        ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, 6.29);
+        ctx.fillStyle = "rgba(166,124,46,0.88)"; ctx.fill();
+        ctx.strokeStyle = "#F0EAD9"; ctx.lineWidth = 1.4; ctx.stroke();
+      } else { d.pr = 0; }
+      /* el próximo: Bogotá pulsando en oro vivo */
+      if (d.prox && anio >= 2026) {
+        ctx.beginPath(); ctx.arc(p[0], p[1], (10 + Math.sqrt(cuenta(d, anio) || 1)) * pulso, 0, 6.29);
+        ctx.strokeStyle = "rgba(200,149,31,0.9)"; ctx.lineWidth = 2; ctx.stroke();
+        ctx.beginPath(); ctx.arc(p[0], p[1], (16 + 4 * pulso) * pulso, 0, 6.29);
+        ctx.strokeStyle = "rgba(200,149,31,0.28)"; ctx.lineWidth = 1.2; ctx.stroke();
+        d.pr = Math.max(d.pr || 0, 18);
+      }
+      /* etiqueta de ciudad */
+      ctx.font = "10.5px 'IBM Plex Mono', monospace";
+      ctx.fillStyle = "rgba(58,52,40,0.72)";
+      ctx.textAlign = "left";
+      ctx.fillText(d.n, p[0] + (d.pr || 4) + 6, p[1] + 3.5);
+    });
+  }
+
+  d3.timer(function (t) {
+    if (!arrastrando) {
+      quieto++;
+      if (quieto > 60) rot[0] += vel * 16;  /* retoma el giro solo tras soltar */
+    }
+    pintar(t);
+  });
+
+  /* arrastrar para girar */
+  cv.addEventListener("pointerdown", function (e) { arrastrando = true; ux = e.clientX; uy = e.clientY; cv.classList.add("agarrando"); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove", function (e) {
+    if (arrastrando) {
+      rot[0] += (e.clientX - ux) * 0.35;
+      rot[1] = Math.max(-70, Math.min(70, rot[1] - (e.clientY - uy) * 0.35));
+      ux = e.clientX; uy = e.clientY;
+    } else {
+      /* hover tooltip */
+      var mejor = null, md = 18;
+      CIUDADES.forEach(function (d) {
+        if (!d.px) return;
+        var dx = e.clientX - d.px[0], dy = e.clientY - d.px[1];
+        var dist = Math.sqrt(dx*dx + dy*dy) - (d.pr || 4);
+        if (dist < md) { md = dist; mejor = d; }
+      });
+      if (mejor) {
+        var n = cuenta(mejor, anio);
+        var html = '<span class="ciudad">' + mejor.n + '</span>';
+        if (n > 0) html += '<b>' + n + '</b> evento' + (n > 1 ? 's' : '') + ' · ' + mejor.nota;
+        if (mejor.prox && anio >= 2026) html += (n > 0 ? '<br>' : '') + '<b>PRÓXIMO:</b> ' + mejor.notaProx;
+        tip.innerHTML = html;
+        tip.style.left = Math.min(W - 250, e.clientX + 16) + "px";
+        tip.style.top = (e.clientY - 14) + "px";
+        tip.style.opacity = 1;
+      } else tip.style.opacity = 0;
+    }
+  });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) {
+    cv.addEventListener(ev, function () { arrastrando = false; quieto = 0; cv.classList.remove("agarrando"); });
+  });
+
+  /* línea de tiempo */
+  var slider = document.getElementById("anio");
+  var anioLbl = document.getElementById("anio-lbl");
+  var totalLbl = document.getElementById("total-lbl");
+  function actualizar() {
+    anio = +slider.value;
+    anioLbl.textContent = anio;
+    var total = 0;
+    CIUDADES.forEach(function (d) { total += cuenta(d, anio); });
+    var extra = anio >= 2026 ? " · el próximo pulsa en Bogotá" : "";
+    totalLbl.innerHTML = "<b>" + total + "</b> evento" + (total === 1 ? "" : "s") + " florecidos" + extra;
+  }
+  slider.addEventListener("input", actualizar);
+  actualizar();
+
+  /* cargar el mundo */
+  var velo = document.getElementById("velo");
+  var pct = document.getElementById("velo-pct");
+  var fake = 0;
+  var vv = setInterval(function () { fake = Math.min(92, fake + 7 + Math.random() * 9); pct.textContent = Math.round(fake) + "%"; }, 90);
+  d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json").then(function (mundo) {
+    tierra = topojson.feature(mundo, mundo.objects.land);
+    clearInterval(vv); pct.textContent = "100%";
+    setTimeout(function () { velo.classList.add("fuera"); }, 350);
+  }).catch(function () {
+    clearInterval(vv); pct.textContent = "🌙";
+    setTimeout(function () { velo.classList.add("fuera"); }, 600);
+  });
+})();
+</script>
+</body>
+</html>
