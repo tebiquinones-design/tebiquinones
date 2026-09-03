@@ -30,10 +30,32 @@
   .wrap { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 48px); }
   .mono { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hueso-tenue); }
 
-  nav { display: flex; justify-content: space-between; align-items: baseline; padding: 22px clamp(20px, 5vw, 48px); }
+  /* barra de progreso de lectura */
+  #progreso { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 70; pointer-events: none; }
+  #progreso i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--oro), var(--mariposa)); transform-origin: 0 50%; transform: scaleX(0); }
+
+  /* cursor del jardín (solo desktop) */
+  #punto, #halo { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 80; opacity: 0; }
+  #punto { width: 7px; height: 7px; background: var(--mariposa); transform: translate(-50%, -50%); }
+  #halo { width: 34px; height: 34px; border: 1px solid color-mix(in srgb, var(--oro) 55%, transparent); transform: translate(-50%, -50%); transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease; }
+  #halo.activo { width: 52px; height: 52px; border-color: var(--oro); }
+  @media (pointer: coarse) { #punto, #halo { display: none; } }
+
+  nav { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; padding: 20px clamp(20px, 5vw, 48px); position: relative; z-index: 6; }
   .brand { font-size: 17px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--hueso); font-weight: 500; }
-  nav a { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
-  nav a:hover { color: var(--oro); }
+  nav .lado { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  nav a.jardin-tebi { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
+  nav a.jardin-tebi:hover { color: var(--oro); }
+
+  /* selector de idioma */
+  .idiomas { display: flex; gap: 2px; border: 1px solid var(--linea); border-radius: 999px; padding: 3px; }
+  .idiomas button {
+    font-family: "IBM Plex Mono", monospace; font-size: 9.5px; letter-spacing: 0.12em;
+    background: none; border: 0; color: var(--hueso-tenue); cursor: pointer;
+    padding: 5px 9px; border-radius: 999px; transition: color 0.25s ease, background 0.25s ease;
+  }
+  .idiomas button:hover { color: var(--hueso); }
+  .idiomas button[aria-pressed="true"] { background: var(--oro); color: var(--noche); }
 
   /* portada · el hero del realismo mágico */
   .cielo {
@@ -46,18 +68,16 @@
       linear-gradient(rgba(14,17,22,0.18) 0%, rgba(14,17,22,0.44) 55%, var(--noche) 97%),
       url("alma-hero.webp") center 28% / cover no-repeat,
       var(--noche);
+    overflow: hidden;
   }
-  .eclipse { position: relative; width: clamp(150px, 30vw, 220px); aspect-ratio: 1; margin: 0 auto 40px; }
-  .eclipse .corona {
-    position: absolute; inset: 0; border-radius: 50%;
-    box-shadow: 0 0 34px 7px color-mix(in srgb, var(--oro) 55%, transparent), 0 0 110px 30px color-mix(in srgb, var(--oro) 16%, transparent);
-    background: radial-gradient(circle, var(--oro) 62%, transparent 63%);
-  }
-  .eclipse .sombra { position: absolute; inset: -1.5%; border-radius: 50%; background: var(--noche); transform: translateX(-8%); animation: eclipse 26s ease-in-out infinite alternate; }
-  @keyframes eclipse { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+  .cielo .fondo-lento { position: absolute; inset: -12% 0; background: inherit; will-change: transform; z-index: -1; }
 
   h1 { font-weight: 500; font-size: clamp(38px, 7vw, 72px); line-height: 1.06; margin: 0; letter-spacing: 0.015em; text-wrap: balance; }
   h1 em { font-style: italic; color: var(--oro); }
+  /* título que florece palabra por palabra */
+  .florece .pal { display: inline-block; overflow: hidden; vertical-align: bottom; }
+  .florece .pal > span { display: inline-block; transform: translateY(110%); animation: brota 0.9s cubic-bezier(0.19, 0.72, 0.24, 1) forwards; }
+  @keyframes brota { to { transform: translateY(0); } }
   .lede { font-size: clamp(19px, 2.6vw, 24px); font-style: italic; color: var(--hueso-suave); max-width: 44ch; margin: 26px auto 0; }
   .lede strong { color: var(--hueso); font-style: normal; font-weight: 600; }
 
@@ -65,32 +85,54 @@
     display: inline-block; margin-top: 40px; padding: 15px 36px; border-radius: 999px;
     border: 1px solid var(--oro); color: var(--oro); text-decoration: none;
     font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    position: relative; overflow: hidden; transition: color 0.3s ease, background 0.3s ease, transform 0.2s ease;
+    will-change: transform;
   }
+  .btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -70%; width: 45%;
+    background: linear-gradient(105deg, transparent, rgba(241,234,217,0.22), transparent);
+    transform: skewX(-18deg); transition: left 0.55s ease; pointer-events: none; }
+  .btn:hover::after { left: 125%; }
   .btn:hover { background: var(--oro); color: var(--noche); }
   .btn.lleno { background: var(--oro); color: var(--noche); }
   .btn.lleno:hover { background: transparent; color: var(--oro); }
+
+  /* marquesina del jardín */
+  .marquee { border-block: 1px solid var(--linea); padding: 13px 0; overflow: hidden; white-space: nowrap; position: relative; background: color-mix(in srgb, var(--noche-2) 55%, transparent); }
+  .marquee .tira { display: inline-block; animation: desfila 30s linear infinite; }
+  .marquee:hover .tira { animation-play-state: paused; }
+  .marquee span { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--hueso-tenue); padding: 0 18px; }
+  .marquee span b { color: var(--oro); font-weight: 500; }
+  @keyframes desfila { to { transform: translateX(-50%); } }
 
   section { padding: clamp(60px, 10vw, 110px) 0 0; }
   .centrado { text-align: center; }
 
   /* lunas = momentos */
-  .lunas { display: flex; justify-content: center; gap: clamp(26px, 7vw, 64px); flex-wrap: wrap; margin: 48px 0 0; }
+  .lunas { display: flex; justify-content: center; gap: clamp(26px, 7vw, 64px); flex-wrap: wrap; margin: 48px 0 0; perspective: 900px; }
   .luna-item { max-width: 200px; }
   .luna { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 16px; border: 1px solid var(--linea); position: relative; overflow: hidden; background: var(--noche-2); }
   .luna::after { content: ""; position: absolute; inset: 0; border-radius: 50%; }
   .luna.creciente::after { background: var(--hueso); clip-path: inset(0 0 0 55%); }
   .luna.llena::after { background: var(--hueso); }
   .luna.menguante::after { background: var(--hueso); clip-path: inset(0 55% 0 0); }
-  a.luna-item { text-decoration: none; color: inherit; border-radius: 14px; padding: 14px; margin: -14px; transition: background 0.3s ease; }
-  a.luna-item:hover, a.luna-item:focus-visible { background: var(--noche-2); }
+  a.luna-item { text-decoration: none; color: inherit; border-radius: 14px; padding: 14px; margin: -14px; background: transparent;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; transform-style: preserve-3d; will-change: transform; }
+  a.luna-item:hover, a.luna-item:focus-visible { background: var(--noche-2); box-shadow: 0 18px 44px -18px rgba(0,0,0,0.8), 0 0 0 1px color-mix(in srgb, var(--oro) 35%, transparent), 0 0 34px -6px color-mix(in srgb, var(--oro) 30%, transparent); }
   a.luna-item:hover h3 { color: var(--oro); }
-  .luna-item h3 { font-weight: 600; font-size: 21px; margin: 0 0 4px; letter-spacing: 0.04em; }
+  a.luna-item:hover .luna { box-shadow: 0 0 22px 2px color-mix(in srgb, var(--mariposa) 35%, transparent); }
+  .luna-item h3 { font-weight: 600; font-size: 21px; margin: 0 0 4px; letter-spacing: 0.04em; transition: color 0.3s ease; }
   .luna-item p { margin: 0; font-size: 15px; font-style: italic; color: var(--hueso-suave); line-height: 1.55; }
 
-  .fecha { font-size: clamp(58px, 12vw, 130px); font-weight: 500; line-height: 0.95; margin: 34px 0 0; letter-spacing: 0.02em; }
+  /* stagger de entrada de las lunas */
+  .lunas .reveal:nth-child(1) { transition-delay: 0.05s; }
+  .lunas .reveal:nth-child(2) { transition-delay: 0.2s; }
+  .lunas .reveal:nth-child(3) { transition-delay: 0.35s; }
+
+  .fecha { font-size: clamp(58px, 12vw, 130px); font-weight: 500; line-height: 0.95; margin: 34px 0 0; letter-spacing: 0.02em; will-change: transform, opacity; }
   .fecha span { color: var(--oro); }
   .count { display: flex; gap: clamp(20px, 5vw, 44px); justify-content: center; margin: 30px 0 0; flex-wrap: wrap; }
-  .count b { display: block; font-size: clamp(28px, 4vw, 40px); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .count b { display: block; font-size: clamp(28px, 4vw, 40px); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; transition: transform 0.18s ease, color 0.18s ease; }
+  .count b.tic { transform: translateY(-4px) scale(1.06); color: var(--oro); }
   .count span { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--hueso-tenue); }
 
   .prosa { max-width: 52ch; margin: 0 auto; }
@@ -101,8 +143,12 @@
 
   /* precios */
   .precios { max-width: 640px; margin: 44px auto 0; }
-  .precio-card { border: 1px solid var(--linea); border-radius: 18px; padding: clamp(26px, 4vw, 38px); text-align: center; background: var(--noche-2); }
-  .precio-card.early { border-color: var(--oro); }
+  .precio-card { border: 1px solid var(--linea); border-radius: 18px; padding: clamp(26px, 4vw, 38px); text-align: center; background: var(--noche-2); transform-style: preserve-3d; will-change: transform; }
+  .precio-card.early { border-color: var(--oro); animation: latido 5s ease-in-out infinite; }
+  @keyframes latido {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--oro) 0%, transparent); }
+    50% { box-shadow: 0 0 44px -6px color-mix(in srgb, var(--oro) 38%, transparent); }
+  }
   .precio-card .etiqueta { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--oro); }
   .precio-card .valor { font-size: clamp(42px, 7vw, 64px); font-weight: 600; line-height: 1; margin: 12px 0 4px; font-variant-numeric: tabular-nums; }
   .precio-card .despues { margin: 10px 0 0; font-style: italic; color: var(--hueso-suave); font-size: 15.5px; }
@@ -116,16 +162,21 @@
   .faq { max-width: 620px; margin: 40px auto 0; text-align: left; }
   .faq details { border-top: 1px solid var(--linea); padding: 4px 0; }
   .faq details:last-child { border-bottom: 1px solid var(--linea); }
-  .faq summary { cursor: pointer; padding: 16px 0; font-weight: 600; font-size: 19px; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .faq summary { cursor: pointer; padding: 16px 0; font-weight: 600; font-size: 19px; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; transition: color 0.25s ease; }
+  .faq summary:hover { color: var(--oro); }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: "+"; color: var(--oro); font-size: 22px; }
+  .faq summary::after { content: "+"; color: var(--oro); font-size: 22px; transition: transform 0.3s ease; }
   .faq details[open] summary::after { content: "–"; }
   .faq details p { margin: 0 0 18px; font-size: 15.5px; font-style: italic; color: var(--hueso-suave); }
+  .faq details[open] p { animation: faqIn 0.45s ease; }
+  @keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
   .faq details p b { color: var(--hueso); font-style: normal; }
 
   /* el cuadro */
   .cuadro { margin: 44px auto 0; max-width: 880px; }
-  .cuadro img { width: 100%; display: block; border-radius: 10px; border: 1px solid var(--linea); }
+  .cuadro .marco { overflow: hidden; border-radius: 10px; border: 1px solid var(--linea); }
+  .cuadro img { width: 100%; display: block; transform: scale(1.001); transition: transform 6s ease; }
+  .cuadro:hover img { transform: scale(1.045); }
   .cuadro figcaption { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hueso-tenue); margin-top: 12px; text-align: center; }
 
   .divisor { display: flex; align-items: center; gap: 16px; justify-content: center; margin: clamp(56px, 9vw, 96px) auto 0; color: var(--hueso-tenue); }
@@ -151,7 +202,6 @@
     100% { transform: translate(-3vw, -12vh) rotate(-8deg); }
   }
   @keyframes aleteo { from { transform: scaleX(1); } to { transform: scaleX(0.45); } }
-  
 
   /* mariposas quietas detrás del tríptico */
   #triptico { position: relative; overflow: hidden; }
@@ -159,7 +209,6 @@
   .mariposa-fija { position: absolute; width: 26px; pointer-events: none; opacity: 0.5; z-index: 0; }
   .mariposa-fija img { width: 100%; height: auto; display: block; animation: aleteo 0.7s ease-in-out infinite alternate; }
   .mariposa-fija.lenta img { animation-duration: 1.1s; }
-  
 
   /* el portal: el globo como portada — toca Bogotá para entrar */
   #portal { position: fixed; inset: 0; z-index: 60; background: var(--noche); opacity: 1; transition: opacity 1.1s ease; }
@@ -171,9 +220,8 @@
   .transicion {
     margin-top: clamp(60px, 10vw, 110px);
     height: clamp(230px, 46vw, 480px);
-    background: url("alma-transicion.webp") center / cover no-repeat;
+    background: url("alma-transicion.webp") center 50% / cover no-repeat;
   }
-  @media (min-width: 900px) { .transicion { background-attachment: fixed; } }
 
   /* corona del eclipse en el cierre */
   footer { position: relative; overflow: hidden; }
@@ -184,7 +232,14 @@
 
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .florece .pal > span { transform: none; animation: none; }
+    .marquee .tira { animation: none; }
+    .precio-card.early { animation: none; }
+    #punto, #halo { display: none; }
+    .cielo .fondo-lento, .fecha { transform: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -220,6 +275,10 @@
 })();
 </script>
 
+<div id="progreso" aria-hidden="true"><i></i></div>
+<div id="punto" aria-hidden="true"></div>
+<div id="halo" aria-hidden="true"></div>
+
 <span class="mariposa" style="left: 8%; animation-duration: 30s; animation-delay: -6s;"><img src="alma-mariposa.webp" alt=""></span>
 <span class="mariposa" style="left: 78%; width: 36px; animation-duration: 38s; animation-delay: -20s;"><img src="alma-mariposa.webp" alt=""></span>
 <span class="mariposa chica" style="left: 45%; animation-duration: 44s; animation-delay: -33s;"><img src="alma-mariposa.webp" alt=""></span>
@@ -233,17 +292,31 @@
 
 <nav aria-label="Main">
   <div class="brand">Alma Socialité</div>
-  <a href="https://tebiquinones.com">El jardín de Tebi ↗</a>
+  <div class="lado">
+    <div class="idiomas" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+      <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      <button type="button" data-lang="it" aria-pressed="false">IT</button>
+    </div>
+    <a class="jardin-tebi" href="https://tebiquinones.com" data-i18n="nav.tebi">El jardín de Tebi ↗</a>
+  </div>
 </nav>
 
 <header class="cielo">
+  <div class="fondo-lento" aria-hidden="true"></div>
   <div class="wrap">
-    <p class="mono reveal">Colombia · Capítulo primero</p>
-    <h1 class="reveal">Bogotá aún no sabía que le faltaba un <em>jardín</em></h1>
-    <p class="lede reveal">Muchos años después de su primer evento en Europa, <strong>Alma Socialité</strong> habría de volver a casa — con ciento doce fiestas en la memoria y una certeza: los jardines más hermosos florecen de noche.</p>
-    <a class="btn lleno reveal" href="#adentro">Quiero estar adentro</a>
+    <p class="mono reveal" data-i18n="hero.kicker">Colombia · Capítulo primero</p>
+    <h1 class="reveal" id="titulo-hero" data-i18n="hero.h1">Bogotá aún no sabía que le faltaba un <em>jardín</em></h1>
+    <p class="lede reveal" data-i18n="hero.lede">Muchos años después de su primer evento en Europa, <strong>Alma Socialité</strong> habría de volver a casa — con ciento doce fiestas en la memoria y una certeza: los jardines más hermosos florecen de noche.</p>
+    <a class="btn lleno reveal magnetico" href="#adentro" data-i18n="hero.cta">Quiero estar adentro</a>
   </div>
 </header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="tira" id="tira-marquee"><span data-i18n="marquee">El jardín florece de noche ✦ <b>17.09 · Bogotá</b> ✦ Tres lunas · Tres causas ✦ Cupos limitados ✦ La preventa florece primero en la comunidad ✦&nbsp;</span></div>
+</div>
 
 <section class="centrado" id="triptico">
   <span class="mariposa-fija" style="left: 6%; top: 18%;"><img src="alma-mariposa.webp" alt=""></span>
@@ -252,64 +325,64 @@
   <span class="mariposa-fija lenta" style="right: 15%; top: 70%;"><img src="alma-mariposa.webp" alt=""></span>
   <span class="mariposa-fija lenta" style="left: 48%; top: 8%; width: 15px;"><img src="alma-mariposa.webp" alt=""></span>
   <div class="wrap">
-    <p class="mono reveal">Un día · Tres lunas · Tres causas</p>
+    <p class="mono reveal" data-i18n="trip.kicker">Un día · Tres lunas · Tres causas</p>
     <div class="lunas">
-      <a class="luna-item reveal" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico I</p><h3>La tarde</h3><p>Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $70.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
-      <a class="luna-item reveal" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico II</p><h3>La cena</h3><p>Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar. Menú incluido.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $160.000</p><p class="mono" style="margin:2px 0 0;">por pareja · Entrar →</p></a>
-      <a class="luna-item reveal" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico III</p><h3>El after</h3><p>Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $40.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
+      <a class="luna-item reveal tilt" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);" data-i18n="trip.t1">Tríptico I</p><h3 data-i18n="trip.tarde.h">La tarde</h3><p data-i18n="trip.tarde.p">Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;" data-i18n="trip.tarde.precio">Desde $70.000</p><p class="mono" style="margin:2px 0 0;" data-i18n="trip.tarde.cta">por persona · Entrar →</p></a>
+      <a class="luna-item reveal tilt" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);" data-i18n="trip.t2">Tríptico II</p><h3 data-i18n="trip.cena.h">La cena</h3><p data-i18n="trip.cena.p">Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar. Menú incluido.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;" data-i18n="trip.cena.precio">Desde $160.000</p><p class="mono" style="margin:2px 0 0;" data-i18n="trip.cena.cta">por pareja · Entrar →</p></a>
+      <a class="luna-item reveal tilt" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);" data-i18n="trip.t3">Tríptico III</p><h3 data-i18n="trip.after.h">El after</h3><p data-i18n="trip.after.p">Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;" data-i18n="trip.after.precio">Desde $40.000</p><p class="mono" style="margin:2px 0 0;" data-i18n="trip.after.cta">por persona · Entrar →</p></a>
     </div>
-    <p class="lede reveal" style="font-size:16px; margin-top:28px;">Cada luna se puede vivir sola. Y el pase del jardín completo — los tres momentos, el mismo jueves — <strong style="color:var(--hueso); font-style:normal;">cuesta menos que sumarlas</strong>. Sigue bajando. ↓</p>
-    <p class="fecha reveal">17<span>·</span>09</p>
+    <p class="lede reveal" style="font-size:16px; margin-top:28px;" data-i18n="trip.nota">Cada luna se puede vivir sola. Y el pase del jardín completo — los tres momentos, el mismo jueves — <strong style="color:var(--hueso); font-style:normal;">cuesta menos que sumarlas</strong>. Sigue bajando. ↓</p>
+    <p class="fecha reveal" id="fecha-grande">17<span>·</span>09</p>
     <div class="count" id="countdown" aria-label="Cuenta regresiva">
-      <div><b id="cd-d">—</b><span>días</span></div>
-      <div><b id="cd-h">—</b><span>horas</span></div>
-      <div><b id="cd-m">—</b><span>min</span></div>
-      <div><b id="cd-s">—</b><span>seg</span></div>
+      <div><b id="cd-d">—</b><span data-i18n="cd.d">días</span></div>
+      <div><b id="cd-h">—</b><span data-i18n="cd.h">horas</span></div>
+      <div><b id="cd-m">—</b><span data-i18n="cd.m">min</span></div>
+      <div><b id="cd-s">—</b><span data-i18n="cd.s">seg</span></div>
     </div>
   </div>
 </section>
 
 <section class="centrado" id="pase">
   <div class="wrap">
-    <p class="mono reveal">El pase del jardín · Precios claros</p>
-    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Un pase. Los tres momentos. <em>Sin letra pequeña.</em></h1>
-    <p class="lede reveal" style="font-size: 17px;">«¿Y cuánto cuesta entrar a un jardín así?», preguntaron los primeros curiosos. «Depende», dijo el jardinero, contando diez semillas doradas, «de qué tan temprano lleguen las mariposas.»</p>
+    <p class="mono reveal" data-i18n="pase.kicker">El pase del jardín · Precios claros</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);" data-i18n="pase.h1">Un pase. Los tres momentos. <em>Sin letra pequeña.</em></h1>
+    <p class="lede reveal" style="font-size: 17px;" data-i18n="pase.lede">«¿Y cuánto cuesta entrar a un jardín así?», preguntaron los primeros curiosos. «Depende», dijo el jardinero, contando diez semillas doradas, «de qué tan temprano lleguen las mariposas.»</p>
     <div class="precios reveal">
-      <div class="precio-card early">
-        <p class="etiqueta">✦ Early Bird · Solo 10 cupos</p>
-        <p class="valor">Día completo</p>
-        <p class="mono">Las tres lunas · Un solo pase</p>
+      <div class="precio-card early tilt">
+        <p class="etiqueta" data-i18n="pase.tag">✦ Early Bird · Solo 10 cupos</p>
+        <p class="valor" data-i18n="pase.valor">Día completo</p>
+        <p class="mono" data-i18n="pase.sub">Las tres lunas · Un solo pase</p>
         <div class="cupos" aria-label="10 cupos early bird">
           <span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span>
         </div>
-        <p class="despues">El pase completo cuesta <b>menos que sumar los tres momentos</b> — y los 10 primeros pagan el mejor precio del jardín. El número exacto florece con la preventa, primero en la comunidad.</p>
+        <p class="despues" data-i18n="pase.despues">El pase completo cuesta <b>menos que sumar los tres momentos</b> — y los 10 primeros pagan el mejor precio del jardín. El número exacto florece con la preventa, primero en la comunidad.</p>
       </div>
-      <p class="incluye reveal"><b>El pase incluye los tres momentos del jueves 17.09:</b> la tarde (desde $70.000), la cena (desde $160.000 por pareja, menú incluido) y el after (desde $40.000). Cada momento también se compra solo, en su propia página.</p>
-      <a class="btn lleno reveal" href="https://wa.me/573126130675?text=Hola%20Tebi%20%F0%9F%8C%99%20Quiero%20uno%20de%20los%2010%20cupos%20EARLY%20BIRD%20del%20pase%20completo%20del%2017.09.%20Soy%20" target="_blank" rel="noopener">Quiero mi cupo Early Bird</a>
+      <p class="incluye reveal" data-i18n="pase.incluye"><b>El pase incluye los tres momentos del jueves 17.09:</b> la tarde (desde $70.000), la cena (desde $160.000 por pareja, menú incluido) y el after (desde $40.000). Cada momento también se compra solo, en su propia página.</p>
+      <a class="btn lleno reveal magnetico" id="cta-pase" data-pago="pase" href="https://wa.me/573126130675?text=Hola%20Tebi%20%F0%9F%8C%99%20Quiero%20uno%20de%20los%2010%20cupos%20EARLY%20BIRD%20del%20pase%20completo%20del%2017.09.%20Soy%20" target="_blank" rel="noopener" data-i18n="pase.cta">Quiero mi cupo Early Bird</a>
     </div>
   </div>
 </section>
 
-<div class="transicion" role="img" aria-label="El jardín al anochecer: mariposas amarillas sobre las montañas, bajo el eclipse"></div>
+<div class="transicion" id="panorama" role="img" aria-label="El jardín al anochecer: mariposas amarillas sobre las montañas, bajo el eclipse"></div>
 
 <section class="centrado" id="mecenas">
   <div class="wrap">
-    <p class="mono reveal">Los mecenas del jardín</p>
+    <p class="mono reveal" data-i18n="mec.kicker">Los mecenas del jardín</p>
     <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Bronce · Plata · <em>Oro</em></h1>
-    <p class="lede reveal" style="font-size: 17px;">Para las marcas y familias que quieren abanderar la noche: <strong>puestos de mecenas desde $25.000.000</strong> — mesa de honor en la cena, presencia en la gráfica del día y, bajo la última luna, el reconocimiento público a quien más le dé al jardín. Lo aportado florece en las tres fundaciones del tríptico.</p>
-    <a class="btn reveal" href="https://wa.me/573126130675?text=Hola%20Tebi%20%E2%9C%A6%20Quiero%20saber%20m%C3%A1s%20de%20los%20puestos%20de%20mecenas%20%28Bronce%2FPlata%2FOro%2C%20desde%20%2425M%29%20del%2017.09.%20Soy%20" target="_blank" rel="noopener">Quiero ser mecenas</a>
+    <p class="lede reveal" style="font-size: 17px;" data-i18n="mec.lede">Para las marcas y familias que quieren abanderar la noche: <strong>puestos de mecenas desde $25.000.000</strong> — mesa de honor en la cena, presencia en la gráfica del día y, bajo la última luna, el reconocimiento público a quien más le dé al jardín. Lo aportado florece en las tres fundaciones del tríptico.</p>
+    <a class="btn reveal magnetico" data-pago="mecenas" href="https://wa.me/573126130675?text=Hola%20Tebi%20%E2%9C%A6%20Quiero%20saber%20m%C3%A1s%20de%20los%20puestos%20de%20mecenas%20%28Bronce%2FPlata%2FOro%2C%20desde%20%2425M%29%20del%2017.09.%20Soy%20" target="_blank" rel="noopener" data-i18n="mec.cta">Quiero ser mecenas</a>
   </div>
 </section>
 
 <section class="centrado" id="preguntas">
   <div class="wrap">
-    <p class="mono reveal">Preguntas claras, respuestas claras</p>
+    <p class="mono reveal" data-i18n="faq.kicker">Preguntas claras, respuestas claras</p>
     <div class="faq reveal">
-      <details><summary>¿Dónde es?</summary><p>En Bogotá. El lugar exacto <b>se susurra un día antes</b> a quienes tienen su cupo — es parte del diseño del jardín.</p></details>
-      <details><summary>¿Qué incluye mi pase?</summary><p>Los tres momentos del día: aperitivo al atardecer, cena con jazz en vivo, violín y flores (menú incluido) y el after con toda la escena. <b>Todo el jueves 17 de septiembre.</b></p></details>
-      <details><summary>¿Cómo reservo y pago?</summary><p>Pides tu cupo con el botón (correo o WhatsApp), te confirmamos disponibilidad y te enviamos los datos de pago. <b>Tu cupo queda firme al pagar.</b></p></details>
-      <details><summary>¿Puedo ir a un solo momento?</summary><p>Sí. Cada luna tiene su precio y su página: <b>la tarde desde $70.000</b> (con bocados y bebida), <b>la cena desde $160.000 por pareja</b> (menú incluido) y <b>el after desde $40.000</b>. Reservas en la página de cada momento. Los cupos vuelan primero en la comunidad de WhatsApp.</p></details>
-      <details><summary>¿A dónde va el dinero?</summary><p>Cada momento abandera una causa: empoderamiento de la mujer, respuesta a desastres, y arte y cultura. Las donaciones van <b>directo a los canales oficiales de las fundaciones</b> y publicamos informe de transparencia después del evento.</p></details>
+      <details><summary data-i18n="faq.q1">¿Dónde es?</summary><p data-i18n="faq.a1">En Bogotá. El lugar exacto <b>se susurra un día antes</b> a quienes tienen su cupo — es parte del diseño del jardín.</p></details>
+      <details><summary data-i18n="faq.q2">¿Qué incluye mi pase?</summary><p data-i18n="faq.a2">Los tres momentos del día: aperitivo al atardecer, cena con jazz en vivo, violín y flores (menú incluido) y el after con toda la escena. <b>Todo el jueves 17 de septiembre.</b></p></details>
+      <details><summary data-i18n="faq.q3">¿Cómo reservo y pago?</summary><p data-i18n="faq.a3">Pides tu cupo con el botón, te confirmamos disponibilidad y pagas en línea de forma segura con <b>tarjeta, PSE o Nequi (Bold)</b> — o por WhatsApp si prefieres. <b>Tu cupo queda firme al pagar.</b></p></details>
+      <details><summary data-i18n="faq.q4">¿Puedo ir a un solo momento?</summary><p data-i18n="faq.a4">Sí. Cada luna tiene su precio y su página: <b>la tarde desde $70.000</b> (con bocados y bebida), <b>la cena desde $160.000 por pareja</b> (menú incluido) y <b>el after desde $40.000</b>. Reservas en la página de cada momento. Los cupos vuelan primero en la comunidad de WhatsApp.</p></details>
+      <details><summary data-i18n="faq.q5">¿A dónde va el dinero?</summary><p data-i18n="faq.a5">Cada momento abandera una causa: empoderamiento de la mujer, respuesta a desastres, y arte y cultura. Las donaciones van <b>directo a los canales oficiales de las fundaciones</b> y publicamos informe de transparencia después del evento.</p></details>
     </div>
   </div>
 </section>
@@ -318,18 +391,18 @@
 
 <section>
   <div class="wrap prosa">
-    <p class="cap reveal">Dicen que en Europa llenó ciento doce salones en cuatro capitales sin gastar un centavo en publicidad, y que las entradas se agotaban antes de que alguien supiera quién iba a tocar. Nadie lo creyó hasta que llegaron las fotos.</p>
-    <p class="reveal">Ahora el jardín se siembra en Bogotá. No preguntes dónde: los lugares, como los milagros, se anuncian solo a quienes ya creen. Lo que sí podemos decir: habrá <em>conocimiento compartido</em>, flores de verdad, música de verdad y la gente correcta — curada persona por persona, como se cura un tríptico.</p>
-    <p class="reveal">El resto florece adentro: el lugar, los anfitriones y la preventa llegan <em>primero</em> a la comunidad. Después, si sobra, para el resto. Y como en todo buen realismo mágico: cuando lo veas publicado, ya no habrá cupo.</p>
+    <p class="cap reveal" data-i18n="prosa.p1">Dicen que en Europa llenó ciento doce salones en cuatro capitales sin gastar un centavo en publicidad, y que las entradas se agotaban antes de que alguien supiera quién iba a tocar. Nadie lo creyó hasta que llegaron las fotos.</p>
+    <p class="reveal" data-i18n="prosa.p2">Ahora el jardín se siembra en Bogotá. No preguntes dónde: los lugares, como los milagros, se anuncian solo a quienes ya creen. Lo que sí podemos decir: habrá <em>conocimiento compartido</em>, flores de verdad, música de verdad y la gente correcta — curada persona por persona, como se cura un tríptico.</p>
+    <p class="reveal" data-i18n="prosa.p3">El resto florece adentro: el lugar, los anfitriones y la preventa llegan <em>primero</em> a la comunidad. Después, si sobra, para el resto. Y como en todo buen realismo mágico: cuando lo veas publicado, ya no habrá cupo.</p>
   </div>
 </section>
 
 <section class="centrado">
   <div class="wrap">
-    <p class="mono reveal">La inspiración</p>
+    <p class="mono reveal" data-i18n="insp.kicker">La inspiración</p>
     <figure class="cuadro reveal" style="margin-left:auto; margin-right:auto;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1920px-The_Garden_of_earthly_delights.jpg" alt="El Jardín de las Delicias, tríptico de El Bosco: tres paneles con un jardín fantástico lleno de figuras, flores y frutas" loading="lazy">
-      <figcaption>El Jardín de las Delicias · El Bosco (1490–1500) · Museo del Prado — tres paneles, como nuestras tres lunas</figcaption>
+      <div class="marco"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1920px-The_Garden_of_earthly_delights.jpg" alt="El Jardín de las Delicias, tríptico de El Bosco: tres paneles con un jardín fantástico lleno de figuras, flores y frutas" loading="lazy"></div>
+      <figcaption data-i18n="insp.cap">El Jardín de las Delicias · El Bosco (1490–1500) · Museo del Prado — tres paneles, como nuestras tres lunas</figcaption>
     </figure>
   </div>
 </section>
@@ -337,18 +410,306 @@
 <footer id="adentro">
   <img class="corona-final" src="alma-eclipse.webp" alt="" aria-hidden="true">
   <div class="wrap">
-    <p class="mono reveal">La comunidad</p>
-    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Los que están adentro,<br><em>florecen primero</em></h1>
+    <p class="mono reveal" data-i18n="fin.kicker">La comunidad</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);" data-i18n="fin.h1">Los que están adentro,<br><em>florecen primero</em></h1>
     <div class="reveal">
-      <a class="btn lleno" href="https://chat.whatsapp.com/BHlBbXioGpI9TzEwPOOvFo" target="_blank" rel="noopener">Entrar al WhatsApp</a>
+      <a class="btn lleno magnetico" href="https://chat.whatsapp.com/BHlBbXioGpI9TzEwPOOvFo" target="_blank" rel="noopener" data-i18n="fin.wa">Entrar al WhatsApp</a>
       &nbsp;&nbsp;
-      <a class="btn" href="mailto:juanqriox@gmail.com?subject=SUSCR%C3%8DBEME%20al%20newsletter%20de%20Alma">Newsletter</a>
+      <a class="btn magnetico" href="mailto:juanqriox@gmail.com?subject=SUSCR%C3%8DBEME%20al%20newsletter%20de%20Alma">Newsletter</a>
     </div>
-    <p class="mono">© 2026 Alma Socialité · Bogotá — <a href="https://tebiquinones.vercel.app">tebiquinones</a></p>
+    <p class="mono">© 2026 Alma Socialité · Bogotá — <a href="https://tebiquinones.com">tebiquinones</a></p>
   </div>
 </footer>
 
 <script>
+  /* ====== LINKS DE PAGO BOLD ======
+     Cuando crees tus links de pago en bold.co, pégalos aquí (entre comillas)
+     y los botones cambian solos de WhatsApp a pago directo: */
+  var PAGOS_BOLD = {
+    pase: "",     /* link de pago del pase completo Early Bird */
+    mecenas: ""   /* link de pago (o de anticipo) para mecenas */
+  };
+  (function () {
+    Object.keys(PAGOS_BOLD).forEach(function (k) {
+      var url = PAGOS_BOLD[k];
+      if (!url) return;
+      document.querySelectorAll('[data-pago="' + k + '"]').forEach(function (a) { a.href = url; });
+    });
+  })();
+
+  /* ====== IDIOMAS · ES principal + EN FR DE IT ====== */
+  var I18N = {
+    en: {
+      "nav.tebi": "Tebi's garden ↗",
+      "hero.kicker": "Colombia · Chapter one",
+      "hero.h1": "Bogotá did not yet know it was missing a <em>garden</em>",
+      "hero.lede": "Many years after its first event in Europe, <strong>Alma Socialité</strong> was to come home — with one hundred and twelve parties in its memory and one certainty: the most beautiful gardens bloom at night.",
+      "hero.cta": "I want in",
+      "marquee": "The garden blooms at night ✦ <b>17.09 · Bogotá</b> ✦ Three moons · Three causes ✦ Limited spots ✦ Presale blooms first in the community ✦&nbsp;",
+      "trip.kicker": "One day · Three moons · Three causes",
+      "trip.t1": "Triptych I", "trip.t2": "Triptych II", "trip.t3": "Triptych III",
+      "trip.tarde.h": "The afternoon",
+      "trip.tarde.p": "Waxing moon. Knowledge shared in a low voice, among women who make things happen.",
+      "trip.tarde.precio": "From $70.000", "trip.tarde.cta": "per person · Enter →",
+      "trip.cena.h": "The dinner",
+      "trip.cena.p": "Full moon. Dinner among flowers, with live jazz and a violin that never stops playing. Menu included.",
+      "trip.cena.precio": "From $160.000", "trip.cena.cta": "per couple · Enter →",
+      "trip.after.h": "The after",
+      "trip.after.p": "Waning moon. The whole garden: Bogotá's entire creative scene, mixed the way it should be.",
+      "trip.after.precio": "From $40.000", "trip.after.cta": "per person · Enter →",
+      "trip.nota": "Each moon can be lived on its own. And the full garden pass — all three moments, same Thursday — <strong style=\"color:var(--hueso); font-style:normal;\">costs less than adding them up</strong>. Keep scrolling. ↓",
+      "cd.d": "days", "cd.h": "hours", "cd.m": "min", "cd.s": "sec",
+      "pase.kicker": "The garden pass · Clear prices",
+      "pase.h1": "One pass. All three moments. <em>No fine print.</em>",
+      "pase.lede": "“And how much does it cost to enter such a garden?” asked the first curious ones. “That depends,” said the gardener, counting ten golden seeds, “on how early the butterflies arrive.”",
+      "pase.tag": "✦ Early Bird · Only 10 spots",
+      "pase.valor": "Full day",
+      "pase.sub": "Three moons · One single pass",
+      "pase.despues": "The full pass costs <b>less than adding up the three moments</b> — and the first 10 pay the garden's best price. The exact number blooms with the presale, first in the community.",
+      "pase.incluye": "<b>The pass includes all three moments of Thursday 17.09:</b> the afternoon (from $70.000), the dinner (from $160.000 per couple, menu included) and the after (from $40.000). Each moment can also be bought on its own, on its own page.",
+      "pase.cta": "I want my Early Bird spot",
+      "mec.kicker": "The garden's patrons",
+      "mec.lede": "For the brands and families who want to champion the night: <strong>patron seats from $25.000.000 COP</strong> — a table of honor at dinner, presence in the day's artwork and, under the last moon, public recognition for whoever gives the garden the most. Every contribution blooms in the triptych's three foundations.",
+      "mec.cta": "I want to be a patron",
+      "faq.kicker": "Clear questions, clear answers",
+      "faq.q1": "Where is it?",
+      "faq.a1": "In Bogotá. The exact place <b>is whispered one day before</b> to those who hold a spot — it's part of the garden's design.",
+      "faq.q2": "What does my pass include?",
+      "faq.a2": "The day's three moments: sunset aperitivo, dinner with live jazz, violin and flowers (menu included) and the after with the whole scene. <b>All of Thursday, September 17.</b>",
+      "faq.q3": "How do I book and pay?",
+      "faq.a3": "Request your spot with the button, we confirm availability and you pay securely online with <b>card, PSE or Nequi (Bold)</b> — or via WhatsApp if you prefer. <b>Your spot is firm once paid.</b>",
+      "faq.q4": "Can I come to just one moment?",
+      "faq.a4": "Yes. Each moon has its price and its page: <b>the afternoon from $70.000</b> (bites and a drink included), <b>the dinner from $160.000 per couple</b> (menu included) and <b>the after from $40.000</b>. Book on each moment's page. Spots fly first in the WhatsApp community.",
+      "faq.q5": "Where does the money go?",
+      "faq.a5": "Each moment champions a cause: women's empowerment, disaster response, and art & culture. Donations go <b>straight to the foundations' official channels</b> and we publish a transparency report after the event.",
+      "prosa.p1": "They say that in Europe it filled one hundred and twelve rooms across four capitals without spending a cent on advertising, and that tickets sold out before anyone knew who was playing. Nobody believed it until the photos arrived.",
+      "prosa.p2": "Now the garden is being planted in Bogotá. Don't ask where: places, like miracles, are announced only to those who already believe. What we can say: there will be <em>shared knowledge</em>, real flowers, real music and the right people — curated one by one, the way a triptych is curated.",
+      "prosa.p3": "The rest blooms inside: the venue, the hosts and the presale arrive <em>first</em> in the community. Then, if anything is left, for everyone else. And as in all good magical realism: by the time you see it posted, there will be no spots left.",
+      "insp.kicker": "The inspiration",
+      "insp.cap": "The Garden of Earthly Delights · Hieronymus Bosch (1490–1500) · Museo del Prado — three panels, like our three moons",
+      "fin.kicker": "The community",
+      "fin.h1": "Those on the inside<br><em>bloom first</em>",
+      "fin.wa": "Join the WhatsApp"
+    },
+    fr: {
+      "nav.tebi": "Le jardin de Tebi ↗",
+      "hero.kicker": "Colombie · Chapitre premier",
+      "hero.h1": "Bogotá ne savait pas encore qu'il lui manquait un <em>jardin</em>",
+      "hero.lede": "Bien des années après sa première fête en Europe, <strong>Alma Socialité</strong> allait rentrer à la maison — cent douze fêtes en mémoire et une certitude : les plus beaux jardins fleurissent la nuit.",
+      "hero.cta": "Je veux en être",
+      "marquee": "Le jardin fleurit la nuit ✦ <b>17.09 · Bogotá</b> ✦ Trois lunes · Trois causes ✦ Places limitées ✦ La prévente fleurit d'abord dans la communauté ✦&nbsp;",
+      "trip.kicker": "Un jour · Trois lunes · Trois causes",
+      "trip.t1": "Triptyque I", "trip.t2": "Triptyque II", "trip.t3": "Triptyque III",
+      "trip.tarde.h": "L'après-midi",
+      "trip.tarde.p": "Lune croissante. Le savoir se partage à voix basse, entre femmes qui font bouger les choses.",
+      "trip.tarde.precio": "Dès $70.000", "trip.tarde.cta": "par personne · Entrer →",
+      "trip.cena.h": "Le dîner",
+      "trip.cena.p": "Pleine lune. Un dîner parmi les fleurs, avec du jazz live et un violon qui ne s'arrête jamais. Menu inclus.",
+      "trip.cena.precio": "Dès $160.000", "trip.cena.cta": "par couple · Entrer →",
+      "trip.after.h": "L'after",
+      "trip.after.p": "Lune décroissante. Le jardin au complet : toute la scène créative de Bogotá, mélangée comme il se doit.",
+      "trip.after.precio": "Dès $40.000", "trip.after.cta": "par personne · Entrer →",
+      "trip.nota": "Chaque lune peut se vivre seule. Et le pass du jardin complet — les trois moments, le même jeudi — <strong style=\"color:var(--hueso); font-style:normal;\">coûte moins que leur somme</strong>. Continue de descendre. ↓",
+      "cd.d": "jours", "cd.h": "heures", "cd.m": "min", "cd.s": "sec",
+      "pase.kicker": "Le pass du jardin · Prix clairs",
+      "pase.h1": "Un pass. Les trois moments. <em>Sans petites lignes.</em>",
+      "pase.lede": "« Et combien coûte l'entrée d'un tel jardin ? », demandèrent les premiers curieux. « Cela dépend », dit le jardinier en comptant dix graines dorées, « de l'heure à laquelle arrivent les papillons. »",
+      "pase.tag": "✦ Early Bird · Seulement 10 places",
+      "pase.valor": "Journée complète",
+      "pase.sub": "Trois lunes · Un seul pass",
+      "pase.despues": "Le pass complet coûte <b>moins que la somme des trois moments</b> — et les 10 premiers paient le meilleur prix du jardin. Le chiffre exact fleurit avec la prévente, d'abord dans la communauté.",
+      "pase.incluye": "<b>Le pass inclut les trois moments du jeudi 17.09 :</b> l'après-midi (dès $70.000), le dîner (dès $160.000 par couple, menu inclus) et l'after (dès $40.000). Chaque moment s'achète aussi séparément, sur sa propre page.",
+      "pase.cta": "Je veux ma place Early Bird",
+      "mec.kicker": "Les mécènes du jardin",
+      "mec.lede": "Pour les marques et les familles qui veulent porter la nuit : <strong>places de mécène dès $25.000.000 COP</strong> — table d'honneur au dîner, présence dans la création graphique du jour et, sous la dernière lune, la reconnaissance publique de qui donne le plus au jardin. Chaque apport fleurit dans les trois fondations du triptyque.",
+      "mec.cta": "Je veux être mécène",
+      "faq.kicker": "Questions claires, réponses claires",
+      "faq.q1": "C'est où ?",
+      "faq.a1": "À Bogotá. Le lieu exact <b>se murmure la veille</b> à ceux qui ont leur place — cela fait partie du dessin du jardin.",
+      "faq.q2": "Que comprend mon pass ?",
+      "faq.a2": "Les trois moments de la journée : apéritif au coucher du soleil, dîner avec jazz live, violon et fleurs (menu inclus) et l'after avec toute la scène. <b>Tout le jeudi 17 septembre.</b>",
+      "faq.q3": "Comment réserver et payer ?",
+      "faq.a3": "Tu demandes ta place avec le bouton, on confirme la disponibilité et tu paies en ligne en toute sécurité par <b>carte, PSE ou Nequi (Bold)</b> — ou par WhatsApp si tu préfères. <b>Ta place est ferme une fois payée.</b>",
+      "faq.q4": "Puis-je venir à un seul moment ?",
+      "faq.a4": "Oui. Chaque lune a son prix et sa page : <b>l'après-midi dès $70.000</b> (bouchées et boisson incluses), <b>le dîner dès $160.000 par couple</b> (menu inclus) et <b>l'after dès $40.000</b>. Réservation sur la page de chaque moment. Les places partent d'abord dans la communauté WhatsApp.",
+      "faq.q5": "Où va l'argent ?",
+      "faq.a5": "Chaque moment porte une cause : l'autonomisation des femmes, la réponse aux catastrophes, et l'art et la culture. Les dons vont <b>directement aux canaux officiels des fondations</b> et nous publions un rapport de transparence après l'événement.",
+      "prosa.p1": "On dit qu'en Europe elle a rempli cent douze salles dans quatre capitales sans dépenser un centime en publicité, et que les billets partaient avant même qu'on sache qui allait jouer. Personne n'y a cru jusqu'à l'arrivée des photos.",
+      "prosa.p2": "Maintenant le jardin se sème à Bogotá. Ne demande pas où : les lieux, comme les miracles, ne s'annoncent qu'à ceux qui croient déjà. Ce qu'on peut dire : il y aura du <em>savoir partagé</em>, de vraies fleurs, de la vraie musique et les bonnes personnes — choisies une à une, comme on compose un triptyque.",
+      "prosa.p3": "Le reste fleurit à l'intérieur : le lieu, les hôtes et la prévente arrivent <em>d'abord</em> dans la communauté. Ensuite, s'il en reste, pour les autres. Et comme dans tout bon réalisme magique : quand tu le verras publié, il n'y aura plus de place.",
+      "insp.kicker": "L'inspiration",
+      "insp.cap": "Le Jardin des délices · Jérôme Bosch (1490–1500) · Musée du Prado — trois panneaux, comme nos trois lunes",
+      "fin.kicker": "La communauté",
+      "fin.h1": "Ceux qui sont dedans<br><em>fleurissent d'abord</em>",
+      "fin.wa": "Rejoindre le WhatsApp"
+    },
+    de: {
+      "nav.tebi": "Tebis Garten ↗",
+      "hero.kicker": "Kolumbien · Erstes Kapitel",
+      "hero.h1": "Bogotá wusste noch nicht, dass ihr ein <em>Garten</em> fehlte",
+      "hero.lede": "Viele Jahre nach ihrem ersten Event in Europa sollte <strong>Alma Socialité</strong> nach Hause zurückkehren — mit hundertzwölf Festen im Gedächtnis und einer Gewissheit: Die schönsten Gärten blühen bei Nacht.",
+      "hero.cta": "Ich will dabei sein",
+      "marquee": "Der Garten blüht bei Nacht ✦ <b>17.09 · Bogotá</b> ✦ Drei Monde · Drei Anliegen ✦ Begrenzte Plätze ✦ Der Vorverkauf blüht zuerst in der Community ✦&nbsp;",
+      "trip.kicker": "Ein Tag · Drei Monde · Drei Anliegen",
+      "trip.t1": "Triptychon I", "trip.t2": "Triptychon II", "trip.t3": "Triptychon III",
+      "trip.tarde.h": "Der Nachmittag",
+      "trip.tarde.p": "Zunehmender Mond. Wissen, leise geteilt — unter Frauen, die Dinge geschehen lassen.",
+      "trip.tarde.precio": "Ab $70.000", "trip.tarde.cta": "pro Person · Eintreten →",
+      "trip.cena.h": "Das Abendessen",
+      "trip.cena.p": "Vollmond. Ein Abendessen zwischen Blumen, mit Live-Jazz und einer Geige, die nie verstummt. Menü inbegriffen.",
+      "trip.cena.precio": "Ab $160.000", "trip.cena.cta": "pro Paar · Eintreten →",
+      "trip.after.h": "Die Afterparty",
+      "trip.after.p": "Abnehmender Mond. Der ganze Garten: Bogotás gesamte Kreativszene, gemischt, wie es sein soll.",
+      "trip.after.precio": "Ab $40.000", "trip.after.cta": "pro Person · Eintreten →",
+      "trip.nota": "Jeder Mond lässt sich einzeln erleben. Und der Pass für den ganzen Garten — alle drei Momente, am selben Donnerstag — <strong style=\"color:var(--hueso); font-style:normal;\">kostet weniger als ihre Summe</strong>. Scroll weiter. ↓",
+      "cd.d": "Tage", "cd.h": "Std", "cd.m": "Min", "cd.s": "Sek",
+      "pase.kicker": "Der Garten-Pass · Klare Preise",
+      "pase.h1": "Ein Pass. Alle drei Momente. <em>Ohne Kleingedrucktes.</em>",
+      "pase.lede": "„Und was kostet der Eintritt in so einen Garten?“, fragten die ersten Neugierigen. „Das hängt davon ab“, sagte der Gärtner und zählte zehn goldene Samen, „wie früh die Schmetterlinge kommen.“",
+      "pase.tag": "✦ Early Bird · Nur 10 Plätze",
+      "pase.valor": "Ganzer Tag",
+      "pase.sub": "Drei Monde · Ein einziger Pass",
+      "pase.despues": "Der komplette Pass kostet <b>weniger als die Summe der drei Momente</b> — und die ersten 10 zahlen den besten Preis des Gartens. Die genaue Zahl blüht mit dem Vorverkauf auf, zuerst in der Community.",
+      "pase.incluye": "<b>Der Pass umfasst alle drei Momente des Donnerstags 17.09:</b> den Nachmittag (ab $70.000), das Abendessen (ab $160.000 pro Paar, Menü inbegriffen) und die Afterparty (ab $40.000). Jeder Moment ist auch einzeln buchbar, auf seiner eigenen Seite.",
+      "pase.cta": "Ich will meinen Early-Bird-Platz",
+      "mec.kicker": "Die Mäzene des Gartens",
+      "mec.lede": "Für Marken und Familien, die die Nacht tragen wollen: <strong>Mäzenplätze ab $25.000.000 COP</strong> — Ehrentisch beim Abendessen, Präsenz in der Grafik des Tages und, unter dem letzten Mond, öffentliche Anerkennung für den größten Förderer des Gartens. Jeder Beitrag blüht in den drei Stiftungen des Triptychons.",
+      "mec.cta": "Ich möchte Mäzen werden",
+      "faq.kicker": "Klare Fragen, klare Antworten",
+      "faq.q1": "Wo findet es statt?",
+      "faq.a1": "In Bogotá. Der genaue Ort <b>wird einen Tag vorher geflüstert</b> — nur denen, die ihren Platz haben. Das gehört zum Design des Gartens.",
+      "faq.q2": "Was beinhaltet mein Pass?",
+      "faq.a2": "Die drei Momente des Tages: Aperitif bei Sonnenuntergang, Abendessen mit Live-Jazz, Geige und Blumen (Menü inbegriffen) und die Afterparty mit der ganzen Szene. <b>Der ganze Donnerstag, 17. September.</b>",
+      "faq.q3": "Wie reserviere und bezahle ich?",
+      "faq.a3": "Du forderst deinen Platz über den Button an, wir bestätigen die Verfügbarkeit und du zahlst sicher online mit <b>Karte, PSE oder Nequi (Bold)</b> — oder per WhatsApp, wenn du möchtest. <b>Dein Platz ist fix, sobald bezahlt.</b>",
+      "faq.q4": "Kann ich zu nur einem Moment kommen?",
+      "faq.a4": "Ja. Jeder Mond hat seinen Preis und seine Seite: <b>der Nachmittag ab $70.000</b> (Häppchen und Getränk inklusive), <b>das Abendessen ab $160.000 pro Paar</b> (Menü inbegriffen) und <b>die Afterparty ab $40.000</b>. Buchung auf der Seite des jeweiligen Moments. Die Plätze gehen zuerst in der WhatsApp-Community weg.",
+      "faq.q5": "Wohin geht das Geld?",
+      "faq.a5": "Jeder Moment trägt ein Anliegen: Empowerment von Frauen, Katastrophenhilfe sowie Kunst und Kultur. Spenden gehen <b>direkt an die offiziellen Kanäle der Stiftungen</b>, und nach dem Event veröffentlichen wir einen Transparenzbericht.",
+      "prosa.p1": "Man sagt, in Europa habe sie hundertzwölf Säle in vier Hauptstädten gefüllt, ohne einen Cent für Werbung auszugeben — und die Tickets waren weg, bevor irgendjemand wusste, wer spielt. Niemand glaubte es, bis die Fotos kamen.",
+      "prosa.p2": "Jetzt wird der Garten in Bogotá gepflanzt. Frag nicht wo: Orte kündigen sich, wie Wunder, nur denen an, die schon glauben. Was wir sagen können: Es wird <em>geteiltes Wissen</em> geben, echte Blumen, echte Musik und die richtigen Menschen — kuratiert, Person für Person, wie man ein Triptychon kuratiert.",
+      "prosa.p3": "Der Rest blüht drinnen: Ort, Gastgeber und Vorverkauf erreichen <em>zuerst</em> die Community. Danach, falls etwas übrig ist, alle anderen. Und wie in jedem guten magischen Realismus: Wenn du es veröffentlicht siehst, gibt es keinen Platz mehr.",
+      "insp.kicker": "Die Inspiration",
+      "insp.cap": "Der Garten der Lüste · Hieronymus Bosch (1490–1500) · Museo del Prado — drei Tafeln, wie unsere drei Monde",
+      "fin.kicker": "Die Community",
+      "fin.h1": "Wer drinnen ist,<br><em>blüht zuerst</em>",
+      "fin.wa": "WhatsApp beitreten"
+    },
+    it: {
+      "nav.tebi": "Il giardino di Tebi ↗",
+      "hero.kicker": "Colombia · Capitolo primo",
+      "hero.h1": "Bogotá non sapeva ancora che le mancava un <em>giardino</em>",
+      "hero.lede": "Molti anni dopo il suo primo evento in Europa, <strong>Alma Socialité</strong> sarebbe tornata a casa — con centododici feste nella memoria e una certezza: i giardini più belli fioriscono di notte.",
+      "hero.cta": "Voglio esserci",
+      "marquee": "Il giardino fiorisce di notte ✦ <b>17.09 · Bogotá</b> ✦ Tre lune · Tre cause ✦ Posti limitati ✦ La prevendita fiorisce prima nella community ✦&nbsp;",
+      "trip.kicker": "Un giorno · Tre lune · Tre cause",
+      "trip.t1": "Trittico I", "trip.t2": "Trittico II", "trip.t3": "Trittico III",
+      "trip.tarde.h": "Il pomeriggio",
+      "trip.tarde.p": "Luna crescente. Il sapere si condivide a bassa voce, tra donne che fanno accadere le cose.",
+      "trip.tarde.precio": "Da $70.000", "trip.tarde.cta": "a persona · Entra →",
+      "trip.cena.h": "La cena",
+      "trip.cena.p": "Luna piena. Una cena tra i fiori, con jazz dal vivo e un violino che non smette di suonare. Menù incluso.",
+      "trip.cena.precio": "Da $160.000", "trip.cena.cta": "a coppia · Entra →",
+      "trip.after.h": "L'after",
+      "trip.after.p": "Luna calante. Il giardino al completo: tutta la scena creativa di Bogotá, mescolata come si deve.",
+      "trip.after.precio": "Da $40.000", "trip.after.cta": "a persona · Entra →",
+      "trip.nota": "Ogni luna si può vivere da sola. E il pass del giardino completo — i tre momenti, lo stesso giovedì — <strong style=\"color:var(--hueso); font-style:normal;\">costa meno della loro somma</strong>. Continua a scendere. ↓",
+      "cd.d": "giorni", "cd.h": "ore", "cd.m": "min", "cd.s": "sec",
+      "pase.kicker": "Il pass del giardino · Prezzi chiari",
+      "pase.h1": "Un pass. I tre momenti. <em>Senza postille.</em>",
+      "pase.lede": "«E quanto costa entrare in un giardino così?», chiesero i primi curiosi. «Dipende», disse il giardiniere, contando dieci semi dorati, «da quanto presto arrivano le farfalle.»",
+      "pase.tag": "✦ Early Bird · Solo 10 posti",
+      "pase.valor": "Giornata completa",
+      "pase.sub": "Tre lune · Un solo pass",
+      "pase.despues": "Il pass completo costa <b>meno della somma dei tre momenti</b> — e i primi 10 pagano il miglior prezzo del giardino. La cifra esatta fiorisce con la prevendita, prima nella community.",
+      "pase.incluye": "<b>Il pass include i tre momenti di giovedì 17.09:</b> il pomeriggio (da $70.000), la cena (da $160.000 a coppia, menù incluso) e l'after (da $40.000). Ogni momento si può anche comprare da solo, nella sua pagina.",
+      "pase.cta": "Voglio il mio posto Early Bird",
+      "mec.kicker": "I mecenati del giardino",
+      "mec.lede": "Per i marchi e le famiglie che vogliono farsi carico della notte: <strong>posti da mecenate da $25.000.000 COP</strong> — tavolo d'onore alla cena, presenza nella grafica della giornata e, sotto l'ultima luna, il riconoscimento pubblico a chi dà di più al giardino. Ogni contributo fiorisce nelle tre fondazioni del trittico.",
+      "mec.cta": "Voglio essere mecenate",
+      "faq.kicker": "Domande chiare, risposte chiare",
+      "faq.q1": "Dove si svolge?",
+      "faq.a1": "A Bogotá. Il luogo esatto <b>si sussurra il giorno prima</b> a chi ha il suo posto — fa parte del disegno del giardino.",
+      "faq.q2": "Cosa include il mio pass?",
+      "faq.a2": "I tre momenti della giornata: aperitivo al tramonto, cena con jazz dal vivo, violino e fiori (menù incluso) e l'after con tutta la scena. <b>Tutto il giovedì 17 settembre.</b>",
+      "faq.q3": "Come prenoto e pago?",
+      "faq.a3": "Chiedi il tuo posto con il pulsante, confermiamo la disponibilità e paghi online in modo sicuro con <b>carta, PSE o Nequi (Bold)</b> — o su WhatsApp se preferisci. <b>Il tuo posto è confermato al pagamento.</b>",
+      "faq.q4": "Posso venire a un solo momento?",
+      "faq.a4": "Sì. Ogni luna ha il suo prezzo e la sua pagina: <b>il pomeriggio da $70.000</b> (stuzzichini e drink inclusi), <b>la cena da $160.000 a coppia</b> (menù incluso) e <b>l'after da $40.000</b>. Prenoti nella pagina di ogni momento. I posti volano prima nella community WhatsApp.",
+      "faq.q5": "Dove vanno i soldi?",
+      "faq.a5": "Ogni momento sostiene una causa: empowerment femminile, risposta ai disastri, e arte e cultura. Le donazioni vanno <b>direttamente ai canali ufficiali delle fondazioni</b> e dopo l'evento pubblichiamo un report di trasparenza.",
+      "prosa.p1": "Dicono che in Europa abbia riempito centododici sale in quattro capitali senza spendere un centesimo in pubblicità, e che i biglietti finissero prima che qualcuno sapesse chi avrebbe suonato. Nessuno ci credette finché non arrivarono le foto.",
+      "prosa.p2": "Ora il giardino si semina a Bogotá. Non chiedere dove: i luoghi, come i miracoli, si annunciano solo a chi già crede. Quello che possiamo dire: ci saranno <em>conoscenza condivisa</em>, fiori veri, musica vera e le persone giuste — curate una per una, come si cura un trittico.",
+      "prosa.p3": "Il resto fiorisce dentro: il luogo, gli anfitrioni e la prevendita arrivano <em>prima</em> nella community. Poi, se avanza qualcosa, per tutti gli altri. E come in ogni buon realismo magico: quando lo vedrai pubblicato, non ci sarà più posto.",
+      "insp.kicker": "L'ispirazione",
+      "insp.cap": "Il Giardino delle delizie · Hieronymus Bosch (1490–1500) · Museo del Prado — tre pannelli, come le nostre tre lune",
+      "fin.kicker": "La community",
+      "fin.h1": "Chi è dentro<br><em>fiorisce per primo</em>",
+      "fin.wa": "Entra nel WhatsApp"
+    }
+  };
+
+  (function () {
+    var base = {};  /* snapshot del español original del markup */
+    var nodos = document.querySelectorAll("[data-i18n]");
+    nodos.forEach(function (el) { base[el.getAttribute("data-i18n")] = el.innerHTML; });
+
+    function aplicar(lang) {
+      var dic = lang === "es" ? base : (I18N[lang] || base);
+      nodos.forEach(function (el) {
+        var k = el.getAttribute("data-i18n");
+        var v = lang === "es" ? base[k] : (dic[k] || base[k]);
+        if (v !== undefined && el.innerHTML !== v) el.innerHTML = v;
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll(".idiomas button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+      });
+      try { localStorage.setItem("alma-lang", lang); } catch (e) {}
+      if (typeof prepararTitulo === "function") prepararTitulo();
+    }
+    document.querySelectorAll(".idiomas button").forEach(function (b) {
+      b.addEventListener("click", function () { aplicar(b.dataset.lang); });
+    });
+    var guardado = null;
+    try { guardado = localStorage.getItem("alma-lang"); } catch (e) {}
+    if (guardado && guardado !== "es" && I18N[guardado]) aplicar(guardado);
+  })();
+
+  /* ====== título que florece palabra por palabra ====== */
+  function prepararTitulo() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var h = document.getElementById("titulo-hero");
+    if (!h) return;
+    var html = h.innerHTML;
+    /* envolver solo nodos de texto de primer nivel, preservando <em> */
+    var tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    function envolver(nodo) {
+      var salida = "";
+      nodo.childNodes.forEach(function (n) {
+        if (n.nodeType === 3) {
+          n.textContent.split(/(\s+)/).forEach(function (tk) {
+            if (/^\s+$/.test(tk) || tk === "") { salida += tk; }
+            else { salida += '<span class="pal"><span>' + tk + "</span></span>"; }
+          });
+        } else if (n.nodeType === 1) {
+          var clon = n.cloneNode(false);
+          clon.innerHTML = "";
+          var interior = envolver(n);
+          salida += "<" + n.tagName.toLowerCase() + (n.getAttribute("style") ? ' style="' + n.getAttribute("style") + '"' : "") + ">" + interior + "</" + n.tagName.toLowerCase() + ">";
+        }
+      });
+      return salida;
+    }
+    h.innerHTML = envolver(tmp);
+    h.classList.add("florece");
+    var i = 0;
+    h.querySelectorAll(".pal > span").forEach(function (s) { s.style.animationDelay = (0.12 + i * 0.07) + "s"; i++; });
+  }
+  prepararTitulo();
+
+  /* ====== reveals ====== */
   (function () {
     var els = document.querySelectorAll(".reveal");
     if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
@@ -357,7 +718,98 @@
     }, { threshold: 0.12 });
     els.forEach(function (e) { io.observe(e); });
   })();
-  /* sol de mariposas amarillas al pasar por el título */
+
+  /* ====== barra de progreso + parallax (hero, panorama, fecha) ====== */
+  (function () {
+    var barra = document.querySelector("#progreso i");
+    var fondo = document.querySelector(".cielo .fondo-lento");
+    var pano = document.getElementById("panorama");
+    var fecha = document.getElementById("fecha-grande");
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var pedido = false;
+    function pintar() {
+      pedido = false;
+      var y = window.scrollY;
+      var max = document.documentElement.scrollHeight - innerHeight;
+      barra.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
+      if (reduce) return;
+      if (fondo) fondo.style.transform = "translateY(" + y * 0.16 + "px)";
+      if (pano) {
+        var r = pano.getBoundingClientRect();
+        if (r.bottom > 0 && r.top < innerHeight) {
+          var p = 1 - (r.top + r.height / 2) / innerHeight;  /* -0.x → 1.x */
+          pano.style.backgroundPosition = "center " + (38 + p * 26) + "%";
+        }
+      }
+      if (fecha) {
+        var f = fecha.getBoundingClientRect();
+        if (f.bottom > 0 && f.top < innerHeight) {
+          var q = Math.min(1, Math.max(0, 1 - f.top / innerHeight));
+          fecha.style.transform = "scale(" + (0.92 + q * 0.1) + ")";
+          fecha.style.opacity = String(0.35 + q * 0.65);
+        }
+      }
+    }
+    addEventListener("scroll", function () { if (!pedido) { pedido = true; requestAnimationFrame(pintar); } }, { passive: true });
+    pintar();
+  })();
+
+  /* ====== marquesina infinita ====== */
+  (function () {
+    var tira = document.getElementById("tira-marquee");
+    if (tira) tira.innerHTML = tira.innerHTML + tira.innerHTML;
+  })();
+
+  /* ====== tilt 3D en tarjetas (solo puntero fino) ====== */
+  (function () {
+    if (!matchMedia("(pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll(".tilt").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = "rotateY(" + (x * 7) + "deg) rotateX(" + (-y * 7) + "deg) translateZ(0)";
+      });
+      el.addEventListener("pointerleave", function () { el.style.transform = ""; });
+    });
+  })();
+
+  /* ====== botones magnéticos ====== */
+  (function () {
+    if (!matchMedia("(pointer: fine)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll(".magnetico").forEach(function (b) {
+      b.addEventListener("pointermove", function (e) {
+        var r = b.getBoundingClientRect();
+        var x = e.clientX - (r.left + r.width / 2);
+        var y = e.clientY - (r.top + r.height / 2);
+        b.style.transform = "translate(" + x * 0.14 + "px," + y * 0.2 + "px)";
+      });
+      b.addEventListener("pointerleave", function () { b.style.transform = ""; });
+    });
+  })();
+
+  /* ====== cursor del jardín ====== */
+  (function () {
+    if (!matchMedia("(pointer: fine)").matches) return;
+    var punto = document.getElementById("punto");
+    var halo = document.getElementById("halo");
+    var mx = -100, my = -100, hx = -100, hy = -100, visto = false;
+    addEventListener("pointermove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!visto) { visto = true; punto.style.opacity = 1; halo.style.opacity = 1; hx = mx; hy = my; }
+      var sobre = e.target.closest && e.target.closest("a, button, summary");
+      halo.classList.toggle("activo", !!sobre);
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () { punto.style.opacity = 0; halo.style.opacity = 0; visto = false; });
+    (function sigue() {
+      requestAnimationFrame(sigue);
+      punto.style.left = mx + "px"; punto.style.top = my + "px";
+      hx += (mx - hx) * 0.16; hy += (my - hy) * 0.16;
+      halo.style.left = hx + "px"; halo.style.top = hy + "px";
+    })();
+  })();
+
+  /* ====== sol de mariposas amarillas al pasar por el título ====== */
   (function () {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     var header = document.querySelector("header.cielo");
@@ -425,18 +877,26 @@
     setTimeout(maybe, 1100);
   })();
 
+  /* ====== cuenta regresiva ====== */
   (function () {
     var target = new Date("2026-09-17T18:30:00-05:00").getTime();
     var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
         m = document.getElementById("cd-m"), s = document.getElementById("cd-s");
     function pad(n) { return n < 10 ? "0" + n : "" + n; }
+    function pon(el, v) {
+      if (el.textContent !== v) {
+        el.textContent = v;
+        el.classList.add("tic");
+        setTimeout(function () { el.classList.remove("tic"); }, 200);
+      }
+    }
     function tick() {
       var diff = target - Date.now();
       if (diff <= 0) { d.textContent = "00"; h.textContent = "00"; m.textContent = "00"; s.textContent = "00"; return; }
-      d.textContent = pad(Math.floor(diff / 86400000));
-      h.textContent = pad(Math.floor(diff / 3600000) % 24);
-      m.textContent = pad(Math.floor(diff / 60000) % 60);
-      s.textContent = pad(Math.floor(diff / 1000) % 60);
+      pon(d, pad(Math.floor(diff / 86400000)));
+      pon(h, pad(Math.floor(diff / 3600000) % 24));
+      pon(m, pad(Math.floor(diff / 60000) % 60));
+      pon(s, pad(Math.floor(diff / 1000) % 60));
       setTimeout(tick, 1000);
     }
     tick();
