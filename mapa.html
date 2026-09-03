@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Donde floreció el jardín</title>
-<meta name="description" content="Los 112 eventos de Alma Socialité puestos en el mapa del mundo donde florecieron — de Berlín al Sahara. El próximo florece en Bogotá, el 18 de septiembre.">
+<meta name="description" content="Los 112 eventos de Alma Socialité puestos en el mapa del mundo donde florecieron — de Berlín al Sahara. El próximo florece en Bogotá, el jueves 17 de septiembre.">
 <meta property="og:title" content="Donde floreció el jardín">
 <meta property="og:description" content="112 eventos · 9 ciudades · 2019—2026. El próximo florece en Bogotá. 🌙">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -22,7 +22,12 @@
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
-  body { margin: 0; background: var(--pergamino); color: var(--tinta); font-family: "IBM Plex Mono", monospace; overflow: hidden; }
+  body { margin: 0;
+    background:
+      linear-gradient(rgba(240,234,217,0.72), rgba(240,234,217,0.72)),
+      url("alma-atlas.webp") center / cover no-repeat,
+      var(--pergamino);
+    color: var(--tinta); font-family: "IBM Plex Mono", monospace; overflow: hidden; }
 
   #globo { position: fixed; inset: 0; cursor: grab; touch-action: none; }
   #globo.agarrando { cursor: grabbing; }
@@ -119,7 +124,7 @@
 
 <div class="ui titulo">
   <h1>Donde floreció el jardín</h1>
-  <p>Cada evento de <b>Alma Socialité</b>, puesto donde floreció · 2019 — 2026<br>Y el próximo florece en <b>Bogotá · 18.09</b></p>
+  <p>Cada evento de <b>Alma Socialité</b>, puesto donde floreció · 2019 — 2026<br>Y el próximo florece en <b>Bogotá · 17.09</b></p>
 </div>
 
 <div class="ui leyenda">
@@ -139,7 +144,7 @@
 
 <div class="ui pista">Gira solo · arrástralo para explorar · toca un punto<br><a href="#" id="replay" style="color:var(--oro); text-decoration:none;">↻ ver la historia otra vez</a></div>
 
-<div class="ui volver"><a href="/alma">El tríptico · 18.09 →</a></div>
+<div class="ui volver"><a href="/alma" id="ir-triptico">El tríptico · 17.09 →</a></div>
 
 <div id="tip"></div>
 
@@ -150,7 +155,7 @@
     <div class="lunitas"><span class="lunita c"></span><span class="lunita"></span><span class="lunita m"></span></div>
     <p class="sub-f">Un día · Tres lunas · Tres causas — como el tríptico de El Bosco, pero con mariposas amarillas. El lugar se susurra. Los cupos se acaban.</p>
     <div class="botones">
-      <a class="oro-btn" href="/alma">Entrar al jardín · 18.09 →</a>
+      <a class="oro-btn" href="/alma" id="ir-jardin">Entrar al jardín · 17.09 →</a>
       <button class="seguir" id="seguir-mapa">✕ seguir explorando el mundo</button>
     </div>
   </div>
@@ -160,6 +165,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 (function () {
+  /* modo embebido: el globo vive como portada dentro de /alma */
+  var EMBEBIDO = /(^|[?&])embed(=|&|$)/.test(location.search);
+  function entrarAlJardin() {
+    if (EMBEBIDO && window.parent !== window) { window.parent.postMessage({ alma: "entrar" }, "*"); }
+    else { location.href = "/alma"; }
+  }
+  ["ir-triptico", "ir-jardin"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener("click", function (e) { if (EMBEBIDO) { e.preventDefault(); entrarAlJardin(); } });
+  });
+
   var CIUDADES = [
     { n: "Berlín",  c: [13.40, 52.52],  y: {2021:6, 2022:12, 2023:12, 2024:8}, nota: "Les Berlin: €28.500 en preventa, 12 días, cero ads" },
     { n: "Madrid",  c: [-3.70, 40.42],  y: {2022:6, 2023:8, 2024:8, 2025:6, 2026:2}, nota: "Lula, ELITE x Barceló, la escena de lujo" },
@@ -169,7 +185,7 @@
     { n: "Sahara",  c: [-4.01, 31.10],  y: {2023:1}, nota: "300 personas · 5 días · pleno desierto" },
     { n: "Nueva York", c: [-74.01, 40.71], y: {2024:3}, nota: "La escena cruzando el Atlántico" },
     { n: "Miami",   c: [-80.19, 25.76], y: {2024:2}, nota: "El Caribe del norte" },
-    { n: "Bogotá",  c: [-74.07, 4.71],  y: {2019:2, 2020:1}, nota: "Donde empezó todo — y donde sigue", prox: true, notaProx: "El Tríptico · 18 de septiembre · tres lunas, tres causas" }
+    { n: "Bogotá",  c: [-74.07, 4.71],  y: {2019:2, 2020:1}, nota: "Donde empezó todo — y donde sigue", prox: true, notaProx: "El Tríptico · jueves 17 de septiembre · tres lunas, tres causas" }
   ];
 
   var cv = document.getElementById("globo");
@@ -343,7 +359,7 @@
       var b = CIUDADES[CIUDADES.length - 1];  /* Bogotá */
       if (b.px) {
         var dxp = e.clientX - b.px[0], dyp = e.clientY - b.px[1];
-        if (Math.sqrt(dxp*dxp + dyp*dyp) < (b.pr || 6) + 14) { location.href = "/alma"; }
+        if (Math.sqrt(dxp*dxp + dyp*dyp) < (b.pr || 6) + 14) { entrarAlJardin(); }
       }
     }
     arrastrando = false; quieto = 0; cv.classList.remove("agarrando");
@@ -362,7 +378,7 @@
     var total = 0;
     CIUDADES.forEach(function (d) { total += cuenta(d, anio); });
     totalLbl.innerHTML = "<b>" + total + "</b> evento" + (total === 1 ? "" : "s") + " florecidos";
-    futuroLbl.textContent = anio >= 2026 ? "HOY · EL FUTURO · BOGOTÁ 18.09" : "";
+    futuroLbl.textContent = anio >= 2026 ? "HOY · EL FUTURO · BOGOTÁ 17.09" : "";
   }
   slider.addEventListener("input", function () { tour.activo = false; actualizar(); });
   actualizar();

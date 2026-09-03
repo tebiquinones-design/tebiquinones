@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alma Socialité Colombia</title>
-<meta name="description" content="Alma Socialité llega a Colombia. Un tríptico de conocimiento compartido bajo la luna de Bogotá — 18 de septiembre. La preventa florece primero en la comunidad.">
+<meta name="description" content="Alma Socialité llega a Colombia. Un tríptico de conocimiento compartido bajo la luna de Bogotá — jueves 17 de septiembre. La preventa florece primero en la comunidad.">
 <meta property="og:title" content="Alma Socialité Colombia">
-<meta property="og:description" content="El 18.09, bajo la luna de Bogotá, florece un jardín. Pocos cupos. Mucho conocimiento.">
+<meta property="og:description" content="El 17.09, bajo la luna de Bogotá, florece un jardín. Pocos cupos. Mucho conocimiento.">
+<meta property="og:image" content="https://tebiquinones.com/alma-hero.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root {
@@ -34,8 +35,18 @@
   nav a { color: var(--hueso-tenue); text-decoration: none; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; }
   nav a:hover { color: var(--oro); }
 
-  /* eclipse */
-  .cielo { text-align: center; padding: clamp(46px, 8vw, 90px) 0 0; }
+  /* portada · el hero del realismo mágico */
+  .cielo {
+    position: relative;
+    text-align: center;
+    min-height: min(92vh, 980px);
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: clamp(120px, 22vh, 220px) 0 clamp(54px, 9vw, 96px);
+    background:
+      linear-gradient(rgba(14,17,22,0.18) 0%, rgba(14,17,22,0.44) 55%, var(--noche) 97%),
+      url("alma-hero.webp") center 28% / cover no-repeat,
+      var(--noche);
+  }
   .eclipse { position: relative; width: clamp(150px, 30vw, 220px); aspect-ratio: 1; margin: 0 auto 40px; }
   .eclipse .corona {
     position: absolute; inset: 0; border-radius: 50%;
@@ -126,9 +137,12 @@
   footer a:hover { color: var(--oro); }
 
   /* mariposas amarillas de Mauricio Babilonia */
-  .mariposa { position: fixed; width: 26px; pointer-events: none; opacity: 0.85; animation: volar linear infinite; z-index: 5; }
-  .mariposa svg { width: 100%; height: auto; display: block; fill: var(--mariposa); animation: aleteo 0.5s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--mariposa) 45%, transparent)); }
-  .mariposa.chica { width: 17px; opacity: 0.65; }
+  .mariposa { position: fixed; width: 30px; pointer-events: none; opacity: 0.9; animation: volar linear infinite; z-index: 5; }
+  .mariposa img { width: 100%; height: auto; display: block; animation: aleteo 0.55s ease-in-out infinite alternate; filter: drop-shadow(0 0 7px color-mix(in srgb, var(--mariposa) 50%, transparent)); }
+  .mariposa.chica { width: 18px; opacity: 0.7; }
+  .mariposa.borrosa { opacity: 0.55; }
+  .mariposa.borrosa img { filter: blur(1.6px) drop-shadow(0 0 5px color-mix(in srgb, var(--mariposa) 40%, transparent)); }
+  .mariposa.giro img { animation-duration: 0.8s; }
   @keyframes volar {
     0% { transform: translate(0, 104vh) rotate(0deg); }
     25% { transform: translate(5vw, 74vh) rotate(12deg); }
@@ -143,9 +157,30 @@
   #triptico { position: relative; overflow: hidden; }
   #triptico .wrap { position: relative; z-index: 1; }
   .mariposa-fija { position: absolute; width: 26px; pointer-events: none; opacity: 0.5; z-index: 0; }
-  .mariposa-fija svg { width: 100%; height: auto; fill: var(--mariposa); animation: aleteo 0.7s ease-in-out infinite alternate; }
-  .mariposa-fija.lenta svg { animation-duration: 1.1s; }
+  .mariposa-fija img { width: 100%; height: auto; display: block; animation: aleteo 0.7s ease-in-out infinite alternate; }
+  .mariposa-fija.lenta img { animation-duration: 1.1s; }
   
+
+  /* el portal: el globo como portada — toca Bogotá para entrar */
+  #portal { position: fixed; inset: 0; z-index: 60; background: var(--noche); opacity: 1; transition: opacity 1.1s ease; }
+  #portal.fuera { opacity: 0; pointer-events: none; }
+  #portal iframe { width: 100%; height: 100%; border: 0; display: block; }
+  body.con-portal { overflow: hidden; }
+
+  /* transición panorámica entre capítulos */
+  .transicion {
+    margin-top: clamp(60px, 10vw, 110px);
+    height: clamp(230px, 46vw, 480px);
+    background: url("alma-transicion.webp") center / cover no-repeat;
+  }
+  @media (min-width: 900px) { .transicion { background-attachment: fixed; } }
+
+  /* corona del eclipse en el cierre */
+  footer { position: relative; overflow: hidden; }
+  footer .wrap { position: relative; z-index: 1; }
+  .corona-final { position: absolute; left: 0; right: 0; top: -30px; margin: 0 auto; width: min(340px, 62vw); pointer-events: none; animation: girar 260s linear infinite, pulso 8s ease-in-out infinite alternate; }
+  @keyframes girar { to { transform: rotate(360deg); } }
+  @keyframes pulso { from { opacity: 0.32; } to { opacity: 0.55; } }
 
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.9s ease, transform 0.9s ease; }
   .reveal.in { opacity: 1; transform: none; }
@@ -154,12 +189,47 @@
 </head>
 <body>
 
-<span class="mariposa" style="left: 10%; animation-duration: 30s; animation-delay: -6s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-<span class="mariposa" style="left: 78%; animation-duration: 38s; animation-delay: -20s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-<span class="mariposa chica" style="left: 45%; animation-duration: 44s; animation-delay: -33s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-<span class="mariposa" style="left: 27%; animation-duration: 34s; animation-delay: -14s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-<span class="mariposa chica" style="left: 62%; animation-duration: 32s; animation-delay: -26s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-<span class="mariposa chica" style="left: 90%; animation-duration: 40s; animation-delay: -10s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+<div id="portal" aria-label="El mapa del jardín — toca Bogotá para entrar">
+  <iframe id="portal-iframe" title="Donde floreció el jardín — mapa interactivo"></iframe>
+</div>
+<script>
+(function () {
+  var portal = document.getElementById("portal");
+  var esEventos = /^\/eventos/.test(location.pathname);
+  var directo = esEventos || location.hash === "#triptico" || location.hash === "#eventos"
+    || /(^|[?&])directo(=|&|$)/.test(location.search) || !/^https?:$/.test(location.protocol);
+  if (directo) {
+    portal.parentNode.removeChild(portal);
+    if (esEventos || location.hash === "#eventos") {
+      window.addEventListener("DOMContentLoaded", function () {
+        var t = document.getElementById("triptico");
+        if (t) setTimeout(function () { t.scrollIntoView({ behavior: "smooth" }); }, 350);
+      });
+    }
+    return;
+  }
+  document.body.classList.add("con-portal");
+  document.getElementById("portal-iframe").src = "/mapa?embed=1";
+  window.addEventListener("message", function (e) {
+    if (e && e.data && e.data.alma === "entrar") {
+      portal.classList.add("fuera");
+      document.body.classList.remove("con-portal");
+      setTimeout(function () { if (portal.parentNode) portal.parentNode.removeChild(portal); }, 1200);
+    }
+  });
+})();
+</script>
+
+<span class="mariposa" style="left: 8%; animation-duration: 30s; animation-delay: -6s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa" style="left: 78%; width: 36px; animation-duration: 38s; animation-delay: -20s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa chica" style="left: 45%; animation-duration: 44s; animation-delay: -33s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa giro" style="left: 27%; width: 24px; animation-duration: 34s; animation-delay: -14s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa chica borrosa" style="left: 62%; animation-duration: 32s; animation-delay: -26s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa borrosa" style="left: 90%; width: 22px; animation-duration: 40s; animation-delay: -10s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa" style="left: 16%; width: 20px; animation-duration: 47s; animation-delay: -40s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa chica giro" style="left: 70%; animation-duration: 27s; animation-delay: -3s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa borrosa chica" style="left: 35%; animation-duration: 52s; animation-delay: -18s;"><img src="alma-mariposa.webp" alt=""></span>
+<span class="mariposa" style="left: 84%; width: 16px; animation-duration: 36s; animation-delay: -30s;"><img src="alma-mariposa.webp" alt=""></span>
 
 <nav aria-label="Main">
   <div class="brand">Alma Socialité</div>
@@ -168,7 +238,6 @@
 
 <header class="cielo">
   <div class="wrap">
-    <div class="eclipse reveal" aria-hidden="true"><div class="corona"></div><div class="sombra"></div></div>
     <p class="mono reveal">Colombia · Capítulo primero</p>
     <h1 class="reveal">Bogotá aún no sabía que le faltaba un <em>jardín</em></h1>
     <p class="lede reveal">Muchos años después de su primer evento en Europa, <strong>Alma Socialité</strong> habría de volver a casa — con ciento doce fiestas en la memoria y una certeza: los jardines más hermosos florecen de noche.</p>
@@ -177,20 +246,20 @@
 </header>
 
 <section class="centrado" id="triptico">
-  <span class="mariposa-fija" style="left: 6%; top: 18%;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-  <span class="mariposa-fija lenta" style="left: 14%; top: 62%; width: 16px;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-  <span class="mariposa-fija" style="right: 8%; top: 26%; width: 18px;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-  <span class="mariposa-fija lenta" style="right: 15%; top: 70%;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
-  <span class="mariposa-fija lenta" style="left: 48%; top: 8%; width: 15px;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mariposa-fija" style="left: 6%; top: 18%;"><img src="alma-mariposa.webp" alt=""></span>
+  <span class="mariposa-fija lenta" style="left: 14%; top: 62%; width: 16px;"><img src="alma-mariposa.webp" alt=""></span>
+  <span class="mariposa-fija" style="right: 8%; top: 26%; width: 18px;"><img src="alma-mariposa.webp" alt=""></span>
+  <span class="mariposa-fija lenta" style="right: 15%; top: 70%;"><img src="alma-mariposa.webp" alt=""></span>
+  <span class="mariposa-fija lenta" style="left: 48%; top: 8%; width: 15px;"><img src="alma-mariposa.webp" alt=""></span>
   <div class="wrap">
     <p class="mono reveal">Un día · Tres lunas · Tres causas</p>
     <div class="lunas">
-      <a class="luna-item reveal" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico I</p><h3>La tarde</h3><p>Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $600.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
-      <a class="luna-item reveal" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico II</p><h3>La cena</h3><p>Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar. Menú incluido.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $1.500.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
-      <a class="luna-item reveal" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico III</p><h3>El after</h3><p>Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $700.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
+      <a class="luna-item reveal" href="/tarde"><div class="luna creciente" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico I</p><h3>La tarde</h3><p>Luna creciente. El conocimiento se comparte en voz baja, entre mujeres que hacen que las cosas pasen.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $70.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
+      <a class="luna-item reveal" href="/cena"><div class="luna llena" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico II</p><h3>La cena</h3><p>Luna llena. Una cena entre flores, con jazz en vivo y un violín que no deja de sonar. Menú incluido.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $160.000</p><p class="mono" style="margin:2px 0 0;">por pareja · Entrar →</p></a>
+      <a class="luna-item reveal" href="/after"><div class="luna menguante" aria-hidden="true"></div><p class="mono" style="margin:0 0 6px; color:var(--oro);">Tríptico III</p><h3>El after</h3><p>Luna menguante. El jardín completo: toda la escena creativa de Bogotá, mezclada como debe ser.</p><p style="margin:12px 0 0; font-size:19px; font-weight:600;">Desde $40.000</p><p class="mono" style="margin:2px 0 0;">por persona · Entrar →</p></a>
     </div>
-    <p class="lede reveal" style="font-size:16px; margin-top:28px;">Cada luna se puede vivir sola. Pero por separado suman <strong style="color:var(--hueso); font-style:normal;">$2.800.000</strong> — y el pase del jardín completo cuesta menos. Sigue bajando. ↓</p>
-    <p class="fecha reveal">18<span>·</span>09</p>
+    <p class="lede reveal" style="font-size:16px; margin-top:28px;">Cada luna se puede vivir sola. Y el pase del jardín completo — los tres momentos, el mismo jueves — <strong style="color:var(--hueso); font-style:normal;">cuesta menos que sumarlas</strong>. Sigue bajando. ↓</p>
+    <p class="fecha reveal">17<span>·</span>09</p>
     <div class="count" id="countdown" aria-label="Cuenta regresiva">
       <div><b id="cd-d">—</b><span>días</span></div>
       <div><b id="cd-h">—</b><span>horas</span></div>
@@ -208,16 +277,27 @@
     <div class="precios reveal">
       <div class="precio-card early">
         <p class="etiqueta">✦ Early Bird · Solo 10 cupos</p>
-        <p class="valor">$500.000</p>
-        <p class="mono">Pesos colombianos · Pase día completo</p>
+        <p class="valor">Día completo</p>
+        <p class="mono">Las tres lunas · Un solo pase</p>
         <div class="cupos" aria-label="10 cupos early bird">
           <span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span><span class="cupo"></span>
         </div>
-        <p class="despues">Cuando se acaben los 10, el pase pasa a <b>$2.500.000</b>. Así de simple.</p>
+        <p class="despues">El pase completo cuesta <b>menos que sumar los tres momentos</b> — y los 10 primeros pagan el mejor precio del jardín. El número exacto florece con la preventa, primero en la comunidad.</p>
       </div>
-      <p class="incluye reveal"><b>El pase incluye los tres momentos del 18.09:</b> la tarde ($600.000), la cena ($1.500.000, menú incluido) y el after ($700.000). Por separado: $2.800.000. Con el pase completo: <b>$2.500.000</b> — y los 10 primeros, $500.000. Cada momento también se compra solo, en su propia página.</p>
-      <a class="btn lleno reveal" href="https://wa.me/573126130675?text=Hola%20Tebi%20%F0%9F%8C%99%20Quiero%20uno%20de%20los%2010%20cupos%20EARLY%20BIRD%20del%20pase%20completo%20del%2018.09%20%28%24500.000%29.%20Soy%20" target="_blank" rel="noopener">Quiero mi cupo Early Bird</a>
+      <p class="incluye reveal"><b>El pase incluye los tres momentos del jueves 17.09:</b> la tarde (desde $70.000), la cena (desde $160.000 por pareja, menú incluido) y el after (desde $40.000). Cada momento también se compra solo, en su propia página.</p>
+      <a class="btn lleno reveal" href="https://wa.me/573126130675?text=Hola%20Tebi%20%F0%9F%8C%99%20Quiero%20uno%20de%20los%2010%20cupos%20EARLY%20BIRD%20del%20pase%20completo%20del%2017.09.%20Soy%20" target="_blank" rel="noopener">Quiero mi cupo Early Bird</a>
     </div>
+  </div>
+</section>
+
+<div class="transicion" role="img" aria-label="El jardín al anochecer: mariposas amarillas sobre las montañas, bajo el eclipse"></div>
+
+<section class="centrado" id="mecenas">
+  <div class="wrap">
+    <p class="mono reveal">Los mecenas del jardín</p>
+    <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Bronce · Plata · <em>Oro</em></h1>
+    <p class="lede reveal" style="font-size: 17px;">Para las marcas y familias que quieren abanderar la noche: <strong>puestos de mecenas desde $25.000.000</strong> — mesa de honor en la cena, presencia en la gráfica del día y, bajo la última luna, el reconocimiento público a quien más le dé al jardín. Lo aportado florece en las tres fundaciones del tríptico.</p>
+    <a class="btn reveal" href="https://wa.me/573126130675?text=Hola%20Tebi%20%E2%9C%A6%20Quiero%20saber%20m%C3%A1s%20de%20los%20puestos%20de%20mecenas%20%28Bronce%2FPlata%2FOro%2C%20desde%20%2425M%29%20del%2017.09.%20Soy%20" target="_blank" rel="noopener">Quiero ser mecenas</a>
   </div>
 </section>
 
@@ -226,9 +306,9 @@
     <p class="mono reveal">Preguntas claras, respuestas claras</p>
     <div class="faq reveal">
       <details><summary>¿Dónde es?</summary><p>En Bogotá. El lugar exacto <b>se susurra un día antes</b> a quienes tienen su cupo — es parte del diseño del jardín.</p></details>
-      <details><summary>¿Qué incluye mi pase?</summary><p>Los tres momentos del día: aperitivo al atardecer, cena con jazz en vivo, violín y flores (menú incluido) y el after con toda la escena. <b>Todo el 18 de septiembre.</b></p></details>
+      <details><summary>¿Qué incluye mi pase?</summary><p>Los tres momentos del día: aperitivo al atardecer, cena con jazz en vivo, violín y flores (menú incluido) y el after con toda la escena. <b>Todo el jueves 17 de septiembre.</b></p></details>
       <details><summary>¿Cómo reservo y pago?</summary><p>Pides tu cupo con el botón (correo o WhatsApp), te confirmamos disponibilidad y te enviamos los datos de pago. <b>Tu cupo queda firme al pagar.</b></p></details>
-      <details><summary>¿Puedo ir a un solo momento?</summary><p>Sí. Cada luna tiene su precio y su página: <b>la tarde $600.000</b>, <b>la cena $1.500.000</b> (menú incluido) y <b>el after $700.000</b>, por persona. Reservas en la página de cada momento. Los cupos vuelan primero en la comunidad de WhatsApp.</p></details>
+      <details><summary>¿Puedo ir a un solo momento?</summary><p>Sí. Cada luna tiene su precio y su página: <b>la tarde desde $70.000</b> (con bocados y bebida), <b>la cena desde $160.000 por pareja</b> (menú incluido) y <b>el after desde $40.000</b>. Reservas en la página de cada momento. Los cupos vuelan primero en la comunidad de WhatsApp.</p></details>
       <details><summary>¿A dónde va el dinero?</summary><p>Cada momento abandera una causa: empoderamiento de la mujer, respuesta a desastres, y arte y cultura. Las donaciones van <b>directo a los canales oficiales de las fundaciones</b> y publicamos informe de transparencia después del evento.</p></details>
     </div>
   </div>
@@ -255,6 +335,7 @@
 </section>
 
 <footer id="adentro">
+  <img class="corona-final" src="alma-eclipse.webp" alt="" aria-hidden="true">
   <div class="wrap">
     <p class="mono reveal">La comunidad</p>
     <h1 class="reveal" style="font-size: clamp(28px, 5vw, 46px);">Los que están adentro,<br><em>florecen primero</em></h1>
@@ -345,7 +426,7 @@
   })();
 
   (function () {
-    var target = new Date("2026-09-18T18:30:00-05:00").getTime();
+    var target = new Date("2026-09-17T18:30:00-05:00").getTime();
     var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
         m = document.getElementById("cd-m"), s = document.getElementById("cd-s");
     function pad(n) { return n < 10 ? "0" + n : "" + n; }
