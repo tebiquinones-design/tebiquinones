@@ -3,5 +3,8 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/eventos", "destination": "/alma" }
+  ],
+  "redirects": [
+    { "source": "/portfolio", "destination": "https://tebiquinones.framer.media", "permanent": false }
   ]
 }
