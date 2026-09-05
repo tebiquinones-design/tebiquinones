@@ -144,7 +144,7 @@
 
 <div class="ui pista">Gira solo · arrástralo para explorar · toca un punto<br><a href="#" id="replay" style="color:var(--oro); text-decoration:none;">↻ ver la historia otra vez</a></div>
 
-<div class="ui volver"><a href="/alma" id="ir-triptico">El tríptico · 17.09 →</a></div>
+<div class="ui volver"><a href="/eventos" id="ir-triptico">El tríptico · 17.09 →</a></div>
 
 <div id="tip"></div>
 
@@ -155,7 +155,7 @@
     <div class="lunitas"><span class="lunita c"></span><span class="lunita"></span><span class="lunita m"></span></div>
     <p class="sub-f">Un día · Tres lunas · Tres causas — como el tríptico de El Bosco, pero con mariposas amarillas. El lugar se susurra. Los cupos se acaban.</p>
     <div class="botones">
-      <a class="oro-btn" href="/alma" id="ir-jardin">Entrar al jardín · 17.09 →</a>
+      <a class="oro-btn" href="/eventos" id="ir-jardin">Entrar al jardín · 17.09 →</a>
       <button class="seguir" id="seguir-mapa">✕ seguir explorando el mundo</button>
       <a class="seguir" href="/jardin" style="text-decoration:none; display:inline-block;">🌿 El Jardín de Tebi →</a>
     </div>
@@ -170,7 +170,7 @@
   var EMBEBIDO = /(^|[?&])embed(=|&|$)/.test(location.search);
   function entrarAlJardin() {
     if (EMBEBIDO && window.parent !== window) { window.parent.postMessage({ alma: "entrar" }, "*"); }
-    else { location.href = "/alma"; }
+    else { location.href = "/eventos"; }
   }
   ["ir-triptico", "ir-jardin"].forEach(function (id) {
     var el = document.getElementById(id);
