@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Jardín de Tebi</title>
+<meta name="description" content="Cultural strategy y experiencias entre Bogotá y Europa, contadas como un jardín de las delicias. Newsletter, comunidad de WhatsApp y algo grande el 18 de septiembre.">
+<meta property="og:title" content="El Jardín de Tebi — Bogotá & Europa">
+<meta property="og:description" content="Un tríptico, como el de El Bosco, pero en Bogotá. 18.09 — get in the garden.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --parchment: #F3ECDA;
+    --parchment-2: #EAE1C8;
+    --garden: #2F5B3C;
+    --garden-deep: #1F3D28;
+    --meadow: #7FA06B;
+    --coral: #D95F43;
+    --rosa: #E7A0B0;
+    --lago: #7FA8B8;
+    --ink: #22301F;
+    --ink-soft: #4E5A45;
+    --ink-faint: #7E856F;
+    --line: #D5CBAF;
+    --on-garden: #F3ECDA;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--parchment); color: var(--ink); font-family: "Karla", "Helvetica Neue", Arial, sans-serif; line-height: 1.65; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 48px); }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+  .garamond { font-family: "Cormorant Garamond", Georgia, serif; }
+
+  /* flor ornamental */
+  .flor { display: inline-block; width: 14px; height: 14px; border-radius: 50%; vertical-align: middle;
+    background: radial-gradient(circle at 50% 50%, var(--coral) 0 28%, transparent 30%),
+      radial-gradient(circle at 50% 12%, var(--rosa) 0 22%, transparent 24%),
+      radial-gradient(circle at 88% 50%, var(--rosa) 0 22%, transparent 24%),
+      radial-gradient(circle at 50% 88%, var(--rosa) 0 22%, transparent 24%),
+      radial-gradient(circle at 12% 50%, var(--rosa) 0 22%, transparent 24%); }
+
+  nav { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px clamp(18px, 4vw, 48px); border-bottom: 1px solid var(--line); position: sticky; top: 0; background: color-mix(in srgb, var(--parchment) 90%, transparent); backdrop-filter: blur(10px); z-index: 10; flex-wrap: wrap; }
+  .brand { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 19px; color: var(--garden); }
+  .brand i { color: var(--coral); font-style: italic; }
+  nav .links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  nav a { color: var(--ink-soft); text-decoration: none; font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+  nav a:hover, nav a:focus-visible { color: var(--coral); }
+  nav a.hot { color: var(--coral); }
+
+  header.hero { padding: clamp(56px, 9vw, 110px) 0 0; text-align: center; position: relative; overflow: hidden; }
+  .hero .mono { color: var(--garden); }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(46px, 9vw, 116px); line-height: 0.98; margin: 14px 0 0; color: var(--garden-deep); text-wrap: balance; }
+  h1 em { font-style: italic; color: var(--coral); font-weight: 600; }
+  .tagline { font-size: clamp(15.5px, 2vw, 18px); color: var(--ink-soft); margin: 24px auto 0; max-width: 54ch; }
+  .tagline strong { color: var(--ink); }
+  .credch { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  .chip { border: 1px solid var(--line); background: var(--parchment-2); border-radius: 999px; padding: 8px 18px; font-size: 12.5px; color: var(--ink-soft); }
+  .chip b { color: var(--garden); font-weight: 700; }
+  .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 34px 0 0; position: relative; z-index: 2; }
+
+  .btn { display: inline-block; background: var(--garden); color: var(--on-garden); text-decoration: none; font-weight: 700; font-size: 13.5px; letter-spacing: 0.08em; text-transform: uppercase; padding: 15px 30px; border-radius: 999px; border: 1.5px solid var(--garden); }
+  .btn:hover { background: transparent; color: var(--garden); }
+  .btn.coral { background: var(--coral); border-color: var(--coral); color: #FFF6EA; }
+  .btn.coral:hover { background: transparent; color: var(--coral); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn.ghost:hover { border-color: var(--coral); color: var(--coral); }
+
+  #meadow { display: block; width: 100%; height: 150px; margin-top: 40px; }
+
+  /* El Bosco */
+  .bosco { padding: clamp(40px, 6vw, 70px) 0; border-bottom: 1px solid var(--line); text-align: center; position: relative; overflow: hidden; }
+  .bosco .wrap { position: relative; z-index: 1; }
+
+  /* mariposas amarillas de Mauricio Babilonia */
+  .mari { position: absolute; width: 28px; pointer-events: none; opacity: 0.9; z-index: 0; animation: revolotear ease-in-out infinite alternate; }
+  .mari svg { width: 100%; height: auto; display: block; fill: #E8B33C; animation: aleteo 0.55s ease-in-out infinite alternate; filter: drop-shadow(0 0 5px rgba(232, 179, 60, 0.45)); }
+  .mari.chica { width: 18px; opacity: 0.7; }
+  @keyframes revolotear { from { transform: translate(0, 0) rotate(-8deg); } to { transform: translate(14px, -22px) rotate(10deg); } }
+  @keyframes aleteo { from { transform: scaleX(1); } to { transform: scaleX(0.45); } }
+  @media (prefers-reduced-motion: reduce) { .mari, .mari svg { animation: none; } }
+  .bosco figure { margin: 26px 0 0; }
+  .bosco img.completo { width: 100%; display: block; border-radius: 12px; border: 1px solid var(--line); }
+  .bosco figcaption { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 12px; }
+  .detalles-bosco { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  .detalles-bosco .det { aspect-ratio: 3 / 4; overflow: hidden; border-radius: 10px; border: 1px solid var(--line); }
+  .detalles-bosco img { width: 100%; height: 100%; object-fit: cover; }
+  .detalles-bosco .det.d1 img { object-position: 8% 40%; }
+  .detalles-bosco .det.d2 img { object-position: 50% 55%; }
+  .detalles-bosco .det.d3 img { object-position: 92% 45%; }
+  .detalles-bosco .lbl-det { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 8px; }
+
+  section { padding: clamp(52px, 8vw, 96px) 0; border-bottom: 1px solid var(--line); }
+  h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(32px, 5vw, 54px); line-height: 1.02; margin: 10px 0 14px; color: var(--garden-deep); text-wrap: balance; }
+  h2 em { font-style: italic; color: var(--coral); font-weight: 600; }
+  .sub { color: var(--ink-soft); max-width: 60ch; font-size: 15.5px; margin: 0 0 34px; }
+  .sub strong { color: var(--ink); }
+
+  /* Tríptico 18.09 */
+  .evento { background: var(--garden-deep); color: var(--on-garden); border-bottom: none; position: relative; }
+  .evento .mono { color: var(--rosa); }
+  .evento h2 { color: var(--parchment); }
+  .evento h2 em { color: var(--rosa); }
+  .evento .sub { color: color-mix(in srgb, var(--parchment) 75%, transparent); }
+  .fecha { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(64px, 13vw, 160px); line-height: 0.9; margin: 6px 0 10px; color: var(--parchment); }
+  .fecha span { color: var(--coral); }
+  .paneles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 40px 0 8px; }
+  .panel { background: color-mix(in srgb, var(--parchment) 8%, transparent); border: 1px solid color-mix(in srgb, var(--parchment) 25%, transparent); border-radius: 130px 130px 14px 14px; padding: 44px 24px 28px; text-align: center; }
+  .panel .num { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 20px; color: var(--rosa); }
+  .panel h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 24px; margin: 6px 0 8px; color: var(--parchment); }
+  .panel p { margin: 0; font-size: 13.5px; color: color-mix(in srgb, var(--parchment) 72%, transparent); }
+  .count { display: flex; gap: clamp(14px, 4vw, 36px); margin: 30px 0 0; flex-wrap: wrap; justify-content: center; }
+  .count div { text-align: center; }
+  .count div b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(34px, 5vw, 54px); line-height: 1; font-variant-numeric: tabular-nums; color: var(--parchment); }
+  .count div span { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rosa); }
+  .evento .nota { margin: 26px auto 0; font-size: 14px; color: color-mix(in srgb, var(--parchment) 78%, transparent); max-width: 54ch; text-align: center; }
+  .evento .nota strong { color: var(--rosa); }
+  .evento .cta-row { margin-top: 30px; }
+
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 3.5vw, 44px) clamp(24px, 3.5vw, 52px); }
+  .service { border-top: 2px solid var(--meadow); padding-top: 16px; }
+  .service h3 { margin: 0 0 8px; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 22px; color: var(--garden-deep); }
+  .service p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 38px; }
+  .stat { background: var(--parchment-2); padding: 24px 22px; }
+  .stat b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: clamp(34px, 4.5vw, 48px); line-height: 1; font-variant-numeric: tabular-nums; color: var(--garden-deep); }
+  .stat span { display: block; margin-top: 8px; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .comunidad { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+  .canal { border: 1.5px solid var(--line); border-radius: 18px; background: var(--parchment-2); padding: 30px 26px; display: flex; flex-direction: column; gap: 10px; }
+  .canal.wa { border-color: var(--garden); }
+  .canal.nl { border-color: var(--coral); }
+  .canal h3 { margin: 0; font-family: "Cormorant Garamond", Georgia, serif; font-weight: 700; font-size: 26px; color: var(--garden-deep); }
+  .canal p { margin: 0 0 8px; color: var(--ink-soft); font-size: 14.5px; }
+  .canal .btn { align-self: flex-start; margin-top: auto; }
+  .form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
+  .form input { flex: 1 1 200px; padding: 13px 16px; background: #FDF9EF; border: 1.5px solid var(--line); border-radius: 999px; color: var(--ink); font-family: "Karla", sans-serif; font-size: 14.5px; }
+  .form input:focus-visible { outline: 2px solid var(--coral); }
+  .form button { cursor: pointer; font-family: "Karla", sans-serif; }
+
+  footer { padding: 26px clamp(18px, 4vw, 48px); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; color: var(--ink-faint); font-size: 12.5px; }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { color: var(--coral); }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="brand">El Jardín de <i>Tebi</i></div>
+  <div class="links">
+    <a href="/alma" class="hot">Alma · 18.09</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#comunidad">El jardín</a>
+    <a href="/cursos">Cursos</a>
+    <a href="https://tebiquinones.com" target="_blank" rel="noopener">Portfolio ↗</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="mono reveal"><span class="flor"></span>&nbsp; Bogotá × Europa · Cultural strategy & experiencias &nbsp;<span class="flor"></span></p>
+    <h1 class="reveal">El jardín de las <em>delicias</em>, versión Bogotá</h1>
+    <p class="tagline reveal">Como en el tríptico de El Bosco: un jardín donde todo el mundo quiere estar. Soy <strong>Tebi Quiñones</strong> — seis años cultivando belonging en Paris, Madrid, Berlin y London. Ahora estoy sembrando el jardín en casa.</p>
+    <div class="credch reveal">
+      <span class="chip"><b>Forbes Under 30</b> · España 2025</span>
+      <span class="chip"><b>Olympic Film Festival</b> · Paris 2024</span>
+      <span class="chip"><b>112 eventos</b> · 4 capitales · 0 ads</span>
+    </div>
+    <div class="cta-row reveal">
+      <a class="btn coral" href="/alma">Ver el jardín →</a>
+      <a class="btn ghost" href="#comunidad">Entrar a la comunidad</a>
+    </div>
+  </div>
+  <canvas id="meadow" aria-hidden="true"></canvas>
+</header>
+
+<section class="bosco">
+  <span class="mari" style="left: 5%; top: 16%; animation-duration: 5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari chica" style="left: 12%; top: 58%; animation-duration: 7s; animation-delay: 1s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari" style="right: 6%; top: 24%; animation-duration: 6s; animation-delay: 0.5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari chica" style="right: 13%; top: 66%; animation-duration: 8s; animation-delay: 2s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari chica" style="left: 48%; top: 6%; animation-duration: 6.5s; animation-delay: 1.5s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <span class="mari" style="left: 30%; top: 82%; animation-duration: 7.5s; animation-delay: 3s;"><svg viewBox="0 0 24 15" aria-hidden="true"><path d="M12 8 C9 1, 1 0.5, 3.5 7 C0.5 8, 2 13.5, 6 12.5 C9 12, 11 10, 12 8 C13 10, 15 12, 18 12.5 C22 13.5, 23.5 8, 20.5 7 C23 0.5, 15 1, 12 8 Z"/></svg></span>
+  <div class="wrap">
+    <p class="mono"><span class="flor"></span>&nbsp; La inspiración · El Bosco</p>
+    <h2>Un <em>tríptico</em> de hace 500 años</h2>
+    <p class="sub" style="margin-inline:auto;">El Jardín de las Delicias es un tríptico: tres paneles, tres mundos. El nuestro también — <strong>tres momentos el 18.09</strong>. Haz clic y entra al jardín.</p>
+    <figure>
+      <a href="/alma"><img class="completo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1920px-The_Garden_of_earthly_delights.jpg" alt="El Jardín de las Delicias de El Bosco: tríptico completo con sus tres paneles" loading="lazy"></a>
+      <div class="detalles-bosco">
+        <a class="det d1" href="/tarde" aria-label="Tríptico I — La tarde"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg" alt="Detalle del panel izquierdo del Jardín de las Delicias" loading="lazy"></a>
+        <a class="det d2" href="/cena" aria-label="Tríptico II — La cena"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg" alt="Detalle del panel central del Jardín de las Delicias" loading="lazy"></a>
+        <a class="det d3" href="/after" aria-label="Tríptico III — El after"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/The_Garden_of_earthly_delights.jpg/1280px-The_Garden_of_earthly_delights.jpg" alt="Detalle del panel derecho del Jardín de las Delicias" loading="lazy"></a>
+      </div>
+      <div class="detalles-bosco" style="margin-top:0;">
+        <p class="lbl-det">I · La tarde</p>
+        <p class="lbl-det">II · La cena</p>
+        <p class="lbl-det">III · El after</p>
+      </div>
+      <figcaption>El Jardín de las Delicias · El Bosco (1490–1500) · Museo del Prado · dominio público</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="evento" id="evento">
+  <div class="wrap" style="text-align:center;">
+    <p class="mono">Bogotá · Save the date</p>
+    <p class="fecha">18<span>.</span>09</p>
+    <h2>Un <em>tríptico</em>, como el de El Bosco</h2>
+    <div class="paneles">
+      <div class="panel reveal"><p class="num">Panel I</p><h3>La tarde</h3><p>Donde florecen las conversaciones. Solo ellas saben de qué.</p></div>
+      <div class="panel reveal"><p class="num">Panel II</p><h3>La noche</h3><p>Una cena entre flores, jazz en vivo y un violín que no para.</p></div>
+      <div class="panel reveal"><p class="num">Panel III</p><h3>El jardín completo</h3><p>Toda la escena creativa de Bogotá, mezclada como debe ser.</p></div>
+    </div>
+    <div class="count" id="countdown" aria-label="Cuenta regresiva">
+      <div><b id="cd-d">—</b><span>días</span></div>
+      <div><b id="cd-h">—</b><span>horas</span></div>
+      <div><b id="cd-m">—</b><span>min</span></div>
+      <div><b id="cd-s">—</b><span>seg</span></div>
+    </div>
+    <p class="nota">No vamos a publicar todo. El lugar, el line-up y la <strong>preventa florecen primero en el grupo de WhatsApp y el newsletter</strong>. Cupos limitados, por diseño.</p>
+    <div class="cta-row">
+      <a class="btn coral" href="/alma">Conoce a Alma Socialité →</a>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <p class="mono"><span class="flor"></span>&nbsp; Servicios · Colombia & Europa</p>
+    <h2>What I do, <em>en las dos orillas</em></h2>
+    <p class="sub">Para marcas, venues y fundadores que operan entre <strong>luxury, cultura y comportamiento humano</strong> — en Bogotá o entrando a Europa. Full Spanglish, full resultados.</p>
+    <div class="services">
+      <div class="service reveal"><h3>Experiencias & eventos</h3><p>Del underground de Berlin a los Juegos Olímpicos: eventos que se agotan por posicionamiento, no por line-up. LES Berlin: €28.500 en preventa, 12 días, cero ads.</p></div>
+      <div class="service reveal"><h3>Cultural strategy</h3><p>Que tu marca deje de hacer broadcasting y empiece a hacer belonging. Estrategia cultural aplicada a negocio, no decoración.</p></div>
+      <div class="service reveal"><h3>Community & ecosystem building</h3><p>Comunidades que venden solas: curaduría de gente, artistas y marcas alineadas. Alma Socialité: 112 eventos sin un peso en publicidad.</p></div>
+      <div class="service reveal"><h3>Market entry Colombia ⇄ Europa</h3><p>Redes activas en Paris, Madrid, Berlin, London y Bogotá. Sé qué puertas se abren en cada orilla — y cuáles no.</p></div>
+      <div class="service reveal"><h3>PR & comunicaciones</h3><p>Creé mi propio rol de comunicaciones en los Olympics y construí la narrativa del primer Olympic Film Festival. Sin brief, sin precedente.</p></div>
+      <div class="service reveal"><h3>Consultoría estratégica</h3><p>Hospitality y venues de lujo en Madrid, Paris, Berlin y London: credibilidad cultural que la publicidad no puede comprar.</p></div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><b>112</b><span>Eventos desde 2019</span></div>
+      <div class="stat"><b>4</b><span>Capitales europeas</span></div>
+      <div class="stat"><b>+90</b><span>Artistas impulsados</span></div>
+      <div class="stat"><b>2</b><span>Orillas: CO ⇄ EU</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="comunidad">
+  <div class="wrap">
+    <p class="mono"><span class="flor"></span>&nbsp; El jardín</p>
+    <h2>Get in, que el jardín <em>florece rápido</em></h2>
+    <p class="sub">Todo lo que hagamos en Bogotá — el 18.09 y lo que viene después — florece <strong>primero</strong> aquí adentro. Después, si sobra, para el resto.</p>
+    <div class="comunidad">
+      <div class="canal wa reveal">
+        <h3>El grupo de WhatsApp</h3>
+        <p>La comunidad del jardín: creativos, galeristas, emprendedores y la gente que hace que las cosas pasen. Preventas, invitaciones y planes que no se publican.</p>
+        <a class="btn" id="wa-btn" href="https://chat.whatsapp.com/BHlBbXioGpI9TzEwPOOvFo" target="_blank" rel="noopener">Unirme al grupo de WhatsApp</a>
+      </div>
+      <div class="canal nl reveal">
+        <h3>El newsletter</h3>
+        <p>Un correo cuando importa: la historia detrás de cada evento, los aprendizajes entre Bogotá y Europa, y los anuncios antes que nadie.</p>
+        <form class="form" id="nl-form">
+          <input type="email" name="email" placeholder="tu@correo.com" aria-label="Tu correo" required>
+          <button class="btn coral" type="submit">Suscribirme</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Tebi Quiñones · Bogotá / Madrid / Paris</span>
+  <span><a href="https://tebiquinones.com" target="_blank" rel="noopener">Portfolio EN ↗</a> · <a href="/cursos">Cursos</a> · <a href="mailto:juanqriox@gmail.com">juanqriox@gmail.com</a></span>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  /* pradera de flores estilo El Bosco */
+  (function () {
+    var cv = document.getElementById("meadow");
+    if (!cv) return;
+    var ctx = cv.getContext("2d");
+    var petals = ["#D95F43", "#E7A0B0", "#7FA8B8", "#C8A96A", "#F3ECDA"];
+    function draw() {
+      var w = cv.clientWidth, h = 150, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var grd = ctx.createLinearGradient(0, 0, 0, h);
+      grd.addColorStop(0, "#F3ECDA"); grd.addColorStop(1, "#7FA06B");
+      ctx.fillStyle = grd; ctx.fillRect(0, 0, w, h);
+      var n = Math.max(26, Math.floor(w / 34));
+      for (var i = 0; i < n; i++) {
+        var x = Math.random() * w;
+        var y = 44 + Math.random() * (h - 58);
+        var s = 3.5 + Math.random() * 6 * (y / h);
+        ctx.strokeStyle = "#2F5B3C"; ctx.lineWidth = 1.1;
+        ctx.beginPath(); ctx.moveTo(x, y + s * 3.2); ctx.quadraticCurveTo(x + 2, y + s * 1.6, x, y); ctx.stroke();
+        var col = petals[Math.floor(Math.random() * petals.length)];
+        for (var p = 0; p < 5; p++) {
+          var a = (Math.PI * 2 * p) / 5;
+          ctx.fillStyle = col;
+          ctx.beginPath(); ctx.arc(x + Math.cos(a) * s * 0.9, y + Math.sin(a) * s * 0.9, s * 0.62, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.fillStyle = "#C8A96A";
+        ctx.beginPath(); ctx.arc(x, y, s * 0.5, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    draw();
+    var t; window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(draw, 200); });
+  })();
+
+  (function () {
+    var target = new Date("2026-09-18T18:30:00-05:00").getTime();
+    var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
+        m = document.getElementById("cd-m"), s = document.getElementById("cd-s");
+    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+    function tick() {
+      var diff = target - Date.now();
+      if (diff <= 0) { d.textContent = "00"; h.textContent = "00"; m.textContent = "00"; s.textContent = "00"; return; }
+      d.textContent = pad(Math.floor(diff / 86400000));
+      h.textContent = pad(Math.floor(diff / 3600000) % 24);
+      m.textContent = pad(Math.floor(diff / 60000) % 60);
+      s.textContent = pad(Math.floor(diff / 1000) % 60);
+      setTimeout(tick, 1000);
+    }
+    tick();
+  })();
+
+  (function () {
+    var form = document.getElementById("nl-form");
+    if (!form) return;
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      location.href = "mailto:juanqriox@gmail.com?subject=SUSCR%C3%8DBEME%20al%20newsletter&body=" + encodeURIComponent(form.email.value);
+    });
+  })();
+</script>
+</body>
+</html>
