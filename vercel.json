@@ -2,17 +2,130 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/eventos", "destination": "/alma" }
+    {
+      "source": "/eventos",
+      "destination": "/alma"
+    },
+    {
+      "source": "/jardin",
+      "destination": "/index.html"
+    }
   ],
   "redirects": [
-    { "source": "/portfolio", "destination": "https://tebiquinones.framer.media", "permanent": false },
-    { "source": "/", "has": [{ "type": "host", "value": "estebi.com" }], "destination": "https://tebiquinones.framer.media", "permanent": false },
-    { "source": "/", "has": [{ "type": "host", "value": "www.estebi.com" }], "destination": "https://tebiquinones.framer.media", "permanent": false },
-    { "source": "/:path*", "has": [{ "type": "host", "value": "estebi.com" }], "destination": "https://tebiquinones.framer.media/:path*", "permanent": false },
-    { "source": "/:path*", "has": [{ "type": "host", "value": "www.estebi.com" }], "destination": "https://tebiquinones.framer.media/:path*", "permanent": false },
-    { "source": "/", "has": [{ "type": "host", "value": "estebi.company" }], "destination": "https://tebiquinones.framer.media/hoteles", "permanent": false },
-    { "source": "/", "has": [{ "type": "host", "value": "www.estebi.company" }], "destination": "https://tebiquinones.framer.media/hoteles", "permanent": false },
-    { "source": "/:path*", "has": [{ "type": "host", "value": "estebi.company" }], "destination": "https://tebiquinones.framer.media/:path*", "permanent": false },
-    { "source": "/:path*", "has": [{ "type": "host", "value": "www.estebi.company" }], "destination": "https://tebiquinones.framer.media/:path*", "permanent": false }
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "tebiquinones.com"
+        }
+      ],
+      "destination": "/mapa",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.tebiquinones.com"
+        }
+      ],
+      "destination": "/mapa",
+      "permanent": false
+    },
+    {
+      "source": "/portfolio",
+      "destination": "https://tebiquinones.framer.media",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "estebi.com"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.estebi.com"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "estebi.com"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.estebi.com"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "estebi.company"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media/hoteles",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.estebi.company"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media/hoteles",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "estebi.company"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.estebi.company"
+        }
+      ],
+      "destination": "https://tebiquinones.framer.media/:path*",
+      "permanent": false
+    }
   ]
 }
