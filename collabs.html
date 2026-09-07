@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Past Collabs — Tebi Quiñones</title>
+<meta name="description" content="Casas y escenarios que han confiado en Tebi Quiñones: hoteles, clubes y teatros de Madrid, París y Londres — Le Grand Mazarin, NH Collection, Casa Suecia, Silencio, The Scotch y más.">
+<link rel="canonical" href="https://tebiquinones.com/collabs">
+<style>
+  /* ============================================================
+     PAST COLLABS · vitrina metálica en movimiento
+     Tiles cinematográficos sobre negro, marquee doble en
+     direcciones opuestas. Hecha para vivir sola y como Embed
+     (Framer / iframe) — sin header, sin footer, solo la vitrina.
+     El movimiento corre SIEMPRE (ambiental, sin gates).
+     ============================================================ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #08080A;
+    color: #EDE8DC;
+    font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  .vitrina { padding: clamp(1.6rem, 4vw, 3rem) 0 clamp(2rem, 5vw, 3.4rem); }
+  .rotulo {
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #C9A45C;
+    margin: 0 1rem clamp(1.4rem, 3.5vw, 2.4rem);
+  }
+  .rotulo span { color: #8B8577; }
+
+  .cinta { overflow: hidden; }
+  .cinta + .cinta { margin-top: 18px; }
+  .fila {
+    display: flex;
+    gap: 18px;
+    width: max-content;
+    padding-inline: 9px;
+    animation: rodar 70s linear infinite;
+  }
+  .fila.reversa { animation: rodar 84s linear infinite reverse; }
+  .fila:hover { animation-play-state: paused; }
+  @keyframes rodar { to { transform: translateX(-50%); } }
+
+  .fila img {
+    height: clamp(120px, 22vw, 190px);
+    width: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(237, 232, 220, 0.07);
+    display: block;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+  .fila img:hover {
+    transform: scale(1.045);
+    border-color: rgba(201, 164, 92, 0.55);
+    box-shadow: 0 6px 30px rgba(201, 164, 92, 0.18);
+  }
+</style>
+</head>
+<body>
+
+<section class="vitrina" aria-label="Colaboraciones de Tebi Quiñones">
+  <p class="rotulo">Past Collabs <span>· Madrid — París — Londres — Bogotá</span></p>
+
+  <div class="cinta">
+    <div class="fila">
+      <img src="/collabs-img/le-grand-mazarin.jpg" alt="Le Grand Mazarin, París Le Marais" loading="lazy">
+      <img src="/collabs-img/nh-collection.jpg" alt="NH Collection Hotels &amp; Resorts" loading="lazy">
+      <img src="/collabs-img/casa-suecia.jpg" alt="Casa Suecia, Madrid" loading="lazy">
+      <img src="/collabs-img/silencio.jpg" alt="Silencio, París" loading="lazy">
+      <img src="/collabs-img/the-scotch.jpg" alt="The Scotch of St. James, Londres" loading="lazy">
+      <img src="/collabs-img/hotel-marquise.jpg" alt="Hotel Marquise" loading="lazy">
+      <img src="/collabs-img/b-london.jpg" alt="B London" loading="lazy">
+      <img src="/collabs-img/victoria-paris.jpg" alt="Victoria, París" loading="lazy">
+      <img src="/collabs-img/larc-paris.jpg" alt="L'Arc, París" loading="lazy">
+      <img src="/collabs-img/alma-paris.jpg" alt="Alma, París" loading="lazy">
+      <img src="/collabs-img/the-door.jpg" alt="The Door Boutique Club" loading="lazy">
+      <img src="/collabs-img/panthera.jpg" alt="Panthera Dinner &amp; Dance" loading="lazy">
+      <!-- duplicado para el loop -->
+      <img src="/collabs-img/le-grand-mazarin.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/nh-collection.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/casa-suecia.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/silencio.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/the-scotch.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/hotel-marquise.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/b-london.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/victoria-paris.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/larc-paris.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/alma-paris.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/the-door.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/panthera.jpg" alt="" aria-hidden="true" loading="lazy">
+    </div>
+  </div>
+
+  <div class="cinta">
+    <div class="fila reversa">
+      <img src="/collabs-img/florida-park.jpg" alt="Florida Park, Madrid" loading="lazy">
+      <img src="/collabs-img/teatro-barcelo.jpg" alt="Teatro Barceló, Madrid" loading="lazy">
+      <img src="/collabs-img/hipodromo-zarzuela.jpg" alt="Hipódromo de la Zarzuela, Madrid" loading="lazy">
+      <img src="/collabs-img/ramses.jpg" alt="Ramses, Madrid" loading="lazy">
+      <img src="/collabs-img/goya-social-club.jpg" alt="Goya Social Club, Madrid" loading="lazy">
+      <img src="/collabs-img/istar.jpg" alt="Istar" loading="lazy">
+      <img src="/collabs-img/lula-club.jpg" alt="Lula Club, Madrid" loading="lazy">
+      <img src="/collabs-img/marieta.jpg" alt="Marieta, Madrid" loading="lazy">
+      <img src="/collabs-img/los-amantes.jpg" alt="Los Amantes" loading="lazy">
+      <img src="/collabs-img/jomo.jpg" alt="Jomo" loading="lazy">
+      <img src="/collabs-img/studio-1111.jpg" alt="Studio 1111" loading="lazy">
+      <!-- duplicado para el loop -->
+      <img src="/collabs-img/florida-park.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/teatro-barcelo.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/hipodromo-zarzuela.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/ramses.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/goya-social-club.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/istar.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/lula-club.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/marieta.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/los-amantes.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/jomo.jpg" alt="" aria-hidden="true" loading="lazy">
+      <img src="/collabs-img/studio-1111.jpg" alt="" aria-hidden="true" loading="lazy">
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
